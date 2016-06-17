@@ -1,0 +1,10 @@
+body {
+	margin:0;
+}
+#map-wrapper {
+	position:relative;
+}
+#map-canvas {
+	border:1px solid;
+	height:100%;
+}
