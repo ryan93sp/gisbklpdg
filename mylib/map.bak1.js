@@ -95,26 +95,9 @@ function btncarinama(){
     else{
 		hapusRadius();
 		hapusmarker();
-		hapusrute();
 		$('#list-a').empty();
 		$.ajax({
 	    url: server+'carinama.php?carinama='+inputcarinama.value, data: "", dataType: 'json', success: function (rows){
-			loaddata(rows);}
-	    });
-	}
-}
-//cari berdasarkan kategori
-function btncarikat(){
-	if(selectken.value=='--Pilih Kendaraan--'){
-		alert("Pilih Kategori!");
-    }
-    else{
-		hapusRadius();
-		hapusmarker();
-		hapusrute();
-		$('#list-a').empty();
-		$.ajax({
-	    url: server+'carikategori.php?kat='+selectbeng.value, data: "", dataType: 'json', success: function (rows){
 			loaddata(rows);}
 	    });
 	}
@@ -132,7 +115,6 @@ function btnradius(){
 	var radm = rad*1000;
 	hapusRadius();
 	hapusmarker();
-	hapusrute();
 	var circle = new google.maps.Circle({
 		center: pos,
 		radius: parseFloat(radm),      
@@ -229,7 +211,6 @@ function hapusrute(){
 }
 //menampilkan rute perjalanan
 function rute(start, end){
-	hapusrute();
 	directionsService = new google.maps.DirectionsService();
 	var request = {
 		origin:start,
@@ -265,7 +246,6 @@ function showdetail(id) {
 			var deskripsi=row.deskripsi;
 			var jam_buka=row.jam_buka;
 			var jam_tutup=row.jam_tutup;
-			var hari=row.hari;
             var latitude  = row.latitude;
             var longitude = row.longitude;
 			var now = new Date();
@@ -297,14 +277,13 @@ function showdetail(id) {
 			});
 			map.setCenter(centerbaru);
 			map.setZoom(17);
-			markerhasil.push(marker);
 			infowindow = new google.maps.InfoWindow({
 			    position: centerbaru,
 			    content: nama
 			});
 			infowindow.open(map, marker);
 			
-			$('#isi').append("<b>Nama</b> : "+nama+" <br> Alamat : "+alamat+" <br> Telepon : "+telpon+"<br> Jenis Kendaraan : "+kendaraan+" <br> Jenis Bengkel : "+kategori+" <br> Jam Kerja : <span style='color:"+warna+";'>"+stat+"</span> "+hari+" "+jam_buka+" - "+jam_tutup+"<br><a data-toggle='collapse' data-parent='#accordion' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse'><ul id='layanan'></ul></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button><div style='margin-top:10px;' id='detailrute'></div>");
+			$('#isi').append("Nama : "+nama+" <br> Alamat : "+alamat+" <br> Telepon : "+telpon+"<br> Jenis Kendaraan : "+kendaraan+" <br> Jenis Bengkel : "+kategori+" <br> Jam Kerja : <span style='color:"+warna+";'>"+stat+"</span> "+jam_buka+" - "+jam_tutup+"<br>Layanan<br><ul id='layanan'></ul><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button><div style='margin-top:10px;' id='detailrute'></div>");
 			tampillayanan(gid);
 			}
 		}

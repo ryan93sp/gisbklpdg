@@ -18,7 +18,7 @@ if( $body.hasClass('map-fullscreen') ) {
 $('.map .toggle-navigation').click(function() {
 	$('.map-canvas').toggleClass('results-collapsed');
 	$('.map-canvas .map').one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
-		google.maps.event.trigger(map, 'resize');   
+		google.maps.event.trigger(map, 'resize');
 	});
 });
 

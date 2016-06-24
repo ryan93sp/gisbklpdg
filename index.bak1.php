@@ -147,6 +147,23 @@ function kategori(){
                         <header>
                             <h3>Pencarian</h3>
                         </header>
+						
+						
+						
+					
+                           
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsex">
+                                        <center>Kategori Bengkel</center>
+                                    </a>
+                              
+                   
+                            <div id="collapsex" class="panel-collapse collapse">
+                                
+									dsdssasafsafsfsf
+                                
+							</div>
+						
+						
 						<div class="panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -217,7 +234,7 @@ function kategori(){
 									<select required name="selectbeng" id="selectbeng" class="form-control" placeholder="">
 										<option selected disabled>--Pilih Bengkel--</option>
 									</select>
-									<button type="submit" id="buttonkat" class="btn btn-primary" onclick="btncarikat()"> Cari <i class="fa fa-search"></i></button>
+									<button type="submit" id="buttonkat" class="btn btn-primary" onclick=""> Cari <i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
