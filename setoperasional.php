@@ -14,4 +14,6 @@ echo $newbuka.'<br>';
 echo "Tutup - ";
 echo $now.'<br>';
 }
+$tgl = date('Y/m/d H:i:s');
+echo 'tanggal sekarang '.$tgl;
 ?>

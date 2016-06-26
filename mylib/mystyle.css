@@ -38,3 +38,11 @@
     font-size: 16px;
     text-transform: uppercase;
 }
+.star{
+	color: #ccc;
+	cursor: pointer;
+	transition: all 0.2s linear;
+}
+.star-checked{
+	color: gold;
+}

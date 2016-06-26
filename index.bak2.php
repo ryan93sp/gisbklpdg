@@ -19,7 +19,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ&signed_in=true"></script>
 	
 <script type="text/javascript">
-/* var server= 'http://localhost/bengkel/json/';
+var server= 'http://localhost/bengkel/json/';
 $(function(){
 	$.ajax({ 
 	url: server+'listkecamatan.php', data: "", dataType: 'json', success: function(rows){
@@ -57,9 +57,9 @@ function kategori(){
 		}
 	}
 	});
-} */
+}
 </script>
-    <title>Sistem Informasi Geografis Bengkel Kota Padang</title>
+    <title>Sistem Informasi Geografis Kota Padang</title>
 </head>
 
 <body onunload="" class="map-fullscreen page-homepage navigation-off-canvas page-fade-in" id="page-top">
@@ -230,14 +230,35 @@ function kategori(){
                             </div>
                             <div id="collapse5" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<select required name="selectken2" id="selectken2" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="layanan()">
-										<option selected disabled>--Pilih Kendaraan--</option>
-									</select><hr>
-									<div id="layananlist"><b>Layanan :</b></div>
-									<button type="submit" id="btnlayanan" class="btn btn-primary" onclick="btncarilay()"> Cari <i class="fa fa-search"></i></button>
+                                    <div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="1">Service Mesin</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="2">Ganti Suku Cadang</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="3">Tune Up</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="4">Ganti Oli</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="5">Bongkar Mesin</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="6">Tambal Ban</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="7">Penjualan Aksesoris</label>
+									</div>
+									<div class="checkbox">
+										<label><input type="checkbox" name="layanan" value="7">Pasang & Services AC</label>
+									</div>
+									<button type="submit" id="buttonlayanan" class="btn btn-primary" onclick=""> Cari <i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
+						
 						<div class="panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -248,12 +269,15 @@ function kategori(){
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<div id="selectkec"></div>
-									<button type="submit" id="btncarikec" class="btn btn-primary" onclick="btncarikec()"> Cari <i class="fa fa-search"></i></button>
+                                    <select required name="selecttipe" id="selectkec" class="form-control" placeholder="">
+										<option selected disabled>--Pilih Kecamatan--</option>
+									</select>
+									<button type="submit" id="buttoncarikec" class="btn btn-primary" onclick="alert('a')"> Cari <i class="fa fa-search"></i></button>
                                         
                                 </div>
                             </div>
                         </div>
+						
                     </div>
                 </div>
 				<div class="items-list" style="width:25%;" id="hasil">
@@ -266,26 +290,8 @@ function kategori(){
 							<div id="isi"></div>
 						</div>
 						<div id="det-r" style="display:none;">
-							
-							<!--pindah beko kesini-->
-							<div id="addreview">
-								<input type="text" name="gidr" id="gidr" value="" hidden="">
-									<div id="star-container">Rating : 
-										<i class="fa fa-star star" id="star-1"></i>
-										<i class="fa fa-star star" id="star-2"></i>
-										<i class="fa fa-star star" id="star-3"></i>
-										<i class="fa fa-star star" id="star-4"></i>
-										<i class="fa fa-star star" id="star-5"></i>
-									</div>
-									<input type="text" name="rateid" id="rateid" value="" hidden="">
-									<div>Nama Pengguna : <input class="form-control" type="text" name="user" id="user" value=""></div>
-									<div>Komentar : <textarea class="form-control" name="komentar" id="komentar"></textarea></div>
-									<button type="submit" id="btnaddreview" class="btn btn-primary" onclick="btnaddreview()">Submit <i class="fa fa-comments-o"></i></button><hr>Review :
-							</div>
-							<div id="your-r"></div>
 							<div id="isi-r"></div>
 							<div id="back-a"></div>
-							
 						</div>
                     </div>
                 </div>
