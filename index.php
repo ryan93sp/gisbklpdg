@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('Asia/Jakarta'); ?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -16,49 +17,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="mylib/mystyle.css" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ&signed_in=true"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ"></script>
 	
-<script type="text/javascript">
-/* var server= 'http://localhost/bengkel/json/';
-$(function(){
-	$.ajax({ 
-	url: server+'listkecamatan.php', data: "", dataType: 'json', success: function(rows){
-		for (var i in rows){
-			var row = rows[i];
-			var gid=row.gid;
-			var kecamatan=row.kecamatan;
-			$('#selectkec').append('<option value="'+gid+'">'+kecamatan+'</option>');
-		}
-	}
-	});
-});
-$(function(){
-	$.ajax({ 
-	url: server+'kendaraan.php', data: "", dataType: 'json', success: function(rows){
-		for (var i in rows){
-			var row = rows[i];
-			var id=row.id;
-			var kendaraan=row.kendaraan;
-			$('#selectken').append('<option value="'+id+'">'+kendaraan+'</option>');
-		}
-	}
-	});
-});
-function kategori(){
-	$('#selectbeng option').remove();
-	var v=selectken.value;
-	$.ajax({ 
-	url: server+'kategori.php?id='+v, data: "", dataType: 'json', success: function(rows){
-		for (var i in rows){
-			var row = rows[i];
-			var id=row.id;
-			var kategori=row.kategori;
-			$('#selectbeng').append('<option value="'+id+'">'+kategori+'</option>');
-		}
-	}
-	});
-} */
-</script>
     <title>Sistem Informasi Geografis Bengkel Kota Padang</title>
 </head>
 
@@ -137,6 +97,7 @@ function kategori(){
 							<div class="line"></div>
 						</div>
 					</div>
+					<div id="legend" style="z-index: 0; position: absolute;"><h6>Legenda</h6></div>
                     <div style="" id="map" class="has-parallax"></div>
                 </div>
                 <!-- end Map -->
@@ -194,47 +155,9 @@ function kategori(){
                             <div id="collapse3" class="panel-collapse collapse ">
                                 <div class="panel-body">
 									<center>
-									<input id="inputradius" data-slider-id='ex1Slider' type="text" data-slider-min="0.5" data-slider-max="3" data-slider-step="0.5" data-slider-value="0.5"/>
+									<input id="inputradius" data-slider-id='ex1Slider' type="text" data-slider-min="0.1" data-slider-max="2" data-slider-step="0.1" data-slider-value="0.1"/>
 									<button type="submit" id="" class="btn btn-primary" style="margin-top:10px" onclick="btnradius()">Cari <i class="fa fa-search"></i></button>
 									</center>
-                                </div>
-                            </div>
-                        </div>
-						<div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                                        <center>Kategori Bengkel</center>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse6" class="panel-collapse collapse">
-                                <div class="panel-body">
-									<select required name="selectken" id="selectken" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="kategori()">
-										<option selected disabled>--Pilih Kendaraan--</option>
-									</select>
-									<select required name="selectbeng" id="selectbeng" class="form-control" placeholder="">
-										<option selected disabled>--Pilih Bengkel--</option>
-									</select>
-									<button type="submit" id="buttonkat" class="btn btn-primary" onclick="btncarikat()"> Cari <i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-						<div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                                        <center>Layanan Bengkel</center>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse5" class="panel-collapse collapse">
-                                <div class="panel-body">
-									<select required name="selectken2" id="selectken2" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="layanan()">
-										<option selected disabled>--Pilih Kendaraan--</option>
-									</select><hr>
-									<div id="layananlist"><b>Layanan :</b></div>
-									<button type="submit" id="btnlayanan" class="btn btn-primary" onclick="btncarilay()"> Cari <i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -254,6 +177,81 @@ function kategori(){
                                 </div>
                             </div>
                         </div>
+						<div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                                        <center>Kategori Bengkel</center>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse6" class="panel-collapse collapse">
+                                <div class="panel-body">
+									<select required name="selectken" id="selectken" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="kategori()">
+										<option selected disabled>--Pilih Jenis Kendaraan--</option>
+									</select>
+									<select required name="selectbeng" id="selectbeng" class="form-control" placeholder="">
+										<option selected disabled>--Pilih Bengkel--</option>
+									</select>
+									<button type="submit" id="buttonkat" class="btn btn-primary" onclick="btncarikat()"> Cari <i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+						<div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                                        <center>Layanan Bengkel</center>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
+									<select required name="selectken2" id="selectken2" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="layanan()">
+										<option selected disabled>--Pilih Jenis Kendaraan--</option>
+									</select><hr>
+									<div id="layananlist"><b>Layanan :</b></div>
+									<button type="submit" id="btnlayanan" class="btn btn-primary" onclick="btncarilay()"> Cari <i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+						<div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+                                        <center>Jam Operasional</center>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse7" class="panel-collapse collapse">
+                                <div class="panel-body">
+									<input type="text" class="form-control" name="jamcari" id="jamcari" placeholder="00:00:00" value="<?php echo $now = date('H:i:s');?>">
+									<button type="submit" id="btncarijam" class="btn btn-primary" onclick="btncarijam()"> Cari <i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+						<div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+                                        <center>Rating</center>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse8" class="panel-collapse collapse">
+                                <div class="panel-body">
+									<div id="star-container">Rating : 
+										<i class="fa fa-star star" id="star-1"></i>
+										<i class="fa fa-star star" id="star-2"></i>
+										<i class="fa fa-star star" id="star-3"></i>
+										<i class="fa fa-star star" id="star-4"></i>
+										<i class="fa fa-star star" id="star-5"></i>
+									</div>
+									<input type="text" name="ratecari" id="ratecari" value="" hidden="">
+									<button type="submit" id="btnop" class="btn btn-primary" onclick="btncarirate()"> Cari <i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 				<div class="items-list" style="width:25%;" id="hasil">
@@ -263,29 +261,28 @@ function kategori(){
                         </header>
 						<div id="list-a" style="display:block;"></div>
 						<div id="det-a" style="display:none;">
-							<div id="isi"></div>
+							<div id="isi" style="clear:both;"></div>
 						</div>
 						<div id="det-r" style="display:none;">
 							
 							<!--pindah beko kesini-->
-							<div id="addreview">
+							<!--<div id="back-a"></div>-->
+							<div id="addreview" style="clear:both;">
 								<input type="text" name="gidr" id="gidr" value="" hidden="">
-									<div id="star-container">Rating : 
-										<i class="fa fa-star star" id="star-1"></i>
-										<i class="fa fa-star star" id="star-2"></i>
-										<i class="fa fa-star star" id="star-3"></i>
-										<i class="fa fa-star star" id="star-4"></i>
-										<i class="fa fa-star star" id="star-5"></i>
-									</div>
-									<input type="text" name="rateid" id="rateid" value="" hidden="">
-									<div>Nama Pengguna : <input class="form-control" type="text" name="user" id="user" value=""></div>
-									<div>Komentar : <textarea class="form-control" name="komentar" id="komentar"></textarea></div>
-									<button type="submit" id="btnaddreview" class="btn btn-primary" onclick="btnaddreview()">Submit <i class="fa fa-comments-o"></i></button><hr>Review :
+								<div id="star-container">Rating : 
+									<i class="fa fa-star star2" id="star2-1"></i>
+									<i class="fa fa-star star2" id="star2-2"></i>
+									<i class="fa fa-star star2" id="star2-3"></i>
+									<i class="fa fa-star star2" id="star2-4"></i>
+									<i class="fa fa-star star2" id="star2-5"></i>
+								</div>
+								<input type="text" name="rateid" id="rateid" value="" hidden="">
+								<div>Nama Pengguna : <input class="form-control" type="text" name="user" id="user" value=""></div>
+								<div>Komentar : <textarea class="form-control" name="komentar" id="komentar"></textarea></div>
+								<button type="submit" id="btnaddreview" class="btn btn-primary" onclick="btnaddreview()">Submit <i class="fa fa-comments-o"></i></button><hr>Review :
 							</div>
 							<div id="your-r"></div>
 							<div id="isi-r"></div>
-							<div id="back-a"></div>
-							
 						</div>
                     </div>
                 </div>

@@ -4,6 +4,15 @@
 #map-container{
 	height:580px;
 }
+#legend {
+	font-family: Arial, sans-serif;
+	background: rgba(255, 255, 255, 0.56);
+	padding: 5px;
+	margin: 5px;
+}
+.legend {
+	padding-bottom: 1px;
+}
 .btn {
 	margin-top:5px;
 }
@@ -11,8 +20,11 @@
 	background-color: #44a3d3;
 	color: white;
 }
+.panel-heading {
+	padding: 5px;
+}
 #ex1Slider .slider-selection {
-	background: #BABABA;
+	background: #ccc;
 }
 
 .items-list {
@@ -38,11 +50,21 @@
     font-size: 16px;
     text-transform: uppercase;
 }
-.star{
+/* .star{
+	color: #ccc;
+	cursor: pointer;
+	transition: all 0.2s linear;
+} */
+.star2, .star{
 	color: #ccc;
 	cursor: pointer;
 	transition: all 0.2s linear;
 }
+/* .star2{
+	color: #ccc;
+	cursor: pointer;
+	transition: all 0.2s linear;
+} */
 .star-checked{
 	color: gold;
 }
