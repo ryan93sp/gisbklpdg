@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="mylib/mystyle.css" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=id&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ"></script>
 	
     <title>Sistem Informasi Geografis Bengkel Kota Padang</title>
 </head>
@@ -106,24 +106,10 @@
                     <div class="inner panel-group margin-btm40" id="accordion">
                         <header>
                             <h3>Pencarian</h3>
+							<button onclick="geolocation()" class="btn btn-primary btn-xs" style="width:25px;" data-toggle="tooltip" data-placement="top" title="Posisi Sekarang"><i class="fa fa-crosshairs"></i></button>
+							<button onclick="manuallocation()" class="btn btn-primary btn-xs" style="width:25px;" data-toggle="tooltip" data-placement="top" title="Posisi Manual"><i class="fa fa-map-marker"></i></button>
+							<button class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Refresh"style="width:25px;" onclick="refresh()"><i class="fa fa-refresh"></i></button>
                         </header>
-						<div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                        <center>Posisi Anda</center>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse1" class="panel-collapse collapse ">
-                                <div class="panel-body">
-									<center>
-									<button type="button" onclick="geolocation()" class="btn btn-primary">Posisi Sekarang <i class="fa fa-crosshairs"></i></button>
-									<br><button type="button" onclick="manuallocation()" class="btn btn-primary">Posisi Manual <i class="fa fa-map-marker"></i></button>
-									</center>
-                                </div>
-                            </div>
-                        </div>
 						<div class="panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -209,8 +195,8 @@
                                 <div class="panel-body">
 									<select required name="selectken2" id="selectken2" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="layanan()">
 										<option selected disabled>--Pilih Jenis Kendaraan--</option>
-									</select><hr>
-									<div id="layananlist"><b>Layanan :</b></div>
+									</select>
+									<div id="layananlist"><hr><b>Layanan :</b></div>
 									<button type="submit" id="btnlayanan" class="btn btn-primary" onclick="btncarilay()"> Cari <i class="fa fa-search"></i></button>
                                 </div>
                             </div>
@@ -225,8 +211,10 @@
                             </div>
                             <div id="collapse7" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<input type="text" class="form-control" name="jamcari" id="jamcari" placeholder="00:00:00" value="<?php echo $now = date('H:i:s');?>">
-									<button type="submit" id="btncarijam" class="btn btn-primary" onclick="btncarijam()"> Cari <i class="fa fa-search"></i></button>
+									<div class="input-group">
+										<input type="text" class="form-control" name="jamcari" id="jamcari" placeholder="00:00:00" value="<?php echo $now = date('H:i:s');?>">
+										<span class="input-group-btn"><button type="submit" id="btncarijam" class="btn btn-primary" onclick="btncarijam()"> Cari <i class="fa fa-search"></i></button></span>
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -261,6 +249,7 @@
                         </header>
 						<div id="list-a" style="display:block;"></div>
 						<div id="det-a" style="display:none;">
+							<div id="foto" style="clear:both;"></div>
 							<div id="isi" style="clear:both;"></div>
 						</div>
 						<div id="det-r" style="display:none;">
@@ -306,7 +295,6 @@
 <script type="text/javascript" src="js/bootstrap-select.js"></script>
 <script type="text/javascript" src="js/bootstrap-slider.js"></script>
 <script type="text/javascript" src="mylib/myjs.js"></script>
-
 <script type="text/javascript" src="mylib/map.js"></script>
 
 <script type="text/javascript">
@@ -315,6 +303,7 @@ $('#inputradius').slider({
 		return value+' km';
 		}
 	});
+$('[data-toggle="tooltip"]').tooltip();
 </script>
 </body>
 </html>

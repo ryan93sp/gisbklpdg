@@ -6,7 +6,7 @@
 }
 #legend {
 	font-family: Arial, sans-serif;
-	background: rgba(255, 255, 255, 0.56);
+	background: rgba(255, 255, 255, 0.8);
 	padding: 5px;
 	margin: 5px;
 }
@@ -26,7 +26,6 @@
 #ex1Slider .slider-selection {
 	background: #ccc;
 }
-
 .items-list {
 	padding: 20px 10px 20px 20px;
     overflow: auto;
@@ -50,21 +49,16 @@
     font-size: 16px;
     text-transform: uppercase;
 }
-/* .star{
-	color: #ccc;
-	cursor: pointer;
-	transition: all 0.2s linear;
-} */
 .star2, .star{
 	color: #ccc;
 	cursor: pointer;
 	transition: all 0.2s linear;
 }
-/* .star2{
-	color: #ccc;
-	cursor: pointer;
-	transition: all 0.2s linear;
-} */
 .star-checked{
 	color: gold;
+}
+#isir:hover a{
+  color: #428bca;
+  outline: none !important;
+  text-decoration: none;
 }

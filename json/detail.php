@@ -3,7 +3,7 @@ require 'connect.php';
 $gid=$_GET["gid"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
-$querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto1,foto2,kendaraan,kat_nama,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join kategori on kategori.kat_id=bengkel_region.kat_id join jenis_kendaraan on jenis_kendaraan.kendaraan_id=kategori.kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day"; 
+$querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto,kendaraan,kat_nama,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join kategori on kategori.kat_id=bengkel_region.kat_id join jenis_kendaraan on jenis_kendaraan.kendaraan_id=kategori.kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day"; 
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
 	{
@@ -12,8 +12,7 @@ while($row = pg_fetch_array($hasil))
 		$alamat=$row['alamat'];
 		$telpon=$row['telpon'];
 		$hari=$row['hari'];
-		$foto1=$row['foto1'];
-		$foto2=$row['foto2'];
+		$foto=$row['foto'];
 		$kendaraan=$row['kendaraan'];
 		$kategori=$row['kat_nama'];
 		$deskripsi=$row['deskripsi'];
@@ -22,7 +21,7 @@ while($row = pg_fetch_array($hasil))
 		$longitude=$row['lng'];
 		$latitude=$row['lat'];
 
-		$dataarray[]=array('gid'=>$gid,'nama_bengkel'=>$nama_bengkel,'alamat'=>$alamat,'telpon'=>$telpon,'hari'=>$hari,'foto1'=>$foto1,'foto2'=>$foto2,'kendaraan'=>$kendaraan,'kategori'=>$kategori,'deskripsi'=>$deskripsi,'jam_buka'=>$jam_buka,'jam_tutup'=>$jam_tutup,'longitude'=>$longitude,'latitude'=>$latitude);
+		$dataarray[]=array('gid'=>$gid,'nama_bengkel'=>$nama_bengkel,'alamat'=>$alamat,'telpon'=>$telpon,'hari'=>$hari,'foto'=>$foto,'kendaraan'=>$kendaraan,'kategori'=>$kategori,'deskripsi'=>$deskripsi,'jam_buka'=>$jam_buka,'jam_tutup'=>$jam_tutup,'longitude'=>$longitude,'latitude'=>$latitude);
 	}
 echo json_encode ($dataarray);
 ?>

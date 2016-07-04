@@ -4,8 +4,9 @@ var markerhasil=[];
 var circles = [];
 var infodetail = [];
 var image='image/geomarker.png';
-var server='http://localhost/gisbengkel/json/';
-var iconlegend='http://localhost/gisbengkel/image/legenda/';
+var server='json/';
+var iconlegend='image/legenda/';
+var fotolokasi='image/foto/';
 //meload peta dan digitasi
 function inisialisasi(){
 		var mapOptions = {
@@ -57,6 +58,14 @@ function inisialisasi(){
 			});
 		})
 		bengkel_reg.setMap(map);
+		//fungsi klik digitasi bengkel
+		bengkel_reg.addListener('click', function(event) {
+			infowindow.close();
+			infowindow.setContent(event.feature.getProperty('nama_bengkel'));
+			infowindow.setPosition(event.latLng);
+			infowindow.setOptions({pixelOffset: new google.maps.Size(0,-14)});
+			infowindow.open(map);
+		});
 		//menampilkan legenda
 		var iconBase = iconlegend;
 		var icons = {
@@ -123,6 +132,7 @@ function geolocation(){
 //menambah marker lokasi baru pada map
 function manuallocation(){
 	hapusRadius();
+	alert('Klik Peta');
 	map.addListener('click', function(event) {
 		addMarker(event.latLng);
 		});
@@ -186,7 +196,7 @@ function btncarikat(){
     else{
 		hapusRadius();
 		hapusmarker();
-		//hapusrute();
+		hapusrute();
 		$('#list-a').empty();
 		$.ajax({
 	    url: server+'carikategori.php?kat='+selectbeng.value, data: "", dataType: 'json', success: function (rows){
@@ -207,7 +217,7 @@ function btnradius(){
 	var radm = rad*1000;
 	hapusRadius();
 	hapusmarker();
-	//hapusrute();
+	hapusrute();
 	var circle = new google.maps.Circle({
 		center: pos,
 		radius: parseFloat(radm),      
@@ -225,6 +235,7 @@ function btnradius(){
 		loaddata(rows);}
 	});
 }
+//cari berdasarkan layanan
 function btncarilay(){
 	var arrayLay=[];
 	for(i=0;i<$("input[name=layanan]:checked").length;i++){
@@ -232,7 +243,7 @@ function btncarilay(){
 	}
 	hapusRadius();
 	hapusmarker();
-	//hapusrute();
+	hapusrute();
 	$('#list-a').empty();
 	
 	if (arrayLay==''){
@@ -252,7 +263,7 @@ function btncarikec(){
 	}
 	hapusRadius();
 	hapusmarker();
-	//hapusrute();
+	hapusrute();
 	$('#list-a').empty();
 	
 	if (arrayKec==''){
@@ -260,7 +271,9 @@ function btncarikec(){
 	}else{
 		$.ajax({
 		url: server+'carikec.php?kec='+arrayKec, data: "", dataType: 'json', success: function(rows){
-		loaddata(rows);}
+		loaddata(rows);
+		kecamatanreg(arrayKec);
+		}
 	});
 	}
 }
@@ -272,7 +285,7 @@ function btncarirate(){
     else{
 		hapusRadius();
 		hapusmarker();
-		//hapusrute();
+		hapusrute();
 		$('#list-a').empty();
 		$.ajax({
 	    url: server+'carirate.php?rate='+ratecari.value, data: "", dataType: 'json', success: function (rows){
@@ -288,13 +301,54 @@ function btncarijam(){
     else{
 		hapusRadius();
 		hapusmarker();
-		//hapusrute();
+		hapusrute();
 		$('#list-a').empty();
 		$.ajax({
 	    url: server+'carijam.php?jam='+jamcari.value, data: "", dataType: 'json', success: function (rows){
 			loaddata(rows);}
 	    });
 	}
+}
+//menampilkan region kecamatan
+function kecamatanreg(id){
+	if(typeof(kectampil) != "undefined" && kectampil.setMap() != undefined){
+    	kectampil.setMap(null);
+	}
+	kectampil = new google.maps.Data();
+	kectampil.loadGeoJson(server+'kecamatan_region.php?kec='+id)
+	kectampil.setStyle(function(feature){
+		var gid = feature.getProperty('gid');
+		if (gid == 1){
+			color = '#84F38D';
+		}else if(gid == 2){
+			color = '#F38484'
+		}else if(gid == 3){
+			color = '#D597F9'
+		}else if(gid == 4){
+			color = '#3CC795'
+		}else if(gid == 5){
+			color = '#EC9949'
+		}else if(gid == 6){
+			color = '#4C51EF'
+		}else if(gid == 7){
+			color = '#EF4242'
+		}else if(gid == 8){
+			color = '#EEF72E'
+		}else if(gid == 9){
+			color = '#ACAF76'
+		}else if(gid == 10){
+			color = '#A53197'
+		}else{
+			color = '#59AD02'
+		}
+		return({
+			fillColor: color,
+			strokeColor: color,
+			strokeWeight: 1,
+			fillOpacity: 0.5,
+		});
+	});
+	kectampil.setMap(map);
 }
 //menampilkan data pada laman hasil pencarian
 function loaddata(rows){
@@ -327,7 +381,7 @@ function loaddata(rows){
 			});
 			markerhasil.push(marker);
 			map.setZoom(12);
-			map.setCenter(centerbaru);			
+			map.setCenter(centerbaru);
 			var now = new Date();
 			var strnow = Date.parse(now);
 			var tgl = now.getDate();
@@ -409,8 +463,7 @@ function showdetail(id){
             var nama = row.nama_bengkel;
             var alamat=row.alamat;
 			var telpon=row.telpon;
-			var foto1=row.foto1;
-			var foto2=row.foto2;
+			var foto=row.foto;
 			var kendaraan=row.kendaraan;
 			var kategori=row.kategori;
 			var deskripsi=row.deskripsi;
@@ -455,8 +508,8 @@ function showdetail(id){
 			});
 			infodetail.push(infowindow);
 			infowindow.open(map, marker);
-			
-			$('#isi').append("<table><tbody  style='vertical-align:top;'><tr><td><b>Nama</b></td><td> :&nbsp; </td><td style='text-transform: capitalize;'>"+nama+" <td></tr><tr><td><b>Alamat</b></td><td> : </td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td> <td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b> </td><td>: </td><td>"+kategori+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td><span style='color:"+warna+";'>"+stat+"</span> "+hari+" "+jam_buka+" - "+jam_tutup+"</td></tr></tbody></table><a data-toggle='collapse' data-parent='#accordion' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse'><ul id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button><div style='margin-top:10px;' id='detailrute'></div>");
+			$('#foto').append("<img src="+fotolokasi+''+foto+" alt='' style=''>");
+			$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+kategori+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td><span style='color:"+warna+";'>"+stat+"</span> "+hari+" "+jam_buka+" - "+jam_tutup+"</td></tr></tbody></table><a data-toggle='collapse' data-parent='#accordion' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse'><ul id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
 			tampillayanan(gid);
 			tampilrating(gid)
 			}
@@ -475,7 +528,7 @@ function hapusInfo(){
 //menampilkan layanan detail pada list detail
 function tampillayanan(id){
 	$.ajax({
-	url: server+'layanan.php?id='+id, data: "", dataType: 'json', success: function(rows){
+	url: server+'layanan.php?gid='+id, data: "", dataType: 'json', success: function(rows){
 	if(rows==null){
 		$('#layanan').append("-");
 	}
@@ -483,7 +536,6 @@ function tampillayanan(id){
 		var row     = rows[i];
 		var layanan = row.layanan;
 		$('#layanan').append("<li>"+layanan+"</li>");
-
 	}}
 	});
 }
@@ -510,8 +562,8 @@ function tampilrating(id){
 		  str += '" aria-hidden="true"></i>';
 		  $(".rating").append(str);
 		}
-		if (rating=="NaN"){$(".rating").append(" Belum ada rating<br><b>Review</b> : <a href='#' id='r_"+id+"' onclick='tampilreview(this.id)'>0 review</a>");}
-		else {$(".rating").append(" "+rating+"<br><b>Review</b> : <a href='#' id='r_"+id+"' onclick='tampilreview(this.id)'>"+review+" review | Semua Review</a>");}
+		if (rating=="NaN"){$(".rating").append(" Belum ada rating<br><div id='isir'><b>Review</b> : <a href='#' id='r_"+id+"' onclick='tampilreview(this.id)'>0 review</a></div>");}
+		else {$(".rating").append(" "+rating+"<br><div id='isir'><b>Review</b> : <a href='#' id='r_"+id+"' onclick='tampilreview(this.id)'>"+review+" review | Semua Review</a></div>");}
 	}}
 	});
 }
@@ -679,12 +731,25 @@ function btnaddreview(){
 				}
 			}
 		}
-	});
+		});
+	}
 }
+function refresh(){
+	hapusRadius();
+	hapusmarker();
+	hapusrute();
+	if(typeof(kectampil) != "undefined" && kectampil.setMap() != undefined){
+    	kectampil.setMap(null);
+	}
+	$('#list-a').empty();
+	$('#det-a').css('display','none');
+	$('#det-r').css('display','none');
+	$('#list-a').css('display','block');
 }
 function closedetail(){
 	$('#kembali-l').remove();
 	$('#det-a').css('display','none');
+	$('#foto').empty();
 	$('#isi').empty();
 	$('#list-a').css('display','block');
 }

@@ -1,7 +1,7 @@
 <?php
 require 'connect.php';
-$id = $_GET["id"];
-$querysearch	="select jenis_layanan from layanan_bengkel join layanan on layanan_bengkel.layanan_id=layanan.layanan_id where gid=$id";
+$gid = $_GET["gid"];
+$querysearch	="select jenis_layanan from layanan_bengkel join layanan on layanan.layanan_id=layanan_bengkel.layanan_id where gid=$gid";
 			   
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
