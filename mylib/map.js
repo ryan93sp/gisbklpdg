@@ -379,7 +379,7 @@ function loaddata(rows){
 				map: map,
 			});
 			markerhasil.push(marker);
-			map.setZoom(13);
+			map.setZoom(14);
 			map.setCenter(centerbaru);
 			var now = new Date();
 			var strnow = Date.parse(now);
@@ -525,6 +525,12 @@ function showdetail(id){
 	$('#det-a').prepend("<button id='kembali-l' class='btn btn-default btn-xs' onclick='closedetail();' style='width:25%;float:right;'><i class='fa fa-chevron-left'></i> Kembali</button>");
 	$('#list-a').css('display','none');
 	$('#det-a').css('display','block');
+	if ($('#sidebar').hasClass('results-collapsed')){
+		$('#sidebar').removeClass("results-collapsed");
+		$('.map-canvas .map').one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+			google.maps.event.trigger(map, 'resize');
+		});
+	}
 }
 //menghapus infowindow detail
 function hapusInfo(){
