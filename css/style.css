@@ -3056,7 +3056,7 @@ ul.bullets li a:hover {
   left: 1px;
 }
 
-.pagination {
+/*.pagination {
   margin: 10px 0px;
 }
 .pagination li:first-child a, .pagination li:last-child a {
@@ -3074,7 +3074,7 @@ ul.bullets li a:hover {
   border-color: rgba(0, 0, 0, 0.1);
   color: #8d8d8d;
 }
-.pagination li a {
+ .pagination li a {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -3098,7 +3098,7 @@ ul.bullets li a:hover {
 }
 .pagination li a.previous {
   margin-left: 10px;
-}
+} */
 
 .price-box {
   text-align: center;

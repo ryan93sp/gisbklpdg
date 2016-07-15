@@ -1,11 +1,11 @@
 <?php
-include ('inc/connect.php');
+include ('../inc/connect.php');
 $gid = $_POST['gid'];
 $geom = $_POST['geom'];
 
 $sql = pg_query("update bengkel_region set geom=ST_GeomFromText('$geom', 4326) where gid='$gid'");
 if ($sql){
-	header("location:index.php?page=detail&gid=$gid");
+	header("location:../?page=detail&gid=$gid");
 }
 else {
 	echo 'error';

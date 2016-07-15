@@ -2,8 +2,8 @@
 	$gid=$_GET['gid'];
 	$sql = pg_query("SELECT * FROM layanan_bengkel where gid=$gid");
 ?>
-<form class="" role="form" action="uplayprocess.php" method="post">
-<button type="submit" class="btn btn-primary" style="float:right">Simpan</button>
+<form class="" role="form" action="act/uplayprocess.php" method="post">
+<button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-floppy-o"></i> Simpan</button>
 <div class="row" style="clear:both;">
 <div class="col-xs-12">
 	<div class="box">

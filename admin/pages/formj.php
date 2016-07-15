@@ -2,8 +2,8 @@
 	$gid=$_GET['gid'];
 	$sql = pg_query("SELECT * FROM jam_kerja join hari on hari.hari_id=jam_kerja.hari_id where gid=$gid order by jam_kerja.hari_id");
 ?>
-<form class="" role="form" action="upjamprocess.php" method="post">
-<button type="submit" class="btn btn-primary" style="float:right">Simpan</button>
+<form class="" role="form" action="act/upjamprocess.php" method="post">
+<button type="submit" class="btn btn-primary" style="float:right"><i class="fa fa-floppy-o"></i> Simpan</button>
 <div class="row" style="clear:both;">
 <div class="col-xs-12">
 	<div class="box">

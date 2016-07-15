@@ -9,22 +9,30 @@ if(isset($_SESSION['admin'])){
 <html>
   <head>
     <meta charset="UTF-8">
+	<link rel="icon" type="../image/png" href="../image/icon.png">
     <title>GIS Bengkel Kota Padang | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
+	<link href="dist/css/skins/skin-black.min.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/AdminLTE.min.login.css" rel="stylesheet" type="text/css" />
 
   </head>
  
-  <body class="login-page">
+  <body class="login-page skin-black">
+	<div class="wrapper">
+		<header class="main-header">
+			<!-- Logo -->
+			<span class="logo" style="width:100%;text-align:left;font-size:16px"><b>GIS Bengkel Kota Padang</b></span>
+		</header>
+	</div>
     <div class="login-box">
       <div class="login-logo">
         <b>Log in</b>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <form action="session.php" method="post">
+        <form action="act/session.php" method="post">
         
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Username" name="username" autofocus required/>

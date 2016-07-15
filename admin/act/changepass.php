@@ -1,5 +1,5 @@
 <?php
-include("inc/connect.php");
+include("../inc/connect.php");
 
 $passwordlama = $_POST["passlama"];
 $passlama = md5(md5($passwordlama));
@@ -14,7 +14,7 @@ $username = $_POST["user"];
 	if ($count >= 1 && $passwordbaru==$konfirmasipassword){
 	$queryupdate = pg_query("update login set password = '$passbaru' where username = '$username'");
 		if($queryupdate){
-		 header("location:index.php?page=profil");
+		 header("location:../?page=profil");
 		}
 	}
 	else {

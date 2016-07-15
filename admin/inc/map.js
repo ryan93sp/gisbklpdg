@@ -24,8 +24,12 @@ function initialize(){
 	
 	//zoom peta sesuai digitasi
 	var bengkel_reg = new google.maps.Data();
-	bengkel_reg.loadGeoJson('bengkel_region.php?gid='+gid.value);
+	bengkel_reg.loadGeoJson('act/bengkel_region.php?gid='+gid.value);
 	bengkel_reg.setMap(map);
+	bengkel_reg.setStyle({
+		fillColor: 'red',
+		strokeColor: 'red'
+	});
 	var bounds = new google.maps.LatLngBounds();
 	bengkel_reg.addListener('addfeature', function(e) {
 		processPoints(e.feature.getGeometry(), bounds.extend, bounds);
@@ -34,14 +38,14 @@ function initialize(){
 	
 	//menampilkan drawing manager
     var drawingManager = new google.maps.drawing.DrawingManager({
-		//drawingMode: google.maps.drawing.OverlayType.MARKER,
 		drawingControl: true,
 		drawingControlOptions: {
 		position: google.maps.ControlPosition.TOP_CENTER,
+		//drawingMode: google.maps.drawing.OverlayType.MARKER,
 		drawingModes: [
 			google.maps.drawing.OverlayType.POLYGON
 		]
-	  }
+		}
 	});
     drawingManager.setMap(map);
 
@@ -62,7 +66,7 @@ function initialize(){
 				i++;
 			});
 		}
-		console.log(coor[1]);
+		//console.log(coor[1]);
 		drawingManager.setDrawingMode(null);
 		// Add an event listener that selects the newly-drawn shape when the user
 		// mouses down on it.
@@ -77,7 +81,7 @@ function initialize(){
 		str_input = str_input+''+coor[1]+')))';
 		console.log('the str_input will be:', str_input);
 		$("#geom").val(str_input);
-		$("#coor").append(str_input);
+		//$("#coor").append(str_input);
 		
 		google.maps.event.addListener(newShape.getPath(), 'set_at', function (key, latlng){
 			alert('point changed');
@@ -93,9 +97,9 @@ function initialize(){
 				//alert(i);
 			}
 			str_input = str_input+''+coor[0]+')))';
-			console.log('the str_input will be:', str_input);
+			//console.log('the str_input will be:', str_input);
 			$("#geom").val(str_input);
-			$("#coor").append('<br>'+str_input);
+			//$("#coor").append('<br>'+str_input);
 			});
 			
 		google.maps.event.addListener(newShape.getPath(), 'insert_at', function () {
@@ -109,7 +113,7 @@ function initialize(){
 			str_input = str_input+''+coor[0]+')))';
 			console.log('the str_input will be:', str_input);
 			$("#geom").val(str_input);
-			$("#coor").append('<br>'+str_input);
+			//$("#coor").append('<br>'+str_input);
 			});
 
 		// YOU CAN THEN USE THE str_inputs AS IN THIS EXAMPLE OF POSTGIS POLYGON INSERT

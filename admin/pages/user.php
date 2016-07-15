@@ -2,7 +2,7 @@
 	<div class="col-xs-12">
 	  <div class="box">
 		<div class="box-header clearfix">
-			<a href="?page=formus" class="btn btn-default pull-right">Tambah User <i class="fa fa-plus"></i></a>
+			<a href="?page=formus" class="btn btn-default pull-right"><i class="fa fa-user-plus"></i> Tambah User</a>
 			<h3 class="box-title">User Login</h3>
 		</div><!-- /.box-header -->
 		<div class="box-body">

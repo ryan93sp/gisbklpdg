@@ -1,5 +1,5 @@
 <?php
-include ('inc/connect.php');
+include ('../inc/connect.php');
 $gid = $_POST['gid'];
 $hari = $_POST['hari'];
 $buka = $_POST['buka'];
@@ -29,7 +29,7 @@ if ($insert){
 	$sqll = rtrim($sqll,",");
 	$insert2 = pg_query($sqll);
 	if ($insert2){
-		header("location:index.php?page=detail&gid=$gid");
+		header("location:../?page=detail&gid=$gid");
 	}
 	else{
 		echo 'error';

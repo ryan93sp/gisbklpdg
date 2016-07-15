@@ -5,7 +5,7 @@
 		$sql = pg_query("select * from login where username='$user'");
 		$data = pg_fetch_array($sql);
 	?>
-	<form role="form" action="upusprocess.php" method="post">
+	<form role="form" action="act/upusprocess.php" method="post">
 	  <div class="box-body">
 		<div class="form-group">
 			<label for="user">Username</label>
@@ -23,7 +23,7 @@
 	</form>
 	<?php } ?>
 	<?php if (!isset($_GET['user'])){ ?>
-	<form role="form" action="insusprocess.php" method="post">
+	<form role="form" action="act/insusprocess.php" method="post">
 	  <div class="box-body">
 		<div class="form-group">
 			<label for="user">Username</label>
@@ -36,7 +36,7 @@
 	  </div><!-- /.box-body -->
 
 	  <div class="box-footer">
-		<button type="submit" class="btn btn-primary">Tambah</button>
+		<button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Tambah</button>
 	  </div>
 	</form>
 	<?php } ?>

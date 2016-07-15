@@ -4,7 +4,7 @@
 	<div class="box-header clearfix">
 	  <h3 class="box-title">Bengkel</h3>
 	  <div class="btn-group pull-right">
-		<a href="index.php?page=form" class="btn btn-default">Tambah <i class="fa fa-plus"></i></a>
+		<a href="?page=form" class="btn btn-default">Tambah <i class="fa fa-plus"></i></a>
 	  </div>
 	</div><!-- /.box-header -->
 	<div class="box-body">
@@ -12,7 +12,7 @@
 		<thead>
 		  <tr>
 			<th>No</th>
-			<th>Nama</th>
+			<th>Nama Bengkel</th>
 			<th>Alamat</th>
 			<th>Telepon</th>
 			<th>Aksi</th>
@@ -39,7 +39,7 @@
 			<td><?php echo "$telpon"; ?></td>
 			
 			<td><div class="btn-group">
-				<a href="index.php?page=detail&gid=<?php echo $gid; ?>" class="btn btn-sm btn-default" title='Detail'><i class="fa fa-exclamation-circle"></i> Lihat Detail</a>
+				<a href="?page=detail&gid=<?php echo $gid; ?>" class="btn btn-sm btn-default" title='Detail'><i class="fa fa-exclamation-circle"></i> Detail</a>
 				</div>
 			</td>
 		  </tr>

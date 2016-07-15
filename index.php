@@ -36,10 +36,10 @@
                 </div>
                 <nav class="navigation-items">
                     <div class="wrapper">
-                        <ul class="main-navigation navigation-top-header"></ul>
+                        <!--<ul class="main-navigation navigation-top-header"></ul>
                         <ul class="user-area">
                             <li><a href="#"><b>Galeri</b></a></li>
-                        </ul>
+                        </ul>-->
                         <div class="toggle-navigation">
                             <div class="icon">
                                 <div class="line"></div>
@@ -56,31 +56,12 @@
 		<div id="page-canvas">
             <!--Off Canvas Navigation-->
             <nav class="off-canvas-navigation">
-                <header style="line-height: 70px;">Navigation</header>
+                <header style="line-height: 70px;">Menu</header>
 				<div class="main-navigation navigation-off-canvas">
-
 					<ul>
-						<li><a href="#/about-us.html">About Us</a></li>
-						<li><a href="#sub-level-1" class="has-child" data-toggle="collapse" aria-expanded="false" aria-controls="sub-level-1">Pages</a>
-							<div class="collapse" id="sub-level-1">
-								<ul>
-									<li><a href="#/404.html">404</a></li>
-									<li><a href="#sub-level-2" class="has-child" data-toggle="collapse" aria-expanded="false" aria-controls="sub-level-2">Blog</a>
-										<div class="collapse" id="sub-level-2">
-											<ul>
-												<li><a href="#/blog-listing.html">Blog Listing</a></li>
-												<li><a href="#/blog-detail.html">Blog Detail</a></li>
-											</ul>
-										</div>
-									</li>
-										
-								</ul>
-							</div>
-						</li>
-						<li><a href="#/contact.html">Contact</a></li>
+						<li><a href="galeri.php">Galeri</a></li>
+						<li><a href="tentang.php">Tentang</a></li>
 					</ul>
-
-
 				</div>
             </nav>
             <!--end Off Canvas Navigation-->
@@ -106,9 +87,10 @@
                     <div class="inner panel-group margin-btm40" id="accordion">
                         <header>
                             <h3>Pencarian</h3>
-							<button onclick="geolocation()" class="btn btn-primary btn-xs" style="width:25px;" data-toggle="tooltip" data-placement="top" title="Posisi Sekarang"><i class="fa fa-crosshairs"></i></button>
-							<button onclick="manuallocation()" class="btn btn-primary btn-xs" style="width:25px;" data-toggle="tooltip" data-placement="top" title="Posisi Manual"><i class="fa fa-map-marker"></i></button>
-							<button class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Refresh"style="width:25px;" onclick="refresh()"><i class="fa fa-refresh"></i></button>
+							<button onclick="geolocation()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;" data-toggle="tooltip" data-placement="top" title="Posisi Sekarang"><i class="fa fa-crosshairs"></i></button>
+							<button onclick="manuallocation()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;" data-toggle="tooltip" data-placement="top" title="Posisi Manual"><i class="fa fa-map-marker"></i></button>
+							<button onclick="tampilsemua()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;" data-toggle="tooltip" data-placement="top" title="Tampilkan semua bengkel"><i class="fa fa-list"></i></button>
+							<button class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Refresh" style="width:27px;font-size:14px;" onclick="refresh()"><i class="fa fa-refresh"></i></button>
                         </header>
 						<div class="panel">
                             <div class="panel-heading">
@@ -122,7 +104,7 @@
                                 <div class="panel-body">
                                     <div class="input-group">
                                         <label class="sr-only" for="">cari</label>
-                                        <input class="form-control" style="border-radius:.25rem;" id="inputcarinama" name="inputcarinama" placeholder="Nama.." type="text">
+                                        <input class="form-control" style="border-radius:.25rem;" id="carinama" name="carinama" placeholder="Nama.." type="text">
                                         <span class="input-group-btn">
                                             <button type="submit" id="" class="btn btn-primary" onclick="btncarinama()">Cari <i class="fa fa-search"></i></button>
                                         </span>
@@ -134,7 +116,7 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                        <center>Terdekat</center>
+                                        <center>Bengkel Terdekat</center>
                                     </a>
                                 </h4>
                             </div>
@@ -150,24 +132,8 @@
 						<div class="panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                                        <center>Kecamatan</center>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body">
-									<div id="selectkec"></div>
-									<button type="submit" id="btncarikec" class="btn btn-primary" onclick="btncarikec()"> Cari <i class="fa fa-search"></i></button>
-                                        
-                                </div>
-                            </div>
-                        </div>
-						<div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                                        <center>Kategori Bengkel</center>
+                                        <center>Jenis Bengkel</center>
                                     </a>
                                 </h4>
                             </div>
@@ -204,8 +170,24 @@
 						<div class="panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                        <center>Kecamatan</center>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
+									<div id="selectkec"></div>
+									<button type="submit" id="btncarikec" class="btn btn-primary" onclick="btncarikec()"> Cari <i class="fa fa-search"></i></button>
+                                        
+                                </div>
+                            </div>
+                        </div>
+						<div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
-                                        <center>Jam Operasional</center>
+                                        <center>Jadwal Operasional</center>
                                     </a>
                                 </h4>
                             </div>

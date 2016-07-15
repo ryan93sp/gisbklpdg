@@ -9,6 +9,7 @@ include("inc/connect.php");?>
 <html>
   <head>
     <meta charset="UTF-8">
+	<link rel="icon" type="../image/png" href="../image/icon.png">
     <title>Admin GIS Bengkel Kota Padang</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -81,14 +82,17 @@ include("inc/connect.php");?>
     <!-- page script -->
     <script type="text/javascript">
       $(function () {
-        $("#example1").dataTable();
-        $('#example2').dataTable({
+        $('#example1').dataTable({
           "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": false,
+          "bLengthChange": true,
+          "bFilter": true,
           "bSort": true,
           "bInfo": true,
-          "bAutoWidth": false
+          "bAutoWidth": false,
+		  "oLanguage": {
+			 "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+			 "sSearch": "Cari:"
+			}
         });
       });
     </script>

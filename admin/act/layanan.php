@@ -1,5 +1,5 @@
 <?php
-require 'inc/connect.php';
+require '../inc/connect.php';
 $gid=$_GET['gid'];
 $ken=$_GET['ken'];
 

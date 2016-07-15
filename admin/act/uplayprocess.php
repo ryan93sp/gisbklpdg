@@ -1,5 +1,5 @@
 <?php
-include ('inc/connect.php');
+include ('../inc/connect.php');
 $gid = $_POST['gid'];
 $kendaraan = $_POST['kendaraan'];
 $layanan = $_POST['layanan'];
@@ -18,7 +18,7 @@ for( $i=0; $i < $countl; $i++ ){
 $sqll = rtrim($sqll,",");
 $insert = pg_query($sqll);
 if ($insert && $delete){
-	header("location:index.php?page=detail&gid=$gid");
+	header("location:../?page=detail&gid=$gid");
 }
 else{
 	echo 'error';

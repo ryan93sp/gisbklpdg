@@ -2,7 +2,7 @@ function katchange(){
 	$('#selectkat option').remove();
 	var v=selectken.value;
 	$.ajax({ 
-	url:'kategori.php?id='+v, data: "", dataType: 'json', success: function(rows){
+	url:'act/kategori.php?id='+v, data: "", dataType: 'json', success: function(rows){
 		for (var i in rows){
 			var row = rows[i];
 			var id=row.id;
@@ -21,7 +21,7 @@ function addinputl(){
 	var k = kenl.value;
 	$('#forml').append('<div class="form-group"><select name="layanan[]" class="form-control">');
 	$.ajax({ 
-	url:'layanan.php?ken='+k, data: "", dataType: 'json', success: function(rows){
+	url:'act/layanan.php?ken='+k, data: "", dataType: 'json', success: function(rows){
 		for (var i in rows){
 			var row = rows[i];
 			var layid=row.layid;

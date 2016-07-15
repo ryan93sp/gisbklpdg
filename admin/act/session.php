@@ -1,5 +1,5 @@
 <?php
-include ('inc/connect.php');
+include ('../inc/connect.php');
 session_start();
 //jika ditekan tombol login
 if(isset($_POST['username'])){
@@ -15,14 +15,14 @@ if(isset($_POST['username'])){
 			$_SESSION['username'] = $username;
 			$result = pg_query("update login set last_login = now() where username='$username'");
 			?><script language="JavaScript">
-				 document.location='index.php'</script>
+				 document.location='../'</script>
 			<?php
 		} 
 	else{
 			// jika login salah //
 			echo "<script>
 			alert (' Maaf Login Gagal, Silahkan Isi Username dan Password Anda Dengan Benar');
-			eval(\"parent.location='login.php '\");	
+			eval(\"parent.location='../login.php '\");	
 			</script>";
 		}
 	}

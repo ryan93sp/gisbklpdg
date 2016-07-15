@@ -1,9 +1,9 @@
 <?php if (isset($_GET['gid'])){
 	$gid=$_GET['gid'];
-	$sql = pg_query("SELECT * FROM bengkel_region join kategori on kategori.kat_id=bengkel_region.kat_id where gid=$gid");
+	$sql = pg_query("SELECT * FROM bengkel_region join kategori on kategori.jenis_id=bengkel_region.jenis_id where gid=$gid");
 	$data =  pg_fetch_array($sql);
 ?>
-<form class="" role="form" action="ins2process.php" method="post">
+<form class="" role="form" action="act/ins2process.php" method="post">
 <button type="submit" class="btn btn-primary" style="float:right">Simpan</button>
 <div class="row" style="clear:both;">
 <div class="col-xs-6">

@@ -5,14 +5,14 @@
 			<div id="form">
 			<?php if (isset($_GET['gid'])){
 				$gid=$_GET['gid'];
-				$sql = pg_query("SELECT * FROM bengkel_region join kategori on kategori.kat_id=bengkel_region.kat_id where gid=$gid");
+				$sql = pg_query("SELECT * FROM bengkel_region join kategori on kategori.jenis_id=bengkel_region.jenis_id where gid=$gid");
 				$data =  pg_fetch_array($sql);
 			?>
 				<h4 style="text-transform:capitalize;">Ubah Data Atribut Bengkel <?php echo $data['nama_bengkel'] ?></h4>
-				<form role="form" action="upprocess.php" method="post">
-				<button type="submit" class="btn btn-primary">Simpan</button>
+				<form role="form" action="act/upprocess.php" method="post">
+				<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o"></i> Simpan</button>
 					<input type="text" class="form-control hidden" name="gid" value="<?php echo $gid ?>">
-					<div class="form-group">
+					<div class="form-group" style="clear:both">
 						<label for="nama">Nama Bengkel</label>
 						<input type="text" class="form-control" name="nama" value="<?php echo $data['nama_bengkel'] ?>">
 					</div>
@@ -44,10 +44,10 @@
 							<?php
 								$sql = pg_query("select * from kategori where kendaraan_id=$data[kendaraan_id]");
 								while($dt = pg_fetch_array($sql)){
-								if ($data[kat_id]==$dt[kat_id]){
-									echo "<option value=\"$dt[kat_id]\" selected>Bengkel $dt[kat_nama]</option>";}
+								if ($data[jenis_id]==$dt[jenis_id]){
+									echo "<option value=\"$dt[jenis_id]\" selected>Bengkel $dt[jenis_nama]</option>";}
 								else{
-									echo "<option value=\"$dt[kat_id]\">Bengkel $dt[kat_nama]</option>";}
+									echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
 								}
 							?>
 						</select>
@@ -66,10 +66,10 @@
 					else {$idmax++;}
 			?>
 				<h4 style="text-transform:capitalize;">Tambah Data Bengkel</h4>
-				<form role="form" action="insprocess.php" method="post">
-					<button type="submit" class="btn btn-primary">Lanjut</button>
+				<form role="form" action="act/insprocess.php" method="post">
+					<button type="submit" class="btn btn-primary pull-right">Lanjut <i class="fa fa-chevron-right"></i></button>
 					<input type="text" class="form-control hidden" name="gid" value="<?php echo $idmax;?>">
-					<div class="form-group">
+					<div class="form-group" style="clear:both">
 						<label for="nama">Nama Bengkel</label>
 						<input type="text" class="form-control" name="nama" value="" required>
 					</div>
@@ -97,7 +97,7 @@
 							<?php
 								$sql = pg_query("select * from kategori where kendaraan_id=1");
 								while($dt = pg_fetch_array($sql)){
-								echo "<option value=\"$dt[kat_id]\">Bengkel $dt[kat_nama]</option>";}
+								echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
 							?>
 						</select>
 					</div>

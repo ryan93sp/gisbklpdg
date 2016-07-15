@@ -9,7 +9,6 @@ $time = date('Y/m/d H:i:s');
 
 $query = "insert into rating_bengkel (gid,pengguna,rating,komentar,time) values ($gid,'$pengguna',$rating,'$komentar','$time')";
 
-//$result = pg_query($query);
 if (!$result = @pg_query($query)){
   echo '[{"error":"true"}]';
   exit;

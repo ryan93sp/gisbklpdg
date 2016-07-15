@@ -12,7 +12,7 @@
 			<br>
 			<div id="form" class="hidden">
 			<h4>Ganti Password</h4>
-				<form role="form" action="changepass.php" method="post">
+				<form role="form" action="act/changepass.php" method="post">
 				<input type="text" class="form-control hidden" name="user" value="<?php echo $_SESSION['username'] ?>">
 				<div class="form-group">
 					<label for="passlama">Password Lama</label>

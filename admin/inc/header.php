@@ -1,5 +1,5 @@
 <!-- Logo -->
-<a href="" class="logo" style="font-size:14px"><b>GIS Bengkel Kota Padang</b></a>
+<a href="./" class="logo" style="font-size:14px"><b>GIS Bengkel Kota Padang</b></a>
 
 <!-- Header Navbar -->
 <nav class="navbar navbar-static-top" role="navigation">
@@ -30,7 +30,7 @@
 			  <a href="index.php?page=profil" class="btn btn-default btn-flat">Profil</a>
 			</div>
 			<div class="pull-right">
-			  <a href="logout.php" class="btn btn-default btn-flat">Keluar</a>
+			  <a href="act/logout.php" class="btn btn-default btn-flat">Keluar</a>
 			</div>
 		  </li>
 		</ul>

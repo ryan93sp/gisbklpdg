@@ -10,13 +10,13 @@ $data =  pg_fetch_array($sql);
 			<div class="box-header">
 				<h3 class="box-title" style="text-transform:capitalize;">Ubah Data Spasial Bengkel <?php echo $data['nama_bengkel'] ?></h3>
 			</div>
-			<button id="delete-button">Hapus Shape <i class="fa fa-trash"></i></button>
+			<button class="btn btn-default btn-sm pull-right" id="delete-button"><i class="fa fa-trash"></i> Hapus Shape</button>
 			<div class="box-body">
-				<form role="form" action="upprocesspas.php" method="post">
+				<form role="form" action="act/upprocesspas.php" method="post">
 					<input type="text" class="" id="gid" name="gid" value="<?php echo $gid ?>" hidden>
 					<textarea class="form-control" id="geom" name="geom" placeholder="" required></textarea>
 					<div id="coor"></div>
-					<button type="submit" class="btn btn-primary">Simpan</button>
+					<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Simpan</button>
 				</form>
 			</div>
 		</div>

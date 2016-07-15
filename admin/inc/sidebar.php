@@ -10,8 +10,9 @@
 <!-- Sidebar Menu -->
 <ul class="sidebar-menu">
 	
-	<li class="active"><a href="index.php"><span>Home</span></a></li>
-	<li class=""><a href="index.php?page=user"><span>Akses</span></a></li>
+	<li class=""><a href="./"><span>Data Bengkel</span></a></li>
+	<!--<li class=""><a href="?page=layanan"><span>Data Layanan</span></a></li>
+	<li class=""><a href="index.php?page=user"><span>Akses</span></a></li>-->
 	<!--<li class="treeview">
 		<a href="#"><span>Data</span> <i class="fa fa-angle-left pull-right"></i></a>
 		<ul class="treeview-menu">
