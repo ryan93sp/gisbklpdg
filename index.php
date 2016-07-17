@@ -139,13 +139,13 @@
                             </div>
                             <div id="collapse6" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<select required name="selectken" id="selectken" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="kategori()">
+									<select required name="selectken" id="selectken" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="jenis()">
 										<option selected disabled>--Pilih Jenis Kendaraan--</option>
 									</select>
 									<select required name="selectbeng" id="selectbeng" class="form-control" placeholder="">
 										<option selected disabled>--Pilih Bengkel--</option>
 									</select>
-									<button type="submit" id="buttonkat" class="btn btn-primary" onclick="btncarikat()"> Cari <i class="fa fa-search"></i></button>
+									<button type="submit" id="btnjns" class="btn btn-primary" onclick="btncarijns()"> Cari <i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </div>

@@ -208,15 +208,15 @@ function btncarinama(){
 	    });
 	}
 }
-//cari berdasarkan kategori
-function btncarikat(){
+//cari berdasarkan jenis
+function btncarijns(){
 	if(selectken.value=='--Pilih Jenis Kendaraan--'){
-		alert("Pilih Kategori!");
+		alert("Pilih Jenis!");
     }
     else{
 		refresh();
 		$.ajax({
-	    url: server+'carikategori.php?kat='+selectbeng.value, data: "", dataType: 'json', success: function (rows){
+	    url: server+'carijenis.php?id='+selectbeng.value, data: "", dataType: 'json', success: function (rows){
 			loaddata(rows);}
 	    });
 	}
@@ -248,6 +248,7 @@ function btnradius(){
 }
 //cari berdasarkan layanan
 function btncarilay(){
+	var ken=selectken2.value;
 	var arrayLay=[];
 	for(i=0;i<$("input[name=layanan]:checked").length;i++){
 		arrayLay.push($("input[name=layanan]:checked")[i].value);
@@ -257,7 +258,7 @@ function btncarilay(){
 	}else{
 		refresh();
 		$.ajax({
-		url: server+'carilayanan.php?lay='+arrayLay, data: "", dataType: 'json', success: function(rows){
+		url: server+'carilayanan.php?ken='+ken+'&lay='+arrayLay, data: "", dataType: 'json', success: function(rows){
 		loaddata(rows);}
 	});
 	}
@@ -353,7 +354,6 @@ function loaddata(rows){
 		alert('Data Tidak Ada');
 	}
 	else{
-		clearall();
 		if ($('#sidebar').hasClass('results-collapsed')){
 			$('#sidebar').removeClass("results-collapsed");
 			$('.map-canvas .map').one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
@@ -470,7 +470,7 @@ function showdetail(id){
 		telpon = row.telpon,
 		foto = row.foto,
 		kendaraan = row.kendaraan,
-		kategori = row.kategori,
+		jenis = row.jenis,
 		deskripsi = row.deskripsi,
 		jam_buka = row.jam_buka,
 		b = jam_buka.slice(0,-3),
@@ -516,7 +516,7 @@ function showdetail(id){
 		infodetail.push(infowindow);
 		infowindow.open(map, marker);
 		$('#foto').append("<img src="+fotolokasi+''+foto+" alt='' style=''>");
-		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+kategori+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td><span style='color:"+warna+";'>"+stat+"</span> "+hari+" "+b+" - "+t+"</td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
+		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+jenis+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td><span style='color:"+warna+";'>"+stat+"</span> "+hari+" "+b+" - "+t+"</td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
 		tampillayanan(gid);
 		tampilrating(gid)
 		}
@@ -726,9 +726,7 @@ function btnaddreview(){
 				}else{
 					alert('terima kasih telah memberi rate');
 					$('.star2').removeClass('star-checked');
-					$("#rateid").val('');
-					$("#user").val('');
-					$("#komentar").val('');
+					$("#rateid,#user,#komentar").val('');
 					for (var j = 0; j < 5; j++){
 						str = '<i class="fa ';
 						if (j < rating){
@@ -751,33 +749,22 @@ function refresh(){
 	hapusmarker();
 	hapusrute();
 	hapuskecamatan();
-	$('#list-a').empty();
-	$('#foto').empty();
-	$('#det-a').css('display','none');
-	$('#det-r').css('display','none');
+	$('#kembali-l, #backreview').remove();
+	$('#list-a, #foto, #isi, #isi-r, #your-r').empty();
+	$('#det-a,#det-r').css('display','none');
 	$('#list-a').css('display','block');
 }
 function closedetail(){
 	$('#kembali-l').remove();
+	$('#foto, #isi').empty();
 	$('#det-a').css('display','none');
-	$('#foto').empty();
-	$('#isi').empty();
 	$('#list-a').css('display','block');
 }
 function closereview(){
 	$('#backreview').remove();
 	$('#det-r').css('display','none');
 	$('#isi-r, #your-r').empty();
-	$('#det-a').css('display','block');
-	$('#kembali-l').css('display','block');
-}
-function clearall(){
-	$('#kembali-l').remove();
-	$('#backreview').remove();
-	$('#isi').empty();
-	$('#isi-r, #your-r').empty();
-	$('#list-a').css('display','block');
-	$('#det-a,#det-r').css('display','none');
+	$('#det-a, #kembali-l').css('display','block');
 }
 //menampilkan option list kecamatan
 $(function(){
@@ -787,7 +774,6 @@ $(function(){
 			var row = rows[i];
 			var gid=row.gid;
 			var kecamatan=row.kecamatan;
-			//$('#selectkec').append('<option value="'+gid+'">'+kecamatan+'</option>');
 			$('#selectkec').append('<div class="checkbox"><label><input type="checkbox" name="kecamatan" value="'+gid+'">'+kecamatan+'</label></div>');
 		}
 	}
@@ -807,17 +793,17 @@ $(function(){
 	}
 	});
 });
-//menampilkan option kategori
-function kategori(){
+//menampilkan option jenis_bengkel
+function jenis(){
 	$('#selectbeng option').remove();
 	var v=selectken.value;
 	$.ajax({ 
-	url: server+'kategori.php?id='+v, data: "", dataType: 'json', success: function(rows){
+	url: server+'jenis.php?id='+v, data: "", dataType: 'json', success: function(rows){
 		for (var i in rows){
 			var row = rows[i];
 			var id=row.id;
-			var kategori=row.kategori;
-			$('#selectbeng').append('<option value="'+id+'">Bengkel '+kategori+'</option>');
+			var jenis=row.jenis;
+			$('#selectbeng').append('<option value="'+id+'">Bengkel '+jenis+'</option>');
 		}
 	}
 	});

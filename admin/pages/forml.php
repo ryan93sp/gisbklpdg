@@ -20,7 +20,7 @@
 				<div class="form-group">
 					<select name="layanan[]" class="form-control">
 						<?php
-							$sql2 = pg_query("select * from layanan_detail join layanan on layanan_detail.layanan_id=layanan.layanan_id where kendaraan_id=$data[kendaraan_id]");
+							$sql2 = pg_query("select * from layanan");
 							while($dt = pg_fetch_array($sql2)){
 								if ($data['layanan_id']==$dt['layanan_id']){
 									echo "<option value=\"$dt[layanan_id]\" selected>$dt[jenis_layanan]</option>";

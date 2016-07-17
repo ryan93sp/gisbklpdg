@@ -22,6 +22,36 @@ function initialize(){
 		mapTypeId: google.maps.MapTypeId.HYBRID
 	});
 	
+	//mencari lokasi dengan latlng
+	var geocoder = new google.maps.Geocoder;
+	var infowindow = new google.maps.InfoWindow;
+    document.getElementById('btnlatlng').addEventListener('click', function() {
+        geocodeLatLng(geocoder, map, infowindow);
+    });
+    function geocodeLatLng(geocoder, map, infowindow) {
+        var input = document.getElementById('latlng').value;
+        var latlngStr = input.split(',', 2);
+        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              map.setZoom(20);
+              var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+			  map.setCenter(latlng);
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+    }
+	
 	//zoom peta sesuai digitasi
 	var bengkel_reg = new google.maps.Data();
 	bengkel_reg.loadGeoJson('act/bengkel_region.php?gid='+gid.value);
@@ -40,7 +70,7 @@ function initialize(){
     var drawingManager = new google.maps.drawing.DrawingManager({
 		drawingControl: true,
 		drawingControlOptions: {
-		position: google.maps.ControlPosition.TOP_CENTER,
+		position: google.maps.ControlPosition.TOP_LEFT,
 		//drawingMode: google.maps.drawing.OverlayType.MARKER,
 		drawingModes: [
 			google.maps.drawing.OverlayType.POLYGON
@@ -143,6 +173,7 @@ function deleteSelectedShape() {
   if (selectedShape) {
     selectedShape.setMap(null);
   }
+  $("#geom").val('');
 }
 function deleteAllShape() {
   for (var i = 0; i < all_overlays.length; i++) {

@@ -84,7 +84,7 @@
 									
 									<?php
 									include("json/connect.php");
-									$sql = pg_query("SELECT * FROM bengkel_region left join kategori on bengkel_region.jenis_id=kategori.jenis_id join jenis_kendaraan on kategori.kendaraan_id=jenis_kendaraan.kendaraan_id order by gid desc");
+									$sql = pg_query("SELECT * FROM bengkel_region left join jenis_bengkel on bengkel_region.jenis_id=jenis_bengkel.jenis_id join jenis_kendaraan on jenis_bengkel.kendaraan_id=jenis_kendaraan.kendaraan_id order by gid desc");
 									$no = 0;
 									while($data =  pg_fetch_array($sql)){
 									$gid = $data['gid'];

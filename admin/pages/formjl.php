@@ -1,6 +1,6 @@
 <?php if (isset($_GET['gid'])){
 	$gid=$_GET['gid'];
-	$sql = pg_query("SELECT * FROM bengkel_region join kategori on kategori.jenis_id=bengkel_region.jenis_id where gid=$gid");
+	$sql = pg_query("SELECT * FROM bengkel_region join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id where gid=$gid");
 	$data =  pg_fetch_array($sql);
 ?>
 <form class="" role="form" action="act/ins2process.php" method="post">
@@ -68,7 +68,7 @@
 				<div class="form-group">
 					<select name="layanan[]" class="form-control">
 						<?php
-							$sql = pg_query("select * from layanan_detail join layanan on layanan_detail.layanan_id=layanan.layanan_id where kendaraan_id=$data[kendaraan_id]");
+							$sql = pg_query("select * from layanan");
 							while($dt = pg_fetch_array($sql)){
 								echo "<option value=\"$dt[layanan_id]\">$dt[jenis_layanan]</option>";}
 						?>

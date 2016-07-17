@@ -1,9 +1,9 @@
 <?php
 require 'connect.php';
-$kat=$_GET["kat"];
+$id=$_GET["id"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
-$querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid where jenis_id='$kat' and hari_id=$day";
+$querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid where jenis_id='$id' and hari_id=$day";
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
 	{

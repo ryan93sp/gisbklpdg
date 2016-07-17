@@ -26,10 +26,3 @@ $(window).resize(function() {
 	var bodyheight = $(window).height()-70;
 	$("#sidebar").height(bodyheight);
 });
-
-/* function myFunction() {
-    var elmnt = document.getElementByClass("items-list");
-    var x = elmnt.scrollLeft;
-    var y = elmnt.scrollTop;
-    document.getElementById ("demo").innerHTML = "Horizontally: " + x + "px<br>Vertically: " + y + "px";
-} */
