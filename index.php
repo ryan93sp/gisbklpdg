@@ -10,6 +10,8 @@
 	<link rel="icon" type="image/png" href="image/icon.png">
     <link href="font/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="css/css.css" rel="stylesheet" type="text/css">
+	<link href="css/glyphicons.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap-select.css" type="text/css">
 	<link rel="stylesheet" href="css/bootstrap-slider.css" type="text/css">
@@ -193,10 +195,20 @@
                             </div>
                             <div id="collapse7" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<div class="input-group">
-										<input type="text" class="form-control" name="jamcari" id="jamcari" placeholder="00:00:00" value="<?php echo $now = date('H:i:s');?>">
+									<div class="input-append input-group" id="datetimepicker3">
+										<input class="form-control" data-format="hh:mm:ss" type="text" name="jamcari" id="jamcari" placeholder="00:00:00" value="<?php echo $now = date('H:i:s');?>">
+										<span class='add-on input-group-btn'>
+											<button class="btn btn-default btn-flat"><i data-date-icon='icon-calendar' data-time-icon='icon-time'></i></button>
+										</span>
 										<span class="input-group-btn"><button type="submit" id="btncarijam" class="btn btn-primary" onclick="btncarijam()"> Cari <i class="fa fa-search"></i></button></span>
 									</div>
+									<script type='text/javascript'>
+									  $(function() {
+										$('#datetimepicker3').datetimepicker({
+										  pickDate: false
+										});
+									  });
+									</script>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +229,7 @@
 										<i class="fa fa-star star" id="star-4"></i>
 										<i class="fa fa-star star" id="star-5"></i>
 									</div>
-									<input type="text" name="ratecari" id="ratecari" value="" hidden="">
+									<input type="text" class="form-control hidden" name="ratecari" id="ratecari" value="">
 									<button type="submit" id="btnop" class="btn btn-primary" onclick="btncarirate()"> Cari <i class="fa fa-search"></i></button>
                                 </div>
                             </div>
@@ -278,6 +290,8 @@
 <script type="text/javascript" src="js/bootstrap-slider.js"></script>
 <script type="text/javascript" src="mylib/myjs.js"></script>
 <script type="text/javascript" src="mylib/map.js"></script>
+
+<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script> 
 
 <script type="text/javascript">
 $('#inputradius').slider({
