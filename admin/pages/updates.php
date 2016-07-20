@@ -41,7 +41,7 @@ $data =  pg_fetch_array($sql);
 
 <div class="col-lg-8 col-xs-8 col-0">
 	<div id="floating-panel">
-      <input id="latlng" type="text" value="" placeholder="lat, lng">
+      <input id="latlng" type="text" value="" placeholder="latitude, longitude">
       <button id="btnlatlng" type="button">Geocode</button>
     </div>
 	<div id="map"></div>

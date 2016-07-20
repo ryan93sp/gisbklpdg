@@ -1,5 +1,4 @@
 var drawingManager;
-var all_overlays = [];
 var selectedShape;
 
 function processPoints(geometry, callback, thisArg) {
@@ -13,13 +12,35 @@ function processPoints(geometry, callback, thisArg) {
     });
   }
 }
+function clearSelection() {
+  if (selectedShape) {
+    selectedShape.setEditable(false);
+    selectedShape = null;
+  }
+}
+function setSelection(shape) {
+  clearSelection();
+  selectedShape = shape;
+  shape.setEditable(true);
+}
+function deleteSelectedShape() {
+  $("#geom").val('');
+  if (selectedShape) {
+    selectedShape.setMap(null);
+  }
+  drawingManager.setOptions({
+    drawingControl: true
+  });
+}
 
 function initialize(){
     var map = new google.maps.Map(document.getElementById('map'),
 	{
 		center: new google.maps.LatLng(-0.938627, 100.355848),
 		zoom: 12,
-		mapTypeId: google.maps.MapTypeId.HYBRID
+		mapTypeId: google.maps.MapTypeId.HYBRID,
+		disableDefaultUI: true,
+		zoomControl: true
 	});
 	
 	//mencari lokasi dengan latlng
@@ -66,58 +87,64 @@ function initialize(){
 		map.fitBounds(bounds);
 	});
 	
+	var polyOptions = {
+	fillColor: 'blue',
+	strokeColor: 'blue',
+	draggable: true
+	};
+	
 	//menampilkan drawing manager
-    var drawingManager = new google.maps.drawing.DrawingManager({
-		drawingControl: true,
+    drawingManager = new google.maps.drawing.DrawingManager({
+		//drawingMode: google.maps.drawing.OverlayType.POLYGON,
+		//drawingControl: true,
 		drawingControlOptions: {
 		position: google.maps.ControlPosition.TOP_LEFT,
-		//drawingMode: google.maps.drawing.OverlayType.MARKER,
 		drawingModes: [
 			google.maps.drawing.OverlayType.POLYGON
 		]
-		}
+		},
+		polygonOptions: polyOptions,
+		map: map
 	});
-    drawingManager.setMap(map);
 
 	//event digitasi di google map
 	google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event){
-		var str_input ='MULTIPOLYGON(((';
 		if (event.type == google.maps.drawing.OverlayType.POLYGON) {
-			console.log('polygon path array', event.overlay.getPath().getArray());
+			//console.log('polygon path array', event.overlay.getPath().getArray());
+			var str_input ='MULTIPOLYGON(((';
 			i=1;
 			$.each(event.overlay.getPath().getArray(), function(key, latlng){
 				var lat = latlng.lat();
 				var lon = latlng.lng();
-				//console.log(lat, lon);
 				coor[i] = lon +' '+ lat;
-				console.log(coor[i]);
+				//console.log(coor[i]);
 				str_input += lon +' '+ lat +',';
-				//console.log(str_input);
 				i++;
 			});
-		}
-		//console.log(coor[1]);
-		drawingManager.setDrawingMode(null);
-		// Add an event listener that selects the newly-drawn shape when the user
-		// mouses down on it.
-		var newShape = event.overlay;
-		newShape.type = event.type;
-		google.maps.event.addListener(newShape, 'click', function() {
+			drawingManager.setDrawingMode(null);
+			drawingManager.setOptions({
+				drawingControl: false
+			});
+			// Add an event listener that selects the newly-drawn shape when the user
+			// mouses down on it.
+			var newShape = event.overlay;
+			newShape.type = event.type;
+			google.maps.event.addListener(newShape, 'click', function() {
+				setSelection(newShape);
+			});
 			setSelection(newShape);
-		});
-		setSelection(newShape);
 		
-		//str_input = str_input.substr(0,str_input.length-1) + '))';
-		str_input = str_input+''+coor[1]+')))';
-		console.log('the str_input will be:', str_input);
-		$("#geom").val(str_input);
-		//$("#coor").append(str_input);
+			//str_input = str_input.substr(0,str_input.length-1) + '))';
+			str_input = str_input+''+coor[1]+')))';
+			//console.log('the str_input will be:', str_input);
+			$("#geom").val(str_input);
 		
+		}
 		google.maps.event.addListener(newShape.getPath(), 'set_at', function (key, latlng){
-			alert('point changed');
+			//alert('point changed');
 			var lat = latlng.lat();
 			var lon = latlng.lng();
-			console.log(lat, lon); 
+			//console.log(lat, lon); 
 			//polygons.push(event.overlay);
 			var polygonBounds = newShape.getPath();
 			str_input ='MULTIPOLYGON(((';
@@ -129,11 +156,10 @@ function initialize(){
 			str_input = str_input+''+coor[0]+')))';
 			//console.log('the str_input will be:', str_input);
 			$("#geom").val(str_input);
-			//$("#coor").append('<br>'+str_input);
 			});
 			
 		google.maps.event.addListener(newShape.getPath(), 'insert_at', function () {
-			alert('point added');
+			//alert('point added');
 			var polygonBounds = newShape.getPath();
 			str_input ='MULTIPOLYGON(((';
 			for(var i = 0 ; i < polygonBounds.length ; i++){
@@ -141,44 +167,17 @@ function initialize(){
 				str_input += polygonBounds.getAt(i).lng() +' '+ polygonBounds.getAt(i).lat() +',';
 			}
 			str_input = str_input+''+coor[0]+')))';
-			console.log('the str_input will be:', str_input);
+			//console.log('the str_input will be:', str_input);
 			$("#geom").val(str_input);
-			//$("#coor").append('<br>'+str_input);
 			});
 
 		// YOU CAN THEN USE THE str_inputs AS IN THIS EXAMPLE OF POSTGIS POLYGON INSERT
 		// INSERT INTO your_table (the_geom, name) VALUES (ST_GeomFromText(str_input, 4326), 'Test')
-		all_overlays.push(event);
 	});
 	
 	google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
 	google.maps.event.addListener(map, 'click', clearSelection);
 	google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
 
-}
-function clearSelection() {
-  if (selectedShape) {
-    selectedShape.setEditable(false);
-    selectedShape = null;
-  }
-}
-
-function setSelection(shape) {
-  clearSelection();
-  selectedShape = shape;
-  shape.setEditable(true);
-}
-
-function deleteSelectedShape() {
-  if (selectedShape) {
-    selectedShape.setMap(null);
-  }
-  $("#geom").val('');
-}
-function deleteAllShape() {
-  for (var i = 0; i < all_overlays.length; i++) {
-    all_overlays[i].overlay.setMap(null);
-  }
-  all_overlays = [];
 }
 google.maps.event.addDomListener(window, 'load', initialize);

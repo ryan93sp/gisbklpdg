@@ -401,7 +401,7 @@ function loaddata(rows){
 				
 			createInfoWindow(centerbaru, gid, nama, alamat, telpon, warna, stat);
 			
-			$('#list-a').append("<div class='list-det' id="+gid+" onclick='showdetail(this.id);'><a href='#'><div class='nama'>"+nama+"</div><div style='text-transform:capitalize;'>"+alamat+"</div><div>"+telpon+"</div><p style='color:"+warna+";'>"+stat+" "+b+" - "+t+"</p></a></div>");
+			$('#list-a').append("<div class='list-det' id="+gid+" onclick='showdetail(this.id);'><a href='#'><div class='nama'>"+nama+"</div><div style='text-transform:capitalize;'>"+alamat+"</div><div>"+telpon+"</div><p style='color:"+warna+";'>"+b+" - "+t+" ("+stat+")</p></a></div>");
 		}
 	}
 }
@@ -457,8 +457,7 @@ function rute(start, end){
 //menampilkan detail hasil pencarian
 function showdetail(id){
 	$('#kembali-l').remove();
-	$('#foto').empty();
-	$('#isi').empty();
+	$('#foto,#isi').empty();
 	hapusInfo();
 	$.ajax({ 
     url: server+'detail.php?gid='+id, data: "", dataType: 'json', success: function(rows){
@@ -504,7 +503,7 @@ function showdetail(id){
 		marker=new google.maps.Marker
 		({
 			position: centerbaru,
-			map: map,
+			map: map
 		});
 		map.setCenter(centerbaru);
 		map.setZoom(17);
@@ -516,14 +515,14 @@ function showdetail(id){
 		infodetail.push(infowindow);
 		infowindow.open(map, marker);
 		$('#foto').append("<img src="+fotolokasi+''+foto+" alt='' style=''>");
-		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+jenis+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td><span style='color:"+warna+";'>"+stat+"</span> "+hari+" "+b+" - "+t+"</td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
+		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+jenis+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td>"+hari+" "+b+" - "+t+"<span style='color:"+warna+";'> ("+stat+")</span></td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
 		tampillayanan(gid);
 		tampilrating(gid)
 		}
 	}
 	});
 	$('#det-a').prepend("<button id='kembali-l' class='btn btn-default btn-xs' onclick='closedetail();' style='width:25%;float:right;'><i class='fa fa-chevron-left'></i> Kembali</button>");
-	$('#list-a').css('display','none');
+	$('#list-a,#det-r').css('display','none');
 	$('#det-a').css('display','block');
 	if ($('#sidebar').hasClass('results-collapsed')){
 		$('#sidebar').removeClass("results-collapsed");
@@ -719,7 +718,6 @@ function btnaddreview(){
 		$.ajax({url: server+'addreview.php?gid='+gid+'&pengguna='+pengguna+'&rating='+rating+'&komentar='+komen, dataType: 'json', success: function(rows){
 			for (var i in rows){
 				var row = rows[i];
-				//var review = row.review;
 				var error = row.error;
 				if (error=='true'){
 					alert('Nama pengguna telah digunakan');
@@ -729,14 +727,11 @@ function btnaddreview(){
 					$("#rateid,#user,#komentar").val('');
 					for (var j = 0; j < 5; j++){
 						str = '<i class="fa ';
-						if (j < rating){
-						str += "fa-star";
-						} else {
-						str += "fa-star-o";
-						}
+						if (j < rating) {str += "fa-star";}
+						else {str += "fa-star-o";}
 						str += '" aria-hidden="true"></i>';
 						$("#your-r").append(str);
-						}
+					}
 					$("#your-r").append('<br>'+time+' oleh <b>'+pengguna+'</b><br>'+komen+'<br><hr>');
 				}
 			}

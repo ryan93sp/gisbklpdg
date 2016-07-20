@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="mylib/mystyle.css" type="text/css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=id&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ"></script>
 	
     <title>Sistem Informasi Geografis Bengkel Kota Padang</title>
 </head>
