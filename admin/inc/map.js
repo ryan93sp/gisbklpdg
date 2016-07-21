@@ -38,7 +38,7 @@ function initialize(){
 	{
 		center: new google.maps.LatLng(-0.938627, 100.355848),
 		zoom: 12,
-		mapTypeId: google.maps.MapTypeId.HYBRID,
+		mapTypeId: google.maps.MapTypeId.SATELLITE,
 		disableDefaultUI: true,
 		zoomControl: true
 	});
@@ -142,15 +142,11 @@ function initialize(){
 		}
 		google.maps.event.addListener(newShape.getPath(), 'set_at', function (key, latlng){
 			//alert('point changed');
-			var lat = latlng.lat();
-			var lon = latlng.lng();
-			//console.log(lat, lon); 
-			//polygons.push(event.overlay);
 			var polygonBounds = newShape.getPath();
 			str_input ='MULTIPOLYGON(((';
 			for(var i = 0 ; i < polygonBounds.length ; i++){
-				coor[i] = lon +' '+ lat;
-				str_input += lon +' '+ lat +',';
+				coor[i] = polygonBounds.getAt(i).lng() +' '+ polygonBounds.getAt(i).lat();
+				str_input += polygonBounds.getAt(i).lng() +' '+ polygonBounds.getAt(i).lat() +',';
 				//alert(i);
 			}
 			str_input = str_input+''+coor[0]+')))';
