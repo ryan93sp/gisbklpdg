@@ -40,7 +40,8 @@ function initialize(){
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.SATELLITE,
 		disableDefaultUI: true,
-		zoomControl: true
+		zoomControl: true,
+		mapTypeControl: true
 	});
 	
 	//mencari lokasi dengan latlng

@@ -4,7 +4,7 @@
 	<div class="box-header clearfix">
 	  <h3 class="box-title">Bengkel</h3>
 	  <div class="btn-group pull-right">
-		<a href="?page=l_form" class="btn btn-default">Tambah <i class="fa fa-plus"></i></a>
+		<a href="?page=j_form" class="btn btn-default">Tambah <i class="fa fa-plus"></i></a>
 	  </div>
 	</div><!-- /.box-header -->
 	<div class="box-body">
@@ -12,23 +12,30 @@
 		<thead>
 		  <tr>
 			<th>No</th>
-			<th>Layanan</th>
+			<th>Jenis Bengkel</th>
+			<th>Kendaraan</th>
 			<th>Aksi</th>
+			
 		  </tr>
 		</thead>
 		<tbody>
 		
 		<?php
-		$sql = pg_query("SELECT * FROM layanan");
+		$sql = pg_query("SELECT * FROM jenis_bengkel join jenis_kendaraan on jenis_bengkel.kendaraan_id=jenis_kendaraan.kendaraan_id");
 		while($data =  pg_fetch_array($sql)){
-		$id = $data['layanan_id'];
-		$layanan = $data['jenis_layanan'];
-		?>
+		$id = $data['jenis_id'];
+		$jenis = $data['jenis_nama'];
+		$kendaraan = $data['kendaraan'];
+		
+		?>	
+		
 		  <tr>
 			<td><?php echo "$id"; ?></td>
-			<td><?php echo "$layanan"; ?></td>
+			<td><?php echo "Bengkel $jenis"; ?></td>
+			<td><?php echo "$kendaraan"; ?></td>
+			
 			<td><div class="btn-group">
-				<a href="?page=l_form&id=<?php echo $id; ?>" class="btn btn-sm btn-default" title='Ubah'><i class="fa fa-edit"></i> Ubah</a>
+				<a href="?page=j_form&id=<?php echo $id; ?>" class="btn btn-sm btn-default" title='Ubah'><i class="fa fa-edit"></i> Ubah</a>
 				</div>
 			</td>
 		  </tr>

@@ -28,10 +28,11 @@ $data =  pg_fetch_array($sql);
 			<button class="btn btn-default btn-xs pull-right" id="delete-button"><i class="fa fa-trash"></i> Hapus Shape</button>
 			<div class="box-body">
 				<form role="form" action="act/upprocesspas.php" method="post">
-					<input type="text" class="" id="gid" name="gid" value="<?php echo $gid ?>" hidden>
-					<textarea class="form-control" id="geom" name="geom" placeholder="" required></textarea>
+					<input type="text" class="hidden" id="gid" name="gid" value="<?php echo $gid ?>" hidden>
+					<textarea rows="6" class="form-control" id="geom" name="geom" placeholder="" required></textarea>
 					<div id="coor"></div>
-					<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Simpan</button>
+					<a href="?page=detail&gid=<?php echo $gid ?>" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i> Kembali</a>
+					<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i> Simpan</button>
 				</form>
 			</div>
 		</div>

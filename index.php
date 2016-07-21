@@ -89,10 +89,10 @@
                     <div class="inner panel-group margin-btm40" id="accordion">
                         <header>
                             <h3>Pencarian</h3>
-							<button onclick="geolocation()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;" data-toggle="tooltip" data-placement="top" title="Posisi Sekarang"><i class="fa fa-crosshairs"></i></button>
-							<button onclick="manuallocation()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;" data-toggle="tooltip" data-placement="top" title="Posisi Manual"><i class="fa fa-map-marker"></i></button>
-							<button onclick="tampilsemua()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;" data-toggle="tooltip" data-placement="top" title="Tampilkan semua bengkel"><i class="fa fa-list"></i></button>
-							<button class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Refresh" style="width:27px;font-size:14px;" onclick="refresh()"><i class="fa fa-refresh"></i></button>
+							<button onclick="geolocation()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;margin-right:2px;" data-toggle="tooltip" data-placement="top" title="Posisi Sekarang"><i class="fa fa-crosshairs"></i></button>
+							<button onclick="manuallocation()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;margin-right:2px;" data-toggle="tooltip" data-placement="top" title="Posisi Manual"><i class="fa fa-map-marker"></i></button>
+							<button onclick="tampilsemua()" class="btn btn-primary btn-xs" style="width:27px;font-size:14px;margin-right:2px;" data-toggle="tooltip" data-placement="top" title="Tampilkan semua bengkel"><i class="fa fa-list"></i></button>
+							<button class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Refresh" style="width:27px;font-size:14px;margin-right:2px;" onclick="refresh()"><i class="fa fa-refresh"></i></button>
                         </header>
 						<div class="panel">
                             <div class="panel-heading">
