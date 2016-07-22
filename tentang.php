@@ -52,7 +52,7 @@
         </div>
         <!-- end Navigation-->
         <!-- Page Canvas-->
-		<div id="page-canvas" class="background-color-grey-dark" style="margin-top:69px;">
+		<div id="page-canvas" class="" style="margin-top:69px;">
             <!--Off Canvas Navigation-->
             <nav class="off-canvas-navigation">
                 <header style="line-height: 70px;">Menu</header>

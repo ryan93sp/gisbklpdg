@@ -1,6 +1,5 @@
 <?php
 require 'connect.php';
-//$carinama=$_GET["carinama"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date('w');
 $ken=$_GET['ken'];
@@ -15,7 +14,7 @@ for($i=0;$i<count($lay);$i++){
 	}
 }
 
-$querysearch="select bengkel_region.gid,nama_bengkel,alamat,telpon,(select jam_buka from jam_kerja where jam_kerja.gid=bengkel_region.gid and hari_id=$day),(select jam_tutup from jam_kerja where jam_kerja.gid=bengkel_region.gid and hari_id=$day),ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat from bengkel_region left join jam_kerja on jam_kerja.gid=bengkel_region.gid join layanan_bengkel on bengkel_region.gid=layanan_bengkel.gid where layanan_id in ($c) and hari_id=$day  and kendaraan_id=1 group by bengkel_region.gid having count(layanan_id)=$i";
+$querysearch="select bengkel_region.gid,nama_bengkel,alamat,telpon,(select jam_buka from jam_kerja where jam_kerja.gid=bengkel_region.gid and hari_id=$day),(select jam_tutup from jam_kerja where jam_kerja.gid=bengkel_region.gid and hari_id=$day),ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat from bengkel_region left join jam_kerja on jam_kerja.gid=bengkel_region.gid join layanan_bengkel on bengkel_region.gid=layanan_bengkel.gid where layanan_id in ($c) and hari_id=$day and kendaraan_id=$ken group by bengkel_region.gid having count(layanan_id)=$i";
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))
 	{
