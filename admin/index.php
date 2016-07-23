@@ -89,8 +89,10 @@ include("inc/connect.php");?>
           "bSort": true,
           "bInfo": true,
           "bAutoWidth": false,
+		  "iDisplayLength": 25,
 		  "oLanguage": {
 			 "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+			 "sLengthMenu": "_MENU_ data per halaman",
 			 "sSearch": "Cari:"
 			}
         });

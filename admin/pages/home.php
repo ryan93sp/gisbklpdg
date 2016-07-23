@@ -22,18 +22,18 @@
 		<tbody>
 		
 		<?php
-		$sql = pg_query("SELECT * FROM bengkel_region order by gid desc");
-		$no = 0;
+		$sql = pg_query("SELECT * FROM bengkel_region order by gid asc");
+		//$no = 0;
 		while($data =  pg_fetch_array($sql)){
 		$gid = $data['gid'];
 		$nama = $data['nama_bengkel'];
 		$alamat = $data['alamat'];
 		$telpon = $data['telpon'];
-		$no++;
+		//$no++;
 		?>	
 		
 		  <tr>
-			<td><?php echo "$no"; ?></td>
+			<td><?php echo "$gid"; ?></td>
 			<td><?php echo "$nama"; ?></td>
 			<td><?php echo "$alamat"; ?></td>
 			<td><?php echo "$telpon"; ?></td>

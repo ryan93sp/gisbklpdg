@@ -11,14 +11,14 @@
 <ul class="sidebar-menu">
 	
 	<li class=""><a href="./"><span>Data Bengkel</span></a></li>
-	<!--<li class=""><a href="?page=layanan"><span>Layanan Bengkel</span></a></li>
-	<li class=""><a href="?page=jenis"><span>Jenis Bengkel</span></a></li>
+	<li class=""><a href="?page=layanan"><span>Layanan Bengkel</span></a></li>
+	<!--<li class=""><a href="?page=jenis"><span>Jenis Bengkel</span></a></li>
 	<li class=""><a href="?page=user"><span>Akses</span></a></li>-->
 	<!--<li class="treeview">
-		<a href="#"><span>Data</span> <i class="fa fa-angle-left pull-right"></i></a>
+		<a href="#"><span>expand menu</span> <i class="fa fa-angle-left pull-right"></i></a>
 		<ul class="treeview-menu">
-			<li><a href="../../pages/asisten"><span>Data Asisten</span></a></li>
-			<li><a href="../../pages/mahasiswa"><span>Data Mahasiswa</span></a></li>
+			<li><a href="#"><span>menu1</span></a></li>
+			<li><a href="#"><span>menu2</span></a></li>
 		</ul>
     </li>-->
 	
