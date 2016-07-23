@@ -12,48 +12,16 @@
 			<div id="form">
 				<h4 style="text-transform:capitalize;">Jadwal Operasional Bengkel <?php echo $data['nama_bengkel'] ?></h4>
 					<input type="text" class="form-control hidden" name="gid" value="<?php echo $gid ?>">
+					<?php 
+					$hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+					for($i=0;$i<=6;$i++){ ?>
 					<div class="form-group form-inline">
-						<label style="width:70px">Minggu :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="0">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
+						<label style="width:70px"><?php echo $hari[$i] ?> :</label>
+						<input type="text" class="form-control hidden" name="hari[]" value="<?php echo $i ?>">
+						<span class="bootstrap-timepicker"><input type="text" class="form-control timepicker" name="buka[]" placeholder="Jam Buka"></span> - 
+						<span class="bootstrap-timepicker"><input type="text" class="form-control timepicker" name="tutup[]" placeholder="Jam Tutup"></span>
 					</div>
-					<div class="form-group form-inline">
-						<label style="width:70px">Senin :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="1">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
-					</div>
-					<div class="form-group form-inline">
-						<label style="width:70px">Selasa :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="2">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
-					</div>
-					<div class="form-group form-inline">
-						<label style="width:70px">Rabu :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="3">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
-					</div>
-					<div class="form-group form-inline">
-						<label style="width:70px">Kamis :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="4">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
-					</div>
-					<div class="form-group form-inline">
-						<label style="width:70px">Jumat :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="5">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
-					</div>
-					<div class="form-group form-inline">
-						<label style="width:70px">Sabtu :</label>
-						<input type="text" class="form-control hidden" name="hari[]" value="6">
-						<input type="text" class="form-control" name="buka[]" value="" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="" placeholder="Jam Tutup">
-					</div>
+					<?php } ?>
 			</div>
 		</div>
 	</div><!-- /.box -->

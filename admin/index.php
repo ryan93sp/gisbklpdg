@@ -18,6 +18,8 @@ include("inc/connect.php");?>
 	<link href="dist/css/style.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/skins/skin-black.min.css" rel="stylesheet" type="text/css" />
     <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
+	
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ&libraries=drawing"></script>
 
   </head>
@@ -77,6 +79,7 @@ include("inc/connect.php");?>
     <!-- DATA TABES SCRIPT -->
     <script src="plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
     <script src="plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+	<script src="plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
 	<script src="dist/js/app.min.js" type="text/javascript"></script>
 	<script src="inc/script.js" type="text/javascript"></script>
     <!-- page script -->
@@ -95,6 +98,11 @@ include("inc/connect.php");?>
 			 "sLengthMenu": "_MENU_ data per halaman",
 			 "sSearch": "Cari:"
 			}
+        });
+		//Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false,
+		  showMeridian: false
         });
       });
     </script>

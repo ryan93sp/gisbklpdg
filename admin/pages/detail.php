@@ -22,7 +22,9 @@ while($row = pg_fetch_array($hasil)){
 		$lng='<span style="color:red">Kosong</span>';
 	}
 	$jam_buka=$row['jam_buka'];
+	$b=substr($jam_buka,0,-3);
 	$jam_tutup=$row['jam_tutup'];
+	$t=substr($jam_tutup,0,-3);
 	$buka = strtotime($jam_buka);
 	$newbuka = date('H:i:s',$buka);
 	$tutup = strtotime($jam_tutup);
@@ -55,7 +57,7 @@ while($row = pg_fetch_array($hasil)){
 						<tr><td><b>Telepon</b></td><td>:</td><td><?php echo $telpon ?></td></tr>
 						<tr><td><b>Kendaraan</b></td> <td> :</td><td><?php echo $kendaraan ?></td></tr>
 						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $jenis_bengkel ?></td></tr>
-						<tr><td><b>Jadwal Operasional</b>&nbsp;</td><td> :</td><td><span style='color:<?php echo $warna ?>;'><?php echo $stat ?></span><?php echo ' '.$hari.' '.$jam_buka.'-'.$jam_tutup ?><br><a href="?page=formj&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Jadwal Operasional</a></td></tr>
+						<tr><td><b>Jadwal Operasional</b>&nbsp;</td><td> :</td><td><?php echo $hari.' '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span><br><a href="?page=formj&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Jadwal Operasional</a></td></tr>
 						<tr><td><b>Layanan<b> </td><td>: </td><td><ul style="padding-left:20px;"><?php 
 							$queryl = "select * from layanan_bengkel join layanan on layanan_bengkel.layanan_id=layanan.layanan_id where gid=$gid";
 							$hasill=pg_query($queryl);

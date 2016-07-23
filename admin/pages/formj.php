@@ -15,8 +15,8 @@
 					<div class="form-group form-inline">
 						<label style="width:70px"><?php echo $data['hari'] ?> :</label>
 						<input type="text" class="form-control hidden" name="hari[]" value="<?php echo $data['hari_id'] ?>">
-						<input type="text" class="form-control" name="buka[]" value="<?php echo $data['jam_buka'] ?>" placeholder="Jam Buka"> - 
-						<input type="text" class="form-control" name="tutup[]" value="<?php echo $data['jam_tutup'] ?>" placeholder="Jam Tutup">
+						<span class="bootstrap-timepicker"><input type="text" class="form-control timepicker" name="buka[]" value="<?php echo $data['jam_buka'] ?>" placeholder="Jam Buka"></span> - 
+						<span class="bootstrap-timepicker"><input type="text" class="form-control timepicker" name="tutup[]" value="<?php echo $data['jam_tutup'] ?>" placeholder="Jam Tutup"></span>
 					</div>
 					<?php } ?>
 			</div>
