@@ -1,5 +1,7 @@
+var map;
 var drawingManager;
 var selectedShape;
+var markers = [];
 
 function processPoints(geometry, callback, thisArg) {
   if (geometry instanceof google.maps.LatLng) {
@@ -32,10 +34,38 @@ function deleteSelectedShape() {
     drawingControl: true
   });
 }
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(map);
+	}
+}
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+	setMapOnAll(null);
+	$('#hidem').remove();
+	$('#floating-panel').append('<button id="showm" onclick="showMarkers()" type="button">Show marker</button>');
+	
+}
+// Shows any markers currently in the array.
+function showMarkers() {
+	setMapOnAll(map);
+	$('#showm').remove();
+	$('#floating-panel').append('<button id="hidem" onclick="clearMarkers()" type="button">Hide marker</button>');
+}
+function hideReg() {
+	bengkel_reg.setMap(null);
+	$('#hider').remove();
+	$('#regedit').append('<button class="btn btn-default btn-xs" id="showr" onclick="showReg()"><i class="fa fa-eye-slash"></i> Show region</button>');
+}
+function showReg() {
+	bengkel_reg.setMap(map);
+	$('#showr').remove();
+	$('#regedit').append('<button class="btn btn-default btn-xs" id="hider" onclick="hideReg()"><i class="fa fa-eye-slash"></i> Hide Region</button>');
+}
 
 function initialize(){
-    var map = new google.maps.Map(document.getElementById('map'),
-	{
+    map = new google.maps.Map(document.getElementById('map'),{
 		center: new google.maps.LatLng(-0.938627, 100.355848),
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.SATELLITE,
@@ -63,8 +93,11 @@ function initialize(){
                 map: map
               });
 			  map.setCenter(latlng);
-              infowindow.setContent(results[1].formatted_address);
-              infowindow.open(map, marker);
+			  markers.push(marker);
+              /* infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker); */
+			  $('#showm,#hidem').remove();
+			  $('#floating-panel').append('<button id="hidem" onclick="clearMarkers()" type="button">Hide marker</button>');
             } else {
               window.alert('No results found');
             }
@@ -75,7 +108,7 @@ function initialize(){
     }
 	
 	//zoom peta sesuai digitasi
-	var bengkel_reg = new google.maps.Data();
+	bengkel_reg = new google.maps.Data();
 	bengkel_reg.loadGeoJson('act/bengkel_region.php?gid='+gid.value);
 	bengkel_reg.setMap(map);
 	bengkel_reg.setStyle({

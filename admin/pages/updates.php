@@ -25,7 +25,10 @@ $data =  pg_fetch_array($sql);
 			<div class="box-header">
 				<h3 class="box-title" style="text-transform:capitalize;">Ubah Data Spasial Bengkel <?php echo $data['nama_bengkel'] ?></h3>
 			</div>
-			<button class="btn btn-default btn-xs pull-right" id="delete-button"><i class="fa fa-trash"></i> Hapus Shape</button>
+			<div class="pull-right" id="regedit">
+				<button class="btn btn-default btn-xs" id="delete-button"><i class="fa fa-trash"></i> Hapus Shape</button>
+				<button class="btn btn-default btn-xs" id="hider" onclick="hideReg()"><i class="fa fa-eye-slash"></i> Hide Region</button>
+			</div>
 			<div class="box-body">
 				<form role="form" action="act/upprocesspas.php" method="post">
 					<input type="text" class="hidden" id="gid" name="gid" value="<?php echo $gid ?>" hidden>

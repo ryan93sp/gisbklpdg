@@ -37,7 +37,6 @@ function inisialisasi(){
 		});
 		bataskecamatan.setMap(map);
 		//menampilkan region bengkel
-		
 		var bengkel_reg = new google.maps.Data();
 		bengkel_reg.loadGeoJson(server+'bengkel_region.php');
 		bengkel_reg.setStyle(function(feature){

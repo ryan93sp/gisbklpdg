@@ -57,9 +57,10 @@ while($row = pg_fetch_array($hasil)){
 						<tr><td><b>Telepon</b></td><td>:</td><td><?php echo $telpon ?></td></tr>
 						<tr><td><b>Kendaraan</b></td> <td> :</td><td><?php echo $kendaraan ?></td></tr>
 						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $jenis_bengkel ?></td></tr>
-						<tr><td><b>Jadwal Operasional</b>&nbsp;</td><td> :</td><td><?php echo $hari.' '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span><br><a href="?page=formj&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Jadwal Operasional</a></td></tr>
+						<tr><td><b>Jadwal Operasional</b>&nbsp;</td><td> :</td><td>
+							<?php echo $hari.' '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span><br><a href="?page=formj&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Jadwal Operasional</a></td></tr>
 						<tr><td><b>Layanan<b> </td><td>: </td><td><ul style="padding-left:20px;"><?php 
-							$queryl = "select * from layanan_bengkel join layanan on layanan_bengkel.layanan_id=layanan.layanan_id where gid=$gid";
+							$queryl = "select * from layanan_bengkel join layanan on layanan_bengkel.layanan_id=layanan.layanan_id where gid=$gid order by layanan_bengkel.layanan_id";
 							$hasill=pg_query($queryl);
 							while($rowl = pg_fetch_array($hasill)){
 								echo '<li>'.$rowl['jenis_layanan'].'</li>';

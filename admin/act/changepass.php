@@ -10,8 +10,8 @@ $username = $_POST["user"];
 
 	$querycek = pg_query("select * from login where username = '$username' and password = '$passlama'");
 	$count = pg_num_rows($querycek);
-	
-	if ($count >= 1 && $passwordbaru==$konfirmasipassword){
+	echo $count;
+	if ($count == 1 && $passwordbaru==$konfirmasipassword){
 	$queryupdate = pg_query("update login set password = '$passbaru' where username = '$username'");
 		if($queryupdate){
 		 header("location:../?page=profil");

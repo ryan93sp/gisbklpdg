@@ -7,7 +7,7 @@
               <h3><i class="fa fa-warning text-yellow"></i> Oops! Halaman tidak ditemukan.</h3>
               <p>
                 Kami tidak menemukan halaman yang anda cari.<br>
-                Silahkan kembali ke halaman <a href='index.php'>home</a>.
+                Silahkan kembali ke halaman <a href='./'>home</a>.
               </p>
             </div><!-- /.error-content -->
           </div><!-- /.error-page -->

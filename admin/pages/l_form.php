@@ -9,7 +9,7 @@
 					<button type="submit" class="btn btn-primary pull-right">Simpan <i class="fa fa-floppy-o"></i></button>
 					<div class="form-group" style="clear:both" id="l_form">
 						<label for="nama">Layanan</label>
-						<input type="text" class="form-control" name="layanan[]" value="" style="margin-bottom:3px;" required>
+						<input type="text" class="form-control" name="layanan[]" value="" style="margin-bottom:3px;" autofocus required>
 					</div>
 				</form>
 				<?php } if (isset($_GET['id'])){

@@ -99,10 +99,10 @@ include("inc/connect.php");?>
 			 "sSearch": "Cari:"
 			}
         });
-		//Timepicker
         $(".timepicker").timepicker({
-          showInputs: false,
-		  showMeridian: false
+			showInputs: false,
+			showMeridian: false,
+			defaultTime: 'value'
         });
       });
     </script>

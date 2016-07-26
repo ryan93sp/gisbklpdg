@@ -9,7 +9,11 @@
 	<div class="box">
 		<div class="box-body">
 			<div id="form">
-				<h4 style="text-transform:capitalize;">Jadwal Operasional Bengkel <?php echo $data['nama_bengkel'] ?></h4>
+				<h4 style="text-transform:capitalize;">Jadwal Operasional Bengkel <?php 
+					$sql2 = pg_query("SELECT * FROM bengkel_region where gid=$gid");
+					$dt2 = pg_fetch_array($sql2);
+					echo $dt2['nama_bengkel']; ?>
+				</h4>
 					<input type="text" class="form-control hidden" name="gid" value="<?php echo $gid ?>">
 					<?php while($data = pg_fetch_array($sql)){ ?>
 					<div class="form-group form-inline">

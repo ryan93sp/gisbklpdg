@@ -14,9 +14,16 @@ function jenischange(){
 function addinputl(){
 	var x = document.getElementById("forml");
 	var y = x.getElementsByClassName("form-group");
-	$('#forml').append('<div class="form-group">'+y[0].innerHTML+'</div>');
+	var last_y = y[y.length - 1];
+	$('#forml').append('<div class="form-group">'+last_y.innerHTML+'</div>');
 }
 function reminput2(){
-	x = document.getElementsByClassName("form-group")[1];
-	x.remove();
+	/* x = document.getElementsByClassName("form-group")[1];
+	x.remove(); */
+	var x = document.getElementById("forml");
+	var y = x.getElementsByClassName("form-group");
+	var last_y = y[y.length - 1];
+	if (y.length>1){
+		last_y.remove();
+	}
 }
