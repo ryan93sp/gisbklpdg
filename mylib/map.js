@@ -456,7 +456,7 @@ function rute(start, end){
 //menampilkan detail hasil pencarian
 function showdetail(id){
 	$('#kembali-l').remove();
-	$('#foto,#isi').empty();
+	$('#foto,#isi,.modal-title,.modal-body').empty();
 	hapusInfo();
 	$.ajax({ 
     url: server+'detail.php?gid='+id, data: "", dataType: 'json', success: function(rows){
@@ -513,7 +513,9 @@ function showdetail(id){
 		});
 		infodetail.push(infowindow);
 		infowindow.open(map, marker);
-		$('#foto').append("<img src="+fotolokasi+''+foto+" alt='' style=''>");
+		$('.modal-title').append("Bengkel "+nama);
+		$('.modal-body').append("<img src="+fotolokasi+''+foto+" alt='' style=''>");
+		$('#foto').append("<a href='#' data-toggle='modal' data-target='#myModal'><img src="+fotolokasi+''+foto+" alt='' style=''></a>");
 		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+jenis+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td>"+hari+" "+b+" - "+t+"<span style='color:"+warna+";'> ("+stat+")</span></td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
 		tampillayanan(gid);
 		tampilrating(gid)

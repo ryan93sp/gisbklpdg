@@ -9,7 +9,7 @@
 </div>
 <!-- Sidebar Menu -->
 <ul class="sidebar-menu">
-	
+	<li class=""><a href="../"><span>Halaman Pengguna</span></a></li>
 	<li class=""><a href="./"><span>Data Bengkel</span></a></li>
 	<li class=""><a href="?page=layanan"><span>Layanan Bengkel</span></a></li>
 	<li class=""><a href="?page=form"><span>Tambah Bengkel</span></a></li>
