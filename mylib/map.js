@@ -8,6 +8,7 @@ var image='image/geomarker.png';
 var server='json/';
 var iconlegend='image/legenda/';
 var fotolokasi='image/foto/';
+var centerposisi=null;
 //meload peta dan digitasi
 function inisialisasi(){
 		var mapOptions = {
@@ -430,7 +431,7 @@ function hapusrute(){
 }
 //menampilkan rute perjalanan
 function rute(start, end){
-	if(usegeolocation == false){
+	if(centerposisi == null || usegeolocation == false){
 		alert("Tentukan posisi")
 	}else{
 		hapusrute();

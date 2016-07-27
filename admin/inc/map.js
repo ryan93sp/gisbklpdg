@@ -108,7 +108,6 @@ function initialize(){
     }
 	
 	//zoom peta sesuai digitasi
-	var bengkel_reg;
 	bengkel_reg = new google.maps.Data();
 	bengkel_reg.loadGeoJson('act/bengkel_region.php?gid='+gid.value);
 	bengkel_reg.setMap(map);
