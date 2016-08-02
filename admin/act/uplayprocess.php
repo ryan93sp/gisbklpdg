@@ -22,6 +22,7 @@ if ($insert && $delete){
 }
 else{
 	echo 'error';
+	header("location:../?page=detail&gid=$gid");
 }
 
 ?>

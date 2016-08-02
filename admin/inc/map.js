@@ -146,7 +146,7 @@ function initialize(){
 		if (event.type == google.maps.drawing.OverlayType.POLYGON) {
 			//console.log('polygon path array', event.overlay.getPath().getArray());
 			var str_input ='MULTIPOLYGON(((';
-			i=1;
+			i=0;
 			$.each(event.overlay.getPath().getArray(), function(key, latlng){
 				var lat = latlng.lat();
 				var lon = latlng.lng();
@@ -154,6 +154,8 @@ function initialize(){
 				str_input += lon +' '+ lat +',';
 				i++;
 			});
+			str_input = str_input+''+coor[0]+')))';
+			$("#geom").val(str_input);
 			drawingManager.setDrawingMode(null);
 			drawingManager.setOptions({
 				drawingControl: false
@@ -161,13 +163,10 @@ function initialize(){
 			// Add an event listener that selects the newly-drawn shape when the user mouses down on it.
 			var newShape = event.overlay;
 			newShape.type = event.type;
-			google.maps.event.addListener(newShape, 'click', function() {
+			setSelection(newShape);
+			google.maps.event.addListener(newShape, 'click', function(){
 				setSelection(newShape);
 			});
-			setSelection(newShape);		
-			str_input = str_input+''+coor[1]+')))';
-			$("#geom").val(str_input);
-		
 		}
 		function getCoordinate(){
 			var polygonBounds = newShape.getPath();

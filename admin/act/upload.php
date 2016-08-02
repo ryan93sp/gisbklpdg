@@ -14,6 +14,7 @@ $gid = $_POST['gid'];
 		}
 	}
 	else{
-		echo "Gambar tidak valid!";
+		echo "Gambar tidak valid!<br>";
+		echo "Kembali ke <a href='../?page=detail&gid=$gid'>halaman detail</a>";
 	}
 ?>

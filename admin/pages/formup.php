@@ -11,6 +11,7 @@
 		  <label for="file">Upload Foto</label>
 		  <input type="file" name="image" required>
 		</div>
+		<span style="color:red;">*Ukuran gambar maksimal 500kb</span>
 	  </div><!-- /.box-body -->
 
 	  <div class="box-footer">

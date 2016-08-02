@@ -1,4 +1,4 @@
-var myLatLng = new google.maps.LatLng(-0.938627,100.355848);
+var myLatLng = new google.maps.LatLng(-0.931177, 100.416027);
 var markerposisi=[];
 var markerhasil=[];
 var circles = [];
@@ -208,6 +208,11 @@ function btncarinama(){
 	    });
 	}
 }
+$("#carinama").keyup(function(event){
+	if (event.keyCode==13) {
+		btncarinama();
+	}
+});
 //cari berdasarkan jenis
 function btncarijns(){
 	if(selectken.value=='--Pilih Jenis Kendaraan--'){
@@ -414,14 +419,11 @@ function createInfoWindow(centerbaru, gid, nama, alamat, telpon, warna, stat){
 	markerhasil.push(marker);
 	infowindow = new google.maps.InfoWindow();
 	var isiinfowindow="<div class='nama'>"+nama+"</div><br> Alamat: "+alamat+"<br> Telepon: "+telpon+"<br> Status: "+stat+"<br><button class='btn btn-default btn-xs' style='width:100px' onclick='showdetail("+gid+");'>Detail</button>";
-	google.maps.event.addListener(marker, 'mouseover', function(){
+	google.maps.event.addListener(marker, 'click', function(){
         infowindow.close();
 		infowindow.setContent(isiinfowindow);
         infowindow.open(map, marker);
     });
-	/* google.maps.event.addListener(marker, 'mouseout', function(){
-		infowindow.close();
-	}); */
 }
 //menghapus rute
 function hapusrute(){           
@@ -519,7 +521,7 @@ function showdetail(id){
 		$('#foto').append("<a href='#' data-toggle='modal' data-target='#myModal'><img src="+fotolokasi+''+foto+" alt='' style=''></a>");
 		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+jenis+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td>"+hari+" "+b+" - "+t+"<span style='color:"+warna+";'> ("+stat+")</span></td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
 		tampillayanan(gid);
-		tampilrating(gid)
+		tampilrating(gid);
 		}
 	}
 	});
@@ -735,10 +737,11 @@ function btnaddreview(){
 						$("#your-r").append(str);
 					}
 					$("#your-r").append('<br>'+time+' oleh <b>'+pengguna+'</b><br>'+komen+'<br><hr>');
+					$(".rating").empty();
+					tampilrating(gid);
 				}
 			}
-		}
-		});
+		}});
 	}
 }
 function refresh(){

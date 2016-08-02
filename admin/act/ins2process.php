@@ -33,6 +33,7 @@ if ($insert){
 	}
 	else{
 		echo 'error';
+		header("location:../?page=detail&gid=$gid");
 	}
 }
 else {
