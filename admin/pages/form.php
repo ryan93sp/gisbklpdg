@@ -1,114 +1,79 @@
 <div class="row">
-<div class="col-xs-12">
-	<div class="box">
+<form role="form" action="act/insprocess.php" method="post">
+<div class="col-lg-6 col-xs-6 col-0">
+	<div class="box box-primary">
 		<div class="box-body">
 			<div id="form">
-			<?php if (isset($_GET['gid'])){
-				$gid=$_GET['gid'];
-				$sql = pg_query("SELECT * FROM bengkel_region join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id where gid=$gid");
-				$data =  pg_fetch_array($sql);
-			?>
-				<h4 style="text-transform:capitalize;">Ubah Data Atribut Bengkel <?php echo $data['nama_bengkel'] ?></h4>
-				<form role="form" action="act/upprocess.php" method="post">
-				<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o"></i> Simpan</button>
-					<input type="text" class="form-control hidden" name="gid" value="<?php echo $gid ?>">
-					<div class="form-group" style="clear:both">
-						<label for="nama">Nama Bengkel</label>
-						<input type="text" class="form-control" name="nama" value="<?php echo $data['nama_bengkel'] ?>">
-					</div>
-					<div class="form-group">
-						<label for="alamat">Alamat</label>
-						<input type="text" class="form-control" name="alamat" value="<?php echo $data['alamat'] ?>">
-					</div>
-					<div class="form-group">
-						<label for="telepon">Telepon</label>
-						<input type="text" class="form-control" name="telepon" value="<?php echo $data['telpon'] ?>">
-					</div>
-					<div class="form-group">
-						<label for="selectken">Jenis Kendaraan</label>
-						<select required name="selectken" id="selectken" class="form-control" onchange="jenischange()">
-							<?php
-								$sql = pg_query("select * from jenis_kendaraan");
-								while($dtk = pg_fetch_array($sql)){
-								if ($data[kendaraan_id]==$dtk[kendaraan_id]){
-									echo "<option value=\"$dtk[kendaraan_id]\" selected>$dtk[kendaraan]</option>";}
-								else{
-									echo "<option value=\"$dtk[kendaraan_id]\">$dtk[kendaraan]</option>";}
-								}
-							?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="selectkat">Jenis Bengkel</label>
-						<select required name="selectkat" id="selectkat" class="form-control">
-							<?php
-								$sql = pg_query("select * from jenis_bengkel where kendaraan_id=$data[kendaraan_id]");
-								while($dt = pg_fetch_array($sql)){
-								if ($data[jenis_id]==$dt[jenis_id]){
-									echo "<option value=\"$dt[jenis_id]\" selected>Bengkel $dt[jenis_nama]</option>";}
-								else{
-									echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
-								}
-							?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="konfirm">Deskripsi</label>
-						<textarea class="form-control" name="deskripsi" rows="3" placeholder=""><?php echo $data['deskripsi']?></textarea>
-					</div>
-				</form>
-			<?php 
-				}else{
+				<?php
 					$query = pg_query("SELECT MAX(gid) AS gid FROM bengkel_region");
 					$result = pg_fetch_array($query);
 					$idmax = $result['gid'];
 					if ($idmax==null) {$idmax=1;}
 					else {$idmax++;}
-			?>
+				?>
 				<h4 style="text-transform:capitalize;">Tambah Data Bengkel</h4>
-				<form role="form" action="act/insprocess.php" method="post">
-					<button type="submit" class="btn btn-primary pull-right">Lanjut <i class="fa fa-chevron-right"></i></button>
-					<input type="text" class="form-control hidden" name="gid" value="<?php echo $idmax;?>">
-					<div class="form-group" style="clear:both">
-						<label for="nama">Nama Bengkel</label>
-						<input type="text" class="form-control" name="nama" value="" required>
-					</div>
-					<div class="form-group">
-						<label for="alamat">Alamat</label>
-						<input type="text" class="form-control" name="alamat" value="" required>
-					</div>
-					<div class="form-group">
-						<label for="telepon">Telepon</label>
-						<input type="text" class="form-control" name="telepon" value="<?php echo $data['telpon'] ?>">
-					</div>
-					<div class="form-group">
-						<label for="selectken">Jenis Kendaraan</label>
-						<select required name="selectken" id="selectken" class="form-control" onchange="jenischange()">
-							<?php
-								$sql = pg_query("select * from jenis_kendaraan");
-								while($dtk = pg_fetch_array($sql)){
-									echo "<option value=\"$dtk[kendaraan_id]\">$dtk[kendaraan]</option>";}
-							?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="selectkat">Jenis Bengkel</label>
-						<select required name="selectkat" id="selectkat" class="form-control" required>
-							<?php
-								$sql = pg_query("select * from jenis_bengkel where kendaraan_id=1");
-								while($dt = pg_fetch_array($sql)){
-								echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
-							?>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="konfirm">Deskripsi</label>
-						<textarea class="form-control" name="deskripsi" rows="3" placeholder=""></textarea>
-					</div>
-				</form>
-			<?php } ?>
+				<input type="text" class="form-control hidden" id="gid" name="gid" value="<?php echo $idmax;?>">
+				<div class="form-group">
+					<label for="geom">Koordinat</label>
+					<textarea class="form-control" id="geom" name="geom" readonly required></textarea>
+				</div>
+				<div class="form-group">
+					<label for="nama">Nama Bengkel</label>
+					<input type="text" class="form-control" name="nama" value="" required>
+				</div>
+				<div class="form-group">
+					<label for="alamat">Alamat</label>
+					<input type="text" class="form-control" name="alamat" value="" required>
+				</div>
+				<div class="form-group">
+					<label for="telepon">Telepon</label>
+					<input type="text" class="form-control" name="telepon" value="<?php echo $data['telpon'] ?>">
+				</div>
+				<div class="form-group">
+					<label for="selectken">Jenis Kendaraan</label>
+					<select required name="selectken" id="selectken" class="form-control">
+						<?php
+							$sql = pg_query("select * from jenis_kendaraan");
+							while($dtk = pg_fetch_array($sql)){
+								echo "<option value=\"$dtk[kendaraan_id]\">$dtk[kendaraan]</option>";}
+						?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="selectjenis">Jenis Bengkel</label>
+					<select required name="selectjenis" id="selectjenis" class="form-control" required>
+						<?php
+							$sql = pg_query("select * from jenis_bengkel");
+							while($dt = pg_fetch_array($sql)){
+							echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
+						?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="deskripsi">Deskripsi</label>
+					<textarea class="form-control" name="deskripsi" rows="3" placeholder=""></textarea>
+				</div>			
 			</div>
 		</div>
 	</div><!-- /.box -->
 </div><!-- /.col -->
+<div class="col-lg-6 col-xs-6 col-0">
+	<div class="box box-primary">
+		<div class="box-body">
+			<h4 style="text-transform:capitalize;">Peta</h4>
+			<button type="submit" class="btn btn-primary pull-right">Lanjut <i class="fa fa-chevron-right"></i></button>
+			<hr style="clear:both">
+			<div id="map-canvas">
+				<div id="map"></div>
+				<div id="floating-panel">
+					<button class="btn btn-default my-btn" id="delete-button" type="button" title="Remove shape"><i class="fa fa-trash"></i></button>
+					<input id="latlng" type="text" value="" placeholder="latitude, longitude">
+					<button class="btn btn-default my-btn" id="btnlatlng" type="button" title="Geocode"><i class="fa fa-search"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!-- ./col -->
+</form>
 </div>
+<script src="inc/map.js" type="text/javascript"></script>

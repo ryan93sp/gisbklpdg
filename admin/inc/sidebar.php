@@ -12,9 +12,9 @@
 	<li class=""><a href="../"><span>Halaman Pengguna</span></a></li>
 	<li class=""><a href="./"><span>Data Bengkel</span></a></li>
 	<li class=""><a href="?page=layanan"><span>Layanan Bengkel</span></a></li>
+	<li class=""><a href="?page=jenis"><span>Jenis Bengkel</span></a></li>
 	<li class=""><a href="?page=form"><span>Tambah Bengkel</span></a></li>
-	<!--<li class=""><a href="?page=jenis"><span>Jenis Bengkel</span></a></li>
-	<li class=""><a href="?page=user"><span>Akses</span></a></li>-->
+	<!--<li class=""><a href="?page=user"><span>Akses</span></a></li>-->
 	<!--<li class="treeview">
 		<a href="#"><span>expand menu</span> <i class="fa fa-angle-left pull-right"></i></a>
 		<ul class="treeview-menu">

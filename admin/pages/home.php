@@ -11,7 +11,7 @@
 	  <table id="example1" class="table table-hover table-bordered table-striped">
 		<thead>
 		  <tr>
-			<th>No</th>
+			<th>ID</th>
 			<th>Nama Bengkel</th>
 			<th>Alamat</th>
 			<th>Telepon</th>

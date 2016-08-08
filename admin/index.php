@@ -9,7 +9,7 @@ include("inc/connect.php");?>
 <html>
   <head>
     <meta charset="UTF-8">
-	<link rel="icon" type="../image/png" href="../image/icon.png">
+	<link rel="icon" type="image/png" href="../img/icon.png">
     <title>Admin GIS Bengkel Kota Padang</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -23,7 +23,7 @@ include("inc/connect.php");?>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ&libraries=drawing"></script>
 
   </head>
-  <body class="skin-black">
+  <body class="skin-black fixed">
     <div class="wrapper">
 
       <!-- Main Header -->

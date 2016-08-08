@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="icon" type="image/png" href="image/icon.png">
+	<link rel="icon" type="image/png" href="img/icon.png">
     <link href="font/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="css/css.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -31,7 +31,7 @@
         <div class="header" style="position:fixed;top:0px;">
             <div class="wrapper">
                 <div class="brand">
-                    <a href="./"><img src="image/logo.png" alt="logo"></a>
+                    <a href="./"><img src="img/logo.png" alt="logo"></a>
                 </div>
                 <nav class="navigation-items">
                     <div class="wrapper">

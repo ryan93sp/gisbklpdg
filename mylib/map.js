@@ -4,10 +4,10 @@ var markerhasil=[];
 var circles = [];
 var infodetail = [];
 var usegeolocation = false;
-var image='image/geomarker.png';
+var image='img/geomarker.png';
 var server='json/';
-var iconlegend='image/legenda/';
-var fotolokasi='image/foto/';
+var iconlegend='img/legenda/';
+var fotolokasi='img/foto/';
 var centerposisi=null;
 //meload peta dan digitasi
 function inisialisasi(){
@@ -17,7 +17,6 @@ function inisialisasi(){
 			mapTypeId: google.maps.MapTypeId.ROAD
 		};
 		map = new google.maps.Map(document.getElementById('map'), mapOptions); 
-		
 		geolocation();
 		//menampilkan polyline kota padang
 		var bataspadang = new google.maps.Data();
@@ -42,13 +41,14 @@ function inisialisasi(){
 		bengkel_reg.loadGeoJson(server+'bengkel_region.php');
 		bengkel_reg.setStyle(function(feature){
 			var jenis = feature.getProperty('jenis_id');
-			if (jenis == '1' || jenis == '2' || jenis == '3'){
+			var kend = feature.getProperty('kendaraan_id');
+			if (kend==1 && jenis > 1){
 				color = 'red';
-			}else if(jenis == '4'){
+			}else if(kend==1 && jenis == 1){
 				color = 'yellow'
-			}else if(jenis == '5' || jenis == '6' || jenis == '7'){
+			}else if(kend==2 && jenis > 1){
 				color = 'green'
-			}else{
+			}else if(kend==2 && jenis == 1){
 				color = 'blue'
 			}
 			return({
@@ -107,7 +107,6 @@ function inisialisasi(){
 			}
 		map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
 }
-
 //menampilkan posisi saat ini
 function geolocation(){
 	hapusposisi();
@@ -126,7 +125,7 @@ function geolocation(){
 		markerposisi.push(geomarker);
 		map.panTo(pos);
 		infowindow = new google.maps.InfoWindow();
-		infowindow.setContent(' Posisi Anda ');
+		infowindow.setContent('Posisi Anda');
 		infowindow.open(map, geomarker);
 		usegeolocation=true;
     });
@@ -141,7 +140,6 @@ function manuallocation(){
 	}
 	function addMarker(location){
 		hapusposisi();
-		
 		marker = new google.maps.Marker({
 			icon: image,
 			position : location,
@@ -155,7 +153,7 @@ function manuallocation(){
 		centerposisi = new google.maps.LatLng(pos.lat, pos.lng);
 		markerposisi.push(marker);
 		infowindow = new google.maps.InfoWindow();
-		infowindow.setContent(' Posisi Sekarang ');
+		infowindow.setContent('Posisi Sekarang');
 		infowindow.open(map, marker);
 		usegeolocation=true;
 		google.maps.event.clearListeners(map, 'click');
@@ -199,8 +197,7 @@ function tampilsemua(){
 function btncarinama(){
 	if(carinama.value==''){
 		alert("Isi kolom pencarian!");
-    }
-    else{
+    }else{
 		refresh();
 		$.ajax({
 	    url: server+'carinama.php?q='+carinama.value, data: "", dataType: 'json', success: function (rows){
@@ -217,11 +214,10 @@ $("#carinama").keyup(function(event){
 function btncarijns(){
 	if(selectken.value=='--Pilih Jenis Kendaraan--'){
 		alert("Pilih Jenis!");
-    }
-    else{
+    }else{
 		refresh();
 		$.ajax({
-	    url: server+'carijenis.php?id='+selectbeng.value, data: "", dataType: 'json', success: function (rows){
+	    url: server+'carijenis.php?ken='+selectken.value+'&jen='+selectbeng.value, data: "", dataType: 'json', success: function (rows){
 			loaddata(rows);}
 	    });
 	}
@@ -265,7 +261,7 @@ function btncarilay(){
 		$.ajax({
 		url: server+'carilayanan.php?ken='+ken+'&lay='+arrayLay, data: "", dataType: 'json', success: function(rows){
 		loaddata(rows);}
-	});
+		});
 	}
 }
 //cari berdasarkan kecamatan
@@ -386,11 +382,11 @@ function loaddata(rows){
 			markerhasil.push(marker);
 			map.setZoom(14);
 			map.setCenter(centerbaru);
-			var now = new Date();
-			var strnow = Date.parse(now);
-			var tgl = now.getDate();
-			var bln = now.getMonth();
-			var thn = now.getFullYear();
+			var now = new Date(),
+			strnow = Date.parse(now),
+			tgl = now.getDate(),
+			bln = now.getMonth(),
+			thn = now.getFullYear();
 			bkh = jam_buka.split(":");
 			v_bkh = new Date(thn, bln, tgl, bkh[0], bkh[1], bkh[2]);
 			var strbuka = Date.parse(v_bkh);
@@ -403,9 +399,7 @@ function loaddata(rows){
 			else {
 				var stat = 'Tutup';
 				var warna = 'Red';}
-				
 			createInfoWindow(centerbaru, gid, nama, alamat, telpon, warna, stat);
-			
 			$('#list-a').append("<div class='list-det' id="+gid+" onclick='showdetail(this.id);'><a href='#'><div class='nama'>"+nama+"</div><div style='text-transform:capitalize;'>"+alamat+"</div><div>"+telpon+"</div><p style='color:"+warna+";'>"+b+" - "+t+" ("+stat+")</p></a></div>");
 		}
 	}
@@ -426,7 +420,7 @@ function createInfoWindow(centerbaru, gid, nama, alamat, telpon, warna, stat){
     });
 }
 //menghapus rute
-function hapusrute(){           
+function hapusrute(){
     if(typeof(directionsDisplay) != "undefined" && directionsDisplay.getMap() != undefined){
     	directionsDisplay.setMap(null);
 	}
@@ -473,37 +467,30 @@ function showdetail(id){
 		kendaraan = row.kendaraan,
 		jenis = row.jenis,
 		deskripsi = row.deskripsi,
-		jam_buka = row.jam_buka,
-		b = jam_buka.slice(0,-3),
-		jam_tutup = row.jam_tutup,
-		t = jam_tutup.slice(0,-3),
+		jam_buka = row.jam_buka,b = jam_buka.slice(0,-3),
+		jam_tutup = row.jam_tutup,t = jam_tutup.slice(0,-3),
 		hari = row.hari,
-		latitude  = row.latitude,
-		longitude = row.longitude,
-		now = new Date(),
-		strnow = Date.parse(now),
-		tgl = now.getDate(),
-		bln = now.getMonth(),
-		thn = now.getFullYear();
-
+		latitude  = row.latitude,longitude = row.longitude,
+		now = new Date(),strnow = Date.parse(now),
+		tgl = now.getDate(),bln = now.getMonth(),thn = now.getFullYear();
 		bkh = jam_buka.split(":");
 		v_bkh = new Date(thn, bln, tgl, bkh[0], bkh[1], bkh[2]);
 		var strbuka = Date.parse(v_bkh);
-
 		ttph = jam_tutup.split(":");
 		v_ttph = new Date(thn, bln, tgl, ttph[0], ttph[1], ttph[2]);
 		var strtutup = Date.parse(v_ttph);
-		
 		if(strnow >= strbuka && strnow <= strtutup){
 			var stat = 'Buka';
-			var warna = 'Blue';}
-		else {
+			var warna = 'Blue';
+		}else{
 			var stat = 'Tutup';
-			var warna = 'Red';}
-			
+			var warna = 'Red';
+		}
+		if (foto=='null' || foto=='' || foto==null){
+			foto='foto.jpg';
+		}
 		centerbaru = new google.maps.LatLng(row.latitude, row.longitude);
-		marker=new google.maps.Marker
-		({
+		marker=new google.maps.Marker({
 			position: centerbaru,
 			map: map
 		});
@@ -517,14 +504,13 @@ function showdetail(id){
 		infodetail.push(infowindow);
 		infowindow.open(map, marker);
 		$('.modal-title').append("Bengkel "+nama);
-		$('.modal-body').append("<img src="+fotolokasi+''+foto+" alt='' style=''>");
-		$('#foto').append("<a href='#' data-toggle='modal' data-target='#myModal'><img src="+fotolokasi+''+foto+" alt='' style=''></a>");
+		$('.modal-body').append("<img src="+fotolokasi+foto+" alt='' style=''>");
+		$('#foto').append("<a href='#' data-toggle='modal' data-target='#myModal'><img src="+fotolokasi+foto+" alt='' style=''></a>");
 		$('#isi').append("<h2 style='text-transform:capitalize;margin-bottom: 10px;margin-top:10px;'>"+nama+"</h2><table><tbody style='vertical-align:top;'><tr><td><b>Alamat</b></td><td> :&nbsp;</td><td style='text-transform:capitalize;'>"+alamat+" </td></tr><tr><td> <b>Telepon</b></td><td>:</td><td> "+telpon+"</td></tr><tr><td><b>Kendaraan</b>&nbsp;</td><td> :</td><td> "+kendaraan+" </td></tr><tr> <td><b>Bengkel<b></td><td>: </td><td>"+jenis+" </td></tr><tr><td><b>Jam Kerja</b></td><td> :</td><td>"+hari+" "+b+" - "+t+"<span style='color:"+warna+";'> ("+stat+")</span></td></tr></tbody></table><a class='collapsed' data-toggle='collapse' data-parent='#acc' href='#collapsex'><b>Layanan</b><i class='fa fa-chevron-down'></i></a><div id='collapsex' class='panel-collapse collapse in'><ul style='margin-left:20px;' id='layanan'></ul></div><div class='rating'></div><br><button class='btn btn-primary' style='width:30%;' value='Route' onclick='rute(centerposisi,centerbaru);'>Rute</button>&nbsp<button class='btn btn-primary' style='width:30%;' id='br_"+gid+"' onclick='tampilreview(this.id)'>Rate</button><!--<button class='btn btn-primary' style='width:30%;' value='sekitar' onclick='sekitar("+latitude+","+longitude+",1000,"+gid+")'>Sekitar</button>--><div style='margin-top:10px;' id='detailrute'></div>");
 		tampillayanan(gid);
 		tampilrating(gid);
 		}
-	}
-	});
+	}});
 	$('#det-a').prepend("<button id='kembali-l' class='btn btn-default btn-xs' onclick='closedetail();' style='width:25%;float:right;'><i class='fa fa-chevron-left'></i> Kembali</button>");
 	$('#list-a,#det-r').css('display','none');
 	$('#det-a').css('display','block');
@@ -545,15 +531,15 @@ function hapusInfo(){
 function tampillayanan(id){
 	$.ajax({
 	url: server+'layanan.php?gid='+id, data: "", dataType: 'json', success: function(rows){
-	if(rows==null){
-		$('#layanan').append("-");
-	}
-	for (var i in rows){
-		var row     = rows[i];
-		var layanan = row.layanan;
-		$('#layanan').append("<li>"+layanan+"</li>");
-	}}
-	});
+		if(rows==null){
+			$('#layanan').append("-");
+		}
+		for (var i in rows){
+			var row     = rows[i];
+			var layanan = row.layanan;
+			$('#layanan').append("<li>"+layanan+"</li>");
+		}
+	}});
 }
 //menampilkan rating
 function tampilrating(id){
@@ -596,7 +582,6 @@ function tampilreview(id){
 		var rating = row.rating,
 		rounded = (rating | 0),
 		str;
-
 		for (var j = 0; j < 5; j++){
 		  str = '<i class="fa ';
 		  if (j < rounded){
@@ -607,14 +592,12 @@ function tampilreview(id){
 		  str += '" aria-hidden="true"></i>';
 		  $("#isi-r").append(str);
 		}
-		  $("#isi-r").append('<br>'+time[0]+' oleh <b>'+pengguna+'</b><br>'+komen+'<br><hr>');
+		$("#isi-r").append('<br>'+time[0]+' oleh <b>'+pengguna+'</b><br>'+komen+'<br><hr>');
 	}}
 	});
-	//$("#isi-r").append(" "+komen+" "+rating+" ");
 	$('#det-r').prepend("<button id='backreview' class='btn btn-default btn-xs' onclick='closereview();' style='width:25%;float:right;'><i class='fa fa-chevron-left'></i> Kembali</button>");
 	$("#gidr").val(gid[1]);
-	$('#kembali-l').css('display','none');
-	$('#det-a').css('display','none');
+	$('#kembali-l,#det-a').css('display','none');
 	$('#det-r').css('display','block');
 }
 //memilih rating cari
@@ -626,38 +609,22 @@ $('.star').click(function(){
 	switch (star_id){
 		case "star-1":
 			$("#star-1").addClass('star-checked');
-			$("#star-2").removeClass('star-checked');
-			$("#star-3").removeClass('star-checked');
-			$("#star-4").removeClass('star-checked');
-			$("#star-5").removeClass('star-checked');
+			$("#star-2,#star-3,#star-4,#star-5").removeClass('star-checked');
 			break;
 		case "star-2":
-			$("#star-1").addClass('star-checked');
-			$("#star-2").addClass('star-checked');
-			$("#star-3").removeClass('star-checked');
-			$("#star-4").removeClass('star-checked');
-			$("#star-5").removeClass('star-checked');
+			$("#star-1,#star-2").addClass('star-checked');
+			$("#star-3,#star-4,#star-5").removeClass('star-checked');
 			break;
 		case "star-3":
-			$("#star-1").addClass('star-checked');
-			$("#star-2").addClass('star-checked');
-			$("#star-3").addClass('star-checked');
-			$("#star-4").removeClass('star-checked');
-			$("#star-5").removeClass('star-checked');
+			$("#star-1,#star-2,#star-3").addClass('star-checked');
+			$("#star-4,#star-5").removeClass('star-checked');
 			break;
 		case "star-4":
-			$("#star-1").addClass('star-checked');
-			$("#star-2").addClass('star-checked');
-			$("#star-3").addClass('star-checked');
-			$("#star-4").addClass('star-checked');
+			$("#star-1,#star-2,#star-3,#star-4").addClass('star-checked');
 			$("#star-5").removeClass('star-checked');
 			break;
 		case "star-5":
-			$("#star-1").addClass('star-checked');
-			$("#star-2").addClass('star-checked');
-			$("#star-3").addClass('star-checked');
-			$("#star-4").addClass('star-checked');
-			$("#star-5").addClass('star-checked');
+			$("#star-1,#star-2,#star-3,#star-4,#star-5").addClass('star-checked');
 			break;
 	}
 });
@@ -670,38 +637,22 @@ $('.star2').click(function(){
 	switch (star_id){
 		case "star2-1":
 			$("#star2-1").addClass('star-checked');
-			$("#star2-2").removeClass('star-checked');
-			$("#star2-3").removeClass('star-checked');
-			$("#star2-4").removeClass('star-checked');
-			$("#star2-5").removeClass('star-checked');
+			$("#star2-2,#star2-3,#star2-4,#star2-5").removeClass('star-checked');
 			break;
 		case "star2-2":
-			$("#star2-1").addClass('star-checked');
-			$("#star2-2").addClass('star-checked');
-			$("#star2-3").removeClass('star-checked');
-			$("#star2-4").removeClass('star-checked');
-			$("#star2-5").removeClass('star-checked');
+			$("#star2-1,#star2-2").addClass('star-checked');
+			$("#star2-3,#star2-4,#star2-5").removeClass('star-checked');
 			break;
 		case "star2-3":
-			$("#star2-1").addClass('star-checked');
-			$("#star2-2").addClass('star-checked');
-			$("#star2-3").addClass('star-checked');
-			$("#star2-4").removeClass('star-checked');
-			$("#star2-5").removeClass('star-checked');
+			$("#star2-1,#star2-2,#star2-3").addClass('star-checked');
+			$("#star2-4,#star2-5").removeClass('star-checked');
 			break;
 		case "star2-4":
-			$("#star2-1").addClass('star-checked');
-			$("#star2-2").addClass('star-checked');
-			$("#star2-3").addClass('star-checked');
-			$("#star2-4").addClass('star-checked');
+			$("#star2-1,#star2-2,#star2-3,#star2-4").addClass('star-checked');
 			$("#star2-5").removeClass('star-checked');
 			break;
 		case "star2-5":
-			$("#star2-1").addClass('star-checked');
-			$("#star2-2").addClass('star-checked');
-			$("#star2-3").addClass('star-checked');
-			$("#star2-4").addClass('star-checked');
-			$("#star2-5").addClass('star-checked');
+			$("#star2-1,#star2-2,#star2-3,#star2-4,#star2-5").addClass('star-checked');
 			break;
 	}
 });
@@ -776,8 +727,7 @@ $(function(){
 			var kecamatan=row.kecamatan;
 			$('#selectkec').append('<div class="checkbox"><label><input type="checkbox" name="kecamatan" value="'+gid+'">'+kecamatan+'</label></div>');
 		}
-	}
-	});
+	}});
 });
 //menampilkan option kendaraan
 $(function(){
@@ -787,8 +737,7 @@ $(function(){
 			var row = rows[i];
 			var id=row.id;
 			var kendaraan=row.kendaraan;
-			$('#selectken').append('<option value="'+id+'">'+kendaraan+'</option>');
-			$('#selectken2').append('<option value="'+id+'">'+kendaraan+'</option>');
+			$('#selectken,#selectken2').append('<option value="'+id+'">'+kendaraan+'</option>');
 		}
 	}
 	});

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="icon" type="image/png" href="image/icon.png">
+	<link rel="icon" type="image/png" href="img/icon.png">
     <link href="font/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="css/css.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -29,7 +29,7 @@
         <div class="header" style="position:fixed;top:0px;">
             <div class="wrapper">
                 <div class="brand">
-                    <a href="./"><img src="image/logo.png" alt="logo"></a>
+                    <a href="./"><img src="img/logo.png" alt="logo"></a>
                 </div>
                 <nav class="navigation-items">
                     <div class="wrapper">
@@ -83,7 +83,7 @@
 									
 									<?php
 									include("json/connect.php");
-									$sql = pg_query("SELECT * FROM bengkel_region left join jenis_bengkel on bengkel_region.jenis_id=jenis_bengkel.jenis_id join jenis_kendaraan on jenis_bengkel.kendaraan_id=jenis_kendaraan.kendaraan_id order by gid asc");
+									$sql = pg_query("SELECT * FROM bengkel_region left join jenis_bengkel on bengkel_region.jenis_id=jenis_bengkel.jenis_id join jenis_kendaraan on bengkel_region.kendaraan_id=jenis_kendaraan.kendaraan_id order by gid asc");
 									$no = 0;
 									while($data =  pg_fetch_array($sql)){
 									$gid = $data['gid'];
@@ -96,13 +96,12 @@
 									if ($foto=='null' || $foto=='' || $foto==null){
 										$foto='foto.jpg';
 									}
-									
 									$no++;
 									?>	
 									
 									  <tr>
 										<td><?php echo "$no"; ?></td>
-										<td><img src="image/foto/<?php echo "$foto"; ?>" style="width:250px;"></td>
+										<td><img src="img/foto/<?php echo "$foto"; ?>" style="width:250px;"></td>
 										<td><?php echo "<b style='font-size:16px;'>Bengkel $nama</b><br>Alamat : $alamat<br>Telepon : $telpon<br>Kendaraan : $kendaraan<br>Jenis Bengkel : Bengkel $jenis"; ?></td>
 										<td><b>Layanan</b><ul><?php 
 											$sqll=pg_query("select * from layanan_bengkel join layanan on layanan.layanan_id=layanan_bengkel.layanan_id where gid=$gid");
@@ -137,7 +136,6 @@
 </div>
 <!-- end Outer Wrapper-->
 
-
 <script type="text/javascript" src="js/before.js"></script>
 <script type="text/javascript" src="js/jquery-custom.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -145,7 +143,7 @@
 <script src="admin/plugins/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="js/smoothscroll.js"></script>
 <script type="text/javascript">
-      $(function () {
+    $(function (){
         $('#example2').dataTable({
           "bPaginate": true,
           "bLengthChange": true,
@@ -158,7 +156,7 @@
 			 "sSearch": "Cari:"
 			}
         });
-      });
-    </script>
+    });
+</script>
 </body>
 </html>

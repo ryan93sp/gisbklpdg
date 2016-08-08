@@ -13,7 +13,6 @@
 		  <tr>
 			<th>No</th>
 			<th>Jenis Bengkel</th>
-			<th>Kendaraan</th>
 			<th>Aksi</th>
 			
 		  </tr>
@@ -21,19 +20,16 @@
 		<tbody>
 		
 		<?php
-		$sql = pg_query("SELECT * FROM jenis_bengkel join jenis_kendaraan on jenis_bengkel.kendaraan_id=jenis_kendaraan.kendaraan_id");
+		$sql = pg_query("SELECT * FROM jenis_bengkel");
 		while($data =  pg_fetch_array($sql)){
 		$id = $data['jenis_id'];
 		$jenis = $data['jenis_nama'];
-		$kendaraan = $data['kendaraan'];
-		
 		?>	
 		
 		  <tr>
 			<td><?php echo "$id"; ?></td>
 			<td><?php echo "Bengkel $jenis"; ?></td>
-			<td><?php echo "$kendaraan"; ?></td>
-			
+		
 			<td><div class="btn-group">
 				<a href="?page=j_form&id=<?php echo $id; ?>" class="btn btn-sm btn-default" title='Ubah'><i class="fa fa-edit"></i> Ubah</a>
 				</div>

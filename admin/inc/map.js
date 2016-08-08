@@ -44,28 +44,28 @@ function setMapOnAll(map) {
 function clearMarkers() {
 	setMapOnAll(null);
 	$('#hidem').remove();
-	$('#floating-panel').append('<button id="showm" onclick="showMarkers()" type="button">Show marker</button>');
+	$('#floating-panel').append('<button class="btn btn-default my-btn" id="showm" onclick="showMarkers()" type="button" title="Show marker"><i class="fa fa-map-marker"></i></button>');
 }
 // Shows any markers currently in the array.
 function showMarkers() {
 	setMapOnAll(map);
 	$('#showm').remove();
-	$('#floating-panel').append('<button id="hidem" onclick="clearMarkers()" type="button">Hide marker</button>');
+	$('#floating-panel').append('<button class="btn btn-default my-btn" id="hidem" onclick="clearMarkers()" type="button" title="Hide marker"><i class="fa fa-map-marker"></i></button>');
 }
 function hideReg() {
 	bengkel_reg.setMap(null);
 	$('#hider').remove();
-	$('#regedit').append('<button class="btn btn-default btn-xs" id="showr" onclick="showReg()"><i class="fa fa-eye-slash"></i> Show region</button>');
+	$('#regedit').append('<button class="btn btn-default my-btn" id="showr" title="Show region" onclick="showReg()"><i class="fa fa-eye-slash"> Show region</i></button>');
 }
 function showReg() {
 	bengkel_reg.setMap(map);
 	$('#showr').remove();
-	$('#regedit').append('<button class="btn btn-default btn-xs" id="hider" onclick="hideReg()"><i class="fa fa-eye-slash"></i> Hide Region</button>');
+	$('#regedit').append('<button class="btn btn-default my-btn" id="hider" title="Hide region" onclick="hideReg()"><i class="fa fa-eye-slash"> Hide region</i></button>');
 }
 
 function initialize(){
     map = new google.maps.Map(document.getElementById('map'),{
-		center: new google.maps.LatLng(-0.938627, 100.355848),
+		center: new google.maps.LatLng(-0.931177, 100.396027),
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.SATELLITE,
 		disableDefaultUI: true,
@@ -97,7 +97,7 @@ function initialize(){
               /* infowindow.setContent(results[1].formatted_address);
               infowindow.open(map, marker); */
 			  $('#showm,#hidem').remove();
-			  $('#floating-panel').append('<button id="hidem" onclick="clearMarkers()" type="button">Hide marker</button>');
+			  $('#floating-panel').append('<button class="btn btn-default my-btn" id="hidem" onclick="clearMarkers()" type="button" title="Hide marker"><i class="fa fa-map-marker"></button>');
             } else {
               window.alert('No results found');
             }
@@ -146,7 +146,8 @@ function initialize(){
 		if (event.type == google.maps.drawing.OverlayType.POLYGON) {
 			//console.log('polygon path array', event.overlay.getPath().getArray());
 			var str_input ='MULTIPOLYGON(((';
-			i=0;
+			var i=0;
+			var coor = [];
 			$.each(event.overlay.getPath().getArray(), function(key, latlng){
 				var lat = latlng.lat();
 				var lon = latlng.lng();

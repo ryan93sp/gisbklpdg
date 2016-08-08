@@ -3,7 +3,7 @@ require 'inc/connect.php';
 $gid=$_GET["gid"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
-$query="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto,kendaraan,jenis_nama,deskripsi,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat,jenis_bengkel.kendaraan_id FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id join jenis_kendaraan on jenis_kendaraan.kendaraan_id=jenis_bengkel.kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day";
+$query="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto,kendaraan,jenis_nama,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id join jenis_kendaraan on jenis_kendaraan.kendaraan_id=bengkel_region.kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day";
 $hasil=pg_query($query);
 while($row = pg_fetch_array($hasil)){
 	$gid=$row['gid'];
@@ -57,15 +57,33 @@ while($row = pg_fetch_array($hasil)){
 						<tr><td><b>Telepon</b></td><td>:</td><td><?php echo $telpon ?></td></tr>
 						<tr><td><b>Kendaraan</b></td> <td> :</td><td><?php echo $kendaraan ?></td></tr>
 						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $jenis_bengkel ?></td></tr>
-						<tr><td><b>Jadwal Operasional</b>&nbsp;</td><td> :</td><td>
-							<?php echo $hari.' '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span><br><a href="?page=formj&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Jadwal Operasional</a></td></tr>
+						<tr><td><span id="cljad" onclick='expandJad()' style="cursor:pointer;"><b>Jadwal Operasional <i class="fa fa-chevron-down"></i></b></span>&nbsp;</td><td></td><td>
+							<span id="jadwal1"><?php echo '<b>'.$hari.'</b> '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span></span>
+							<span id="jadwal2" style="display:none;"><?php
+								$q="select * from jam_kerja join hari on hari.hari_id=jam_kerja.hari_id where gid=$gid order by hari.hari_id";
+								$res=pg_query($q);
+								echo '<ul style="padding-left:20px;">';
+								while($rowj = pg_fetch_array($res)){
+									$hrid = $rowj['hari_id'];
+									$hr = $rowj['hari'];
+									$jb = substr($rowj['jam_buka'],0,-3);
+									$jt = substr($rowj['jam_tutup'],0,-3);
+									if ($day==$hrid){
+										echo '<li><span style="display:inline-block;width:50px;font-weight:bold;">'.$hr.'</span>'.$jb.' - '.$jt.' <span style="color:'.$warna.'">('.$stat.')</span></li>';
+									}else{
+										echo '<li><span style="display:inline-block;width:50px;font-weight:bold;">'.$hr.'</span>'.$jb.' - '.$jt.'</li>';
+									}
+								}
+								echo '</ul>'
+							?></span><div>
+							<a href="?page=formj&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Set Jadwal</a></div></td></tr>
 						<tr><td><b>Layanan<b> </td><td>: </td><td><ul style="padding-left:20px;"><?php 
 							$queryl = "select * from layanan_bengkel join layanan on layanan_bengkel.layanan_id=layanan.layanan_id where gid=$gid order by layanan_bengkel.layanan_id";
 							$hasill=pg_query($queryl);
 							while($rowl = pg_fetch_array($hasill)){
 								echo '<li>'.$rowl['jenis_layanan'].'</li>';
 							}
-						?></ul><a href="?page=forml&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Layanan</a></td></tr>
+						?></ul><a href="?page=forml&gid=<?php echo $gid ?>" class="btn btn-success btn-sm btn-flat"><i class="fa fa-edit"></i> Set Layanan</a></td></tr>
 						<tr><td><b>Deskripsi<b> </td><td>: </td><td><?php echo $deskripsi ?></td></tr>
 						<tr><td><b>Data Spasial<b> </td><td>: </td><td><b>Latitude</b> : <?php echo $lat ?> <b>Longitude</b> : <?php echo $lng ?></td></tr>
 					</tbody>
@@ -73,7 +91,7 @@ while($row = pg_fetch_array($hasil)){
 			</div><!-- /.box-body -->
 			<div class="box-footer">
 				<div class="btn-group">
-					<a href="?page=form&gid=<?php echo $gid ?>" class="btn btn-default"><i class="fa fa-edit"></i> Data atribut</a>
+					<a href="?page=formupd&gid=<?php echo $gid ?>" class="btn btn-default"><i class="fa fa-edit"></i> Data atribut</a>
 					<a href="?page=updates&gid=<?php echo $gid ?>" class="btn btn-default"><i class="fa fa-edit"></i> Data spasial</a>
 				</div>
 			</div><!-- /.box-footer-->
@@ -86,14 +104,25 @@ while($row = pg_fetch_array($hasil)){
 			  <h2 class="box-title">Foto</h2>
 			</div>
 			<div class="box-body">
-				<img src="../image/foto/<?php echo "$foto"; ?>" style="width:100%;;">
+				<img src="../img/foto/<?php echo "$foto"; ?>" style="width:100%;;">
 			</div>
 			<div class="box-footer">
 				<div class="btn-group">
-					<a href="?page=formup&gid=<?php echo $gid ?>" class="btn btn-default"><i class="fa fa-picture-o"></i> Ganti Foto</a>
+					<a href="?page=formupl&gid=<?php echo $gid ?>" class="btn btn-default"><i class="fa fa-picture-o"></i> Ganti Foto</a>
 				</div>
 			</div><!-- /.box-footer-->
 		</div>
 	</div>
-
 </div>
+<script>
+	function expandJad(){
+		$('#jadwal1').css('display','none');
+		$("#jadwal2").fadeIn();
+		$("#cljad").attr("onclick","collapseJad()");
+    }
+	function collapseJad(){
+		$("#jadwal2").css('display','none');
+		$("#jadwal1").fadeIn();
+		$("#cljad").attr("onclick","expandJad()");
+	}
+</script>

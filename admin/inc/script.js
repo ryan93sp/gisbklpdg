@@ -1,5 +1,5 @@
 function jenischange(){
-	$('#selectkat option').remove();
+	$('#selectjenis option').remove();
 	var v=selectken.value;
 	$.ajax({ 
 	url:'act/jenis.php?id='+v, data: "", dataType: 'json', success: function(rows){
@@ -7,7 +7,7 @@ function jenischange(){
 			var row = rows[i];
 			var id=row.id;
 			var jenis=row.jenis;
-			$('#selectkat').append('<option value="'+id+'">Bengkel '+jenis+'</option>');
+			$('#selectjenis').append('<option value="'+id+'">Bengkel '+jenis+'</option>');
 		}
 	}});
 }
