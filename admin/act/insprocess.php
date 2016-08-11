@@ -5,11 +5,11 @@ $nama = $_POST['nama'];
 $alamat = $_POST['alamat'];
 $telepon = $_POST['telepon'];
 $kendaraan = $_POST['selectken'];
-$jenis = $_POST['selectjenis'];
+$merk = $_POST['selectmerk'];
 $des = $_POST['deskripsi'];
 $geom = $_POST['geom'];
 
-$sql = pg_query("insert into bengkel_region (gid, nama_bengkel, alamat, telpon, foto, jenis_id, kendaraan_id, deskripsi, geom) values ('$gid', '$nama', '$alamat', '$telepon', 'null', '$jenis', '$kendaraan', '$des', ST_GeomFromText('$geom', 4326))");
+$sql = pg_query("insert into bengkel_region (gid, nama_bengkel, alamat, telpon, foto, merk_id, kendaraan_id, deskripsi, geom) values ('$gid', '$nama', '$alamat', '$telepon', 'null', '$merk', '$kendaraan', '$des', ST_GeomFromText('$geom', 4326))");
 if ($sql){
 	header("location:../?page=formjl&gid=$gid");
 }

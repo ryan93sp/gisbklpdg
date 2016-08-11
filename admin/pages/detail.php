@@ -3,7 +3,7 @@ require 'inc/connect.php';
 $gid=$_GET["gid"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
-$query="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto,kendaraan,jenis_nama,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id join jenis_kendaraan on jenis_kendaraan.kendaraan_id=bengkel_region.kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day";
+$query="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto,kendaraan,merk_jenis,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join merk on merk.merk_id=bengkel_region.merk_id join jenis_kendaraan on jenis_kendaraan.kendaraan_id=bengkel_region.kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day";
 $hasil=pg_query($query);
 while($row = pg_fetch_array($hasil)){
 	$gid=$row['gid'];
@@ -13,7 +13,7 @@ while($row = pg_fetch_array($hasil)){
 	$hari=$row['hari'];
 	$foto=$row['foto'];
 	$kendaraan=$row['kendaraan'];
-	$jenis_bengkel=$row['jenis_nama'];
+	$merk=$row['merk_jenis'];
 	$deskripsi=$row['deskripsi'];
 	$lat=$row['lat'];
 	$lng=$row['lng'];
@@ -48,7 +48,7 @@ while($row = pg_fetch_array($hasil)){
 	<div class="col-lg-7 col-xs-7 col-r-0">
 		<div class="box">
 			<div class="box-header with-border">
-			  <h2 class="box-title" style="text-transform:capitalize;">Bengkel <?php echo $nama ?></h2>
+			  <h2 class="box-title" style="text-transform:capitalize;"><b>Bengkel <?php echo $nama ?></b></h2>
 			</div>
 			<div class="box-body">
 				<table>
@@ -56,7 +56,7 @@ while($row = pg_fetch_array($hasil)){
 						<tr><td><b>Alamat</b></td><td> :&nbsp; </td><td style='text-transform:capitalize;'><?php echo $alamat ?></td></tr>
 						<tr><td><b>Telepon</b></td><td>:</td><td><?php echo $telpon ?></td></tr>
 						<tr><td><b>Kendaraan</b></td> <td> :</td><td><?php echo $kendaraan ?></td></tr>
-						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $jenis_bengkel ?></td></tr>
+						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $merk ?></td></tr>
 						<tr><td><span id="cljad" onclick='expandJad()' style="cursor:pointer;"><b>Jadwal Operasional <i class="fa fa-chevron-down"></i></b></span>&nbsp;</td><td></td><td>
 							<span id="jadwal1"><?php echo '<b>'.$hari.'</b> '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span></span>
 							<span id="jadwal2" style="display:none;"><?php
@@ -97,14 +97,13 @@ while($row = pg_fetch_array($hasil)){
 			</div><!-- /.box-footer-->
 		</div><!-- /.box -->
 	</div>
-
 	<div class="col-lg-5 col-xs-5">
 		<div class="box">
 			<div class="box-header with-border">
 			  <h2 class="box-title">Foto</h2>
 			</div>
 			<div class="box-body">
-				<img src="../img/foto/<?php echo "$foto"; ?>" style="width:100%;;">
+				<img src="../image/foto/<?php echo "$foto"; ?>" style="width:100%;;">
 			</div>
 			<div class="box-footer">
 				<div class="btn-group">

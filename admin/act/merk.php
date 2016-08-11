@@ -1,9 +1,9 @@
 <?php
-include ('connect.php');
+include ('../inc/connect.php');
 $id=$_GET["id"];
 $dataarray=array();
  
-$sql=pg_query("SELECT merk.merk_id,merk_jenis from jenis_bengkel join merk on merk.merk_id=jenis_bengkel.merk_id where kendaraan_id=$id order by jenis_bengkel.merk_id");
+$sql=pg_query("select * from jenis_bengkel join merk on merk.merk_id=jenis_bengkel.merk_id where kendaraan_id=$id");
 			
 while($row = pg_fetch_array($sql)){
 	$id=$row['merk_id'];

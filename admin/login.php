@@ -2,8 +2,8 @@
 session_start();
 if(isset($_SESSION['admin'])){
 	echo"<script language='JavaScript'>document.location='index.php'</script>";
-	    exit();
-	}
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,18 +12,14 @@ if(isset($_SESSION['admin'])){
 	<link rel="icon" type="image/png" href="../img/icon.png">
     <title>GIS Bengkel Kota Padang | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
 	<link href="dist/css/skins/skin-black.min.css" rel="stylesheet" type="text/css" />
     <link href="dist/css/AdminLTE.min.login.css" rel="stylesheet" type="text/css" />
-
   </head>
- 
   <body class="login-page skin-black">
 	<div class="wrapper">
 		<header class="main-header">
-			<!-- Logo -->
 			<span class="logo" style="width:100%;text-align:left;font-size:16px"><b>GIS Bengkel Kota Padang</b></span>
 		</header>
 	</div>
@@ -33,7 +29,6 @@ if(isset($_SESSION['admin'])){
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <form action="act/session.php" method="post">
-        
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Username" name="username" autofocus required/>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -48,14 +43,9 @@ if(isset($_SESSION['admin'])){
             </div><!-- /.col -->
           </div>
         </form>
-
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
-
-    <!-- jQuery 2.1.3 -->
     <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
     <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    
   </body>
 </html>

@@ -31,7 +31,7 @@
 				</div>
 				<div class="form-group">
 					<label for="selectken">Jenis Kendaraan</label>
-					<select required name="selectken" id="selectken" class="form-control">
+					<select required name="selectken" id="selectken" class="form-control" onchange="jenischange()">
 						<?php
 							$sql = pg_query("select * from jenis_kendaraan");
 							while($dtk = pg_fetch_array($sql)){
@@ -41,11 +41,11 @@
 				</div>
 				<div class="form-group">
 					<label for="selectjenis">Jenis Bengkel</label>
-					<select required name="selectjenis" id="selectjenis" class="form-control" required>
+					<select required name="selectmerk" id="selectmerk" class="form-control" required>
 						<?php
-							$sql = pg_query("select * from jenis_bengkel");
-							while($dt = pg_fetch_array($sql)){
-							echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
+								$sql = pg_query("select * from jenis_bengkel join merk on merk.merk_id=jenis_bengkel.merk_id where kendaraan_id=1");
+								while($dt = pg_fetch_array($sql)){
+								echo "<option value=\"$dt[merk_id]\">Bengkel $dt[merk_jenis]</option>";}
 						?>
 					</select>
 				</div>

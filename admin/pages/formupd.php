@@ -5,7 +5,7 @@
 			<div id="form">
 			<?php if (isset($_GET['gid'])){
 				$gid=$_GET['gid'];
-				$sql = pg_query("SELECT * FROM bengkel_region join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id where gid=$gid");
+				$sql = pg_query("SELECT * FROM bengkel_region join merk on merk.merk_id=bengkel_region.merk_id where gid=$gid");
 				$data =  pg_fetch_array($sql);
 			?>
 				<h4 style="text-transform:capitalize;">Ubah Data Atribut Bengkel <?php echo $data['nama_bengkel'] ?></h4>
@@ -26,7 +26,7 @@
 					</div>
 					<div class="form-group">
 						<label for="selectken">Jenis Kendaraan</label>
-						<select required name="selectken" id="selectken" class="form-control">
+						<select required name="selectken" id="selectken" class="form-control" onchange="jenischange()">
 							<?php
 								$sql = pg_query("select * from jenis_kendaraan");
 								while($dtk = pg_fetch_array($sql)){
@@ -40,14 +40,14 @@
 					</div>
 					<div class="form-group">
 						<label for="selectjenis">Jenis Bengkel</label>
-						<select required name="selectjenis" id="selectjenis" class="form-control">
+						<select required name="selectmerk" id="selectmerk" class="form-control">
 							<?php
-								$sql = pg_query("select * from jenis_bengkel");
+								$sql = pg_query("select * from jenis_bengkel join merk on merk.merk_id=jenis_bengkel.merk_id where kendaraan_id=$data[kendaraan_id]");
 								while($dt = pg_fetch_array($sql)){
-								if ($data[jenis_id]==$dt[jenis_id]){
-									echo "<option value=\"$dt[jenis_id]\" selected>Bengkel $dt[jenis_nama]</option>";}
+								if ($data[merk_id]==$dt[merk_id]){
+									echo "<option value=\"$dt[merk_id]\" selected>Bengkel $dt[merk_jenis]</option>";}
 								else{
-									echo "<option value=\"$dt[jenis_id]\">Bengkel $dt[jenis_nama]</option>";}
+									echo "<option value=\"$dt[merk_id]\">Bengkel $dt[merk_jenis]</option>";}
 								}
 							?>
 						</select>

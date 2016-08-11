@@ -1,22 +1,33 @@
 <?php
 include ('../inc/connect.php');
+			
+$merk = $_POST['merk'];
+$kendaraan = $_POST['kendaraan'];
+$count = count($merk);
 
-$query = pg_query("SELECT MAX(jenis_id) AS id FROM jenis_bengkel");
-$result = pg_fetch_array($query);
-$idmax = $result['id'];
-if ($idmax==null) {$idmax=1;}
-else {$idmax++;}
-					
-$jenis = $_POST['jenis'];
-
-
-$count = count($jenis);
-$sql  = "insert into jenis_bengkel (jenis_id, jenis_nama) VALUES ";
- 
+$sql  = "insert into jenis_bengkel (kendaraan_id, merk_id) VALUES ";
 for( $i=0; $i < $count; $i++ ){
-	$sql .= "('{$idmax}','{$jenis[$i]}')";
-	$sql .= ",";
-	$idmax++;
+	echo $merk[$i];
+	
+	$q1 = pg_query("select * from merk where merk_jenis='$merk[$i]'");
+	$r1 = pg_fetch_array($q1);
+	$merk_id = $r1['merk_id'];
+	$merk_j = $r1['merk_jenis'];
+
+	if($r1['merk_jenis']==$merk[$i]){
+		$sql .= "('{$kendaraan[$i]}','{$merk_id}')";
+		$sql .= ",";
+	}else{
+		$query = pg_query("SELECT MAX(merk_id) AS id FROM merk");
+		$result = pg_fetch_array($query);
+		$idmax = $result['id'];
+		if ($idmax==null) {$idmax=1;}
+		else {$idmax++;}
+		echo $idmax;
+		$insertmerk = pg_query("insert into merk (merk_id, merk_jenis) values ('$idmax', '$merk[$i]')");
+		$sql .= "('{$kendaraan[$i]}','{$idmax}')";
+		$sql .= ",";
+	}
 }
 $sql = rtrim($sql,",");
 $insert = pg_query($sql);

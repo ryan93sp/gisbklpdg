@@ -1,6 +1,6 @@
 <?php if (isset($_GET['gid'])){
 	$gid=$_GET['gid'];
-	$sql = pg_query("SELECT * FROM bengkel_region join jenis_bengkel on jenis_bengkel.jenis_id=bengkel_region.jenis_id where gid=$gid");
+	$sql = pg_query("SELECT * FROM bengkel_region where gid=$gid");
 	$data =  pg_fetch_array($sql);
 ?>
 <form class="" role="form" action="act/ins2process.php" method="post">

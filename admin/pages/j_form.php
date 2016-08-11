@@ -8,23 +8,28 @@
 					<a class="btn btn-success btn-sm" onclick="add()"><i class="fa fa-plus"></i></a>
 					<a class="btn btn-danger btn-sm" onclick="rem()"><i class="fa fa-times"></i></a>
 					<button type="submit" class="btn btn-primary pull-right">Simpan <i class="fa fa-floppy-o"></i></button>
-					<div class="form-group" style="clear:both" id="l_form">
-						<label for="nama">Jenis</label>
-						<input type="text" class="form-control" name="jenis[]" value="" style="margin-bottom:3px;" autofocus required>
+					<div id="l_form">
+						<div class="form-group input-group" style="clear:both;width:100%;">
+							<input id="" list="merk" type="text" class="form-control" name="merk[]" value="" style="margin-bottom:3px;width:50%;" autofocus required>
+							<select class="form-control" name="kendaraan[]" title="Pilih jenis kendaraan" style="width:50%;" required>
+								<option selected disabled>--pilih kendaraan--</option>
+								<?php
+									$sql = pg_query("select * from jenis_kendaraan");
+									while($dtk = pg_fetch_array($sql)){
+										echo "<option value=\"$dtk[kendaraan_id]\">$dtk[kendaraan]</option>";
+									}
+								?>
+							</select>
+						</div>
 					</div>
-				</form>
-				<?php } if (isset($_GET['id'])){
-					$id=$_GET['id'];
-					$sql = pg_query("SELECT * FROM jenis_bengkel where jenis_id=$id");
-					$data = pg_fetch_array($sql)
-				?>
-				<form role="form" action="act/jenisupd.php" method="post">
-					<button type="submit" class="btn btn-primary pull-right">Simpan <i class="fa fa-floppy-o"></i></button>
-					<input type="text" class="form-control hidden" name="id_jenis" value="<?php echo $data['jenis_id'] ?>">
-					<div class="form-group" style="clear:both">
-						<label for="nama">Jenis</label>
-						<input type="text" class="form-control" name="jenis" value="<?php echo $data['jenis_nama'] ?>" required>
-					</div>
+					<datalist id="merk">
+					<?php
+						$sql = pg_query("select * from merk");
+						while($dtm = pg_fetch_array($sql)){
+							echo "<option value=\"$dtm[merk_jenis]\">";
+						}
+					?>
+					</datalist>
 				</form>
 				<?php } ?>
 			</div>
@@ -34,11 +39,14 @@
 </div>
 <script>
 function add(){
-	$('#l_form').append('<input type="text" class="form-control" name="jenis[]" value="" style="margin-bottom:3px;" required>');
+	var x = document.getElementById("l_form");
+	var y = x.getElementsByClassName("form-group");
+	var last_y = y[y.length - 1];
+	$('#l_form').append('<div class="form-group input-group" style="clear:both;width:100%;">'+last_y.innerHTML+'</div>');
 }
 function rem(){
 	var x = document.getElementById("l_form");
-	var y = x.getElementsByClassName("form-control");
+	var y = x.getElementsByClassName("form-group");
 	var last_y = y[y.length - 1];
 	if (y.length>1){
 		last_y.remove();

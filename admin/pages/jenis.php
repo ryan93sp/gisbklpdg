@@ -12,30 +12,26 @@
 		<thead>
 		  <tr>
 			<th>No</th>
+			<th>Jenis Kendaraan</th>
 			<th>Jenis Bengkel</th>
-			<th>Aksi</th>
-			
 		  </tr>
 		</thead>
 		<tbody>
 		
 		<?php
-		$sql = pg_query("SELECT * FROM jenis_bengkel");
+		$sql = pg_query("SELECT * FROM jenis_bengkel join merk on jenis_bengkel.merk_id=merk.merk_id join jenis_kendaraan on jenis_bengkel.kendaraan_id=jenis_kendaraan.kendaraan_id");
+		$no=1;
 		while($data =  pg_fetch_array($sql)){
-		$id = $data['jenis_id'];
-		$jenis = $data['jenis_nama'];
+			$kendaraan = $data['kendaraan'];
+			$merk = $data['merk_jenis'];
 		?>	
 		
 		  <tr>
-			<td><?php echo "$id"; ?></td>
-			<td><?php echo "Bengkel $jenis"; ?></td>
-		
-			<td><div class="btn-group">
-				<a href="?page=j_form&id=<?php echo $id; ?>" class="btn btn-sm btn-default" title='Ubah'><i class="fa fa-edit"></i> Ubah</a>
-				</div>
-			</td>
+			<td><?php echo "$no"; ?></td>
+			<td><?php echo "$kendaraan"; ?></td>
+			<td><?php echo "Bengkel $merk"; ?></td>
 		  </tr>
-		<?php } ?>
+		<?php $no++; } ?>
 		</tbody>
 	  </table>
 	</div><!-- /.box-body -->

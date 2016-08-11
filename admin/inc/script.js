@@ -1,13 +1,13 @@
 function jenischange(){
-	$('#selectjenis option').remove();
+	$('#selectmerk option').remove();
 	var v=selectken.value;
 	$.ajax({ 
-	url:'act/jenis.php?id='+v, data: "", dataType: 'json', success: function(rows){
+	url:'act/merk.php?id='+v, data: "", dataType: 'json', success: function(rows){
 		for (var i in rows){
 			var row = rows[i];
 			var id=row.id;
-			var jenis=row.jenis;
-			$('#selectjenis').append('<option value="'+id+'">Bengkel '+jenis+'</option>');
+			var merk=row.merk;
+			$('#selectmerk').append('<option value="'+id+'">Bengkel '+merk+'</option>');
 		}
 	}});
 }

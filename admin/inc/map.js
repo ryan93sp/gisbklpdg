@@ -62,7 +62,6 @@ function showReg() {
 	$('#showr').remove();
 	$('#regedit').append('<button class="btn btn-default my-btn" id="hider" title="Hide region" onclick="hideReg()"><i class="fa fa-eye-slash"> Hide region</i></button>');
 }
-
 function initialize(){
     map = new google.maps.Map(document.getElementById('map'),{
 		center: new google.maps.LatLng(-0.931177, 100.396027),
@@ -71,8 +70,7 @@ function initialize(){
 		disableDefaultUI: true,
 		zoomControl: true,
 		mapTypeControl: true
-	});
-	
+	});	
 	//mencari lokasi dengan latlng
 	var geocoder = new google.maps.Geocoder;
 	var infowindow = new google.maps.InfoWindow;
@@ -106,7 +104,6 @@ function initialize(){
           }
         });
     }
-	
 	//zoom peta sesuai digitasi
 	bengkel_reg = new google.maps.Data();
 	bengkel_reg.loadGeoJson('act/bengkel_region.php?gid='+gid.value);
@@ -115,13 +112,11 @@ function initialize(){
 		fillColor: 'red',
 		strokeColor: 'red'
 	});
-	
 	var bounds = new google.maps.LatLngBounds();
 	bengkel_reg.addListener('addfeature', function(e) {
 		processPoints(e.feature.getGeometry(), bounds.extend, bounds);
 		map.fitBounds(bounds);
 	});
-
 	var polyOptions = {
 	fillColor: 'blue',
 	strokeColor: 'blue',
@@ -129,21 +124,19 @@ function initialize(){
 	};
 	//menampilkan drawing manager
     drawingManager = new google.maps.drawing.DrawingManager({
-		//drawingMode: google.maps.drawing.OverlayType.POLYGON,
-		//drawingControl: true,
+		drawingMode: google.maps.drawing.OverlayType.POLYGON,
 		drawingControlOptions: {
-		position: google.maps.ControlPosition.TOP_LEFT,
-		drawingModes: [
-			google.maps.drawing.OverlayType.POLYGON
-		]
+			position: google.maps.ControlPosition.TOP_LEFT,
+			drawingModes: [
+				google.maps.drawing.OverlayType.POLYGON
+			]
 		},
 		polygonOptions: polyOptions,
 		map: map
 	});
-
 	//event digitasi di google map
 	google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event){
-		if (event.type == google.maps.drawing.OverlayType.POLYGON) {
+		if (event.type == google.maps.drawing.OverlayType.POLYGON){
 			//console.log('polygon path array', event.overlay.getPath().getArray());
 			var str_input ='MULTIPOLYGON(((';
 			var i=0;
@@ -179,15 +172,9 @@ function initialize(){
 			str_input = str_input+''+coor[0]+')))';			
 			$("#geom").val(str_input);
 		}
-		google.maps.event.addListener(newShape.getPath(), 'set_at', function (){
-			getCoordinate();
-		});
-		google.maps.event.addListener(newShape.getPath(), 'insert_at', function () {
-			getCoordinate();
-		});
-		google.maps.event.addListener(newShape.getPath(), 'remove_at', function () {
-			getCoordinate();
-		});
+		google.maps.event.addListener(newShape.getPath(), 'set_at', getCoordinate);
+		google.maps.event.addListener(newShape.getPath(), 'insert_at', getCoordinate);
+		google.maps.event.addListener(newShape.getPath(), 'remove_at', getCoordinate);
 	});
 	google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
 	google.maps.event.addListener(map, 'click', clearSelection);
