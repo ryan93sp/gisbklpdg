@@ -15,16 +15,16 @@
 				<form role="form" action="act/changepass.php" method="post">
 				<input type="text" class="form-control hidden" name="user" value="<?php echo $_SESSION['username'] ?>">
 				<div class="form-group">
-					<label for="passlama">Password Lama</label>
-					<input type="password" class="form-control" name="passlama">
+					<label for="passlama"><span style="color:red">*</span> Password Lama</label>
+					<input type="password" class="form-control" name="passlama" placeholder="*****" required>
 				</div>
 				<div class="form-group">
-					<label for="passbaru">Password Baru</label>
-					<input type="password" class="form-control" name="passbaru">
+					<label for="passbaru"><span style="color:red">*</span> Password Baru</label>
+					<input type="password" class="form-control" name="passbaru" placeholder="*****" required>
 				</div>
 				<div class="form-group">
-					<label for="konfirm">Konfirmasi Password</label>
-					<input type="password" class="form-control" name="konfirm">
+					<label for="konfirm"><span style="color:red">*</span> Konfirmasi Password</label>
+					<input type="password" class="form-control" name="konfirm" placeholder="*****" required>
 				</div>
 				<button type="submit" class="btn btn-primary">Ganti</button>
 			</form>

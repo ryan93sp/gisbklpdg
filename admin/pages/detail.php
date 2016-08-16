@@ -69,9 +69,9 @@ while($row = pg_fetch_array($hasil)){
 									$jb = substr($rowj['jam_buka'],0,-3);
 									$jt = substr($rowj['jam_tutup'],0,-3);
 									if ($day==$hrid){
-										echo '<li><span style="display:inline-block;width:50px;font-weight:bold;">'.$hr.'</span>'.$jb.' - '.$jt.' <span style="color:'.$warna.'">('.$stat.')</span></li>';
+										echo '<li><span style="display:inline-block;width:55px;font-weight:bold;">'.$hr.'</span>'.$jb.' - '.$jt.' <span style="color:'.$warna.'">('.$stat.')</span></li>';
 									}else{
-										echo '<li><span style="display:inline-block;width:50px;font-weight:bold;">'.$hr.'</span>'.$jb.' - '.$jt.'</li>';
+										echo '<li><span style="display:inline-block;width:55px;font-weight:bold;">'.$hr.'</span>'.$jb.' - '.$jt.'</li>';
 									}
 								}
 								echo '</ul>'

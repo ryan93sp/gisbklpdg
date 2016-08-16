@@ -83,13 +83,13 @@
 									
 									<?php
 									include("json/connect.php");
-									$sql = pg_query("SELECT * FROM bengkel_region left join jenis_bengkel on bengkel_region.jenis_id=jenis_bengkel.jenis_id join jenis_kendaraan on bengkel_region.kendaraan_id=jenis_kendaraan.kendaraan_id order by gid asc");
+									$sql = pg_query("SELECT * FROM bengkel_region left join merk on bengkel_region.merk_id=merk.merk_id join jenis_kendaraan on bengkel_region.kendaraan_id=jenis_kendaraan.kendaraan_id order by gid asc");
 									$no = 0;
 									while($data =  pg_fetch_array($sql)){
 									$gid = $data['gid'];
 									$nama = $data['nama_bengkel'];
 									$alamat = $data['alamat'];
-									$jenis = $data['jenis_nama'];
+									$merk = $data['merk_jenis'];
 									$kendaraan = $data['kendaraan'];
 									$telpon = $data['telpon'];
 									$foto = $data['foto'];
@@ -102,7 +102,7 @@
 									  <tr>
 										<td><?php echo "$no"; ?></td>
 										<td><img src="image/foto/<?php echo "$foto"; ?>" style="width:250px;"></td>
-										<td><?php echo "<b style='font-size:16px;'>Bengkel $nama</b><br>Alamat : $alamat<br>Telepon : $telpon<br>Kendaraan : $kendaraan<br>Jenis Bengkel : Bengkel $jenis"; ?></td>
+										<td><?php echo "<b style='font-size:16px;'>Bengkel $nama</b><br>Alamat : $alamat<br>Telepon : $telpon<br>Kendaraan : $kendaraan<br>Jenis Bengkel : Bengkel $merk"; ?></td>
 										<td><b>Layanan</b><ul><?php 
 											$sqll=pg_query("select * from layanan_bengkel join layanan on layanan.layanan_id=layanan_bengkel.layanan_id where gid=$gid");
 											while($dtl =  pg_fetch_array($sqll)){
@@ -154,7 +154,7 @@
 		  "oLanguage": {
 			 "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
 			 "sSearch": "Cari:"
-			}
+		  }
         });
     });
 </script>

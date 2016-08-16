@@ -14,15 +14,15 @@
 				<h4 style="text-transform:capitalize;">Tambah Data Bengkel</h4>
 				<input type="text" class="form-control hidden" id="gid" name="gid" value="<?php echo $idmax;?>">
 				<div class="form-group">
-					<label for="geom">Koordinat</label>
+					<label for="geom"><span style="color:red">*</span> Koordinat</label>
 					<textarea class="form-control" id="geom" name="geom" readonly required></textarea>
 				</div>
 				<div class="form-group">
-					<label for="nama">Nama Bengkel</label>
+					<label for="nama"><span style="color:red">*</span> Nama Bengkel</label>
 					<input type="text" class="form-control" name="nama" value="" required>
 				</div>
 				<div class="form-group">
-					<label for="alamat">Alamat</label>
+					<label for="alamat"><span style="color:red">*</span> Alamat</label>
 					<input type="text" class="form-control" name="alamat" value="" required>
 				</div>
 				<div class="form-group">
