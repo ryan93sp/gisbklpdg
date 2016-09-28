@@ -35,17 +35,17 @@
 						<?php
 							$sql = pg_query("select * from jenis_kendaraan");
 							while($dtk = pg_fetch_array($sql)){
-								echo "<option value=\"$dtk[kendaraan_id]\">$dtk[kendaraan]</option>";}
+								echo "<option value=\"$dtk[jenis_kendaraan_id]\">$dtk[nama_kendaraan]</option>";}
 						?>
 					</select>
 				</div>
 				<div class="form-group">
-					<label for="selectjenis">Jenis Bengkel</label>
+					<label for="selectjenis">Merk</label>
 					<select required name="selectmerk" id="selectmerk" class="form-control" required>
 						<?php
-								$sql = pg_query("select * from jenis_bengkel join merk on merk.merk_id=jenis_bengkel.merk_id where kendaraan_id=1");
+								$sql = pg_query("select * from kendaraan join merk on merk.merk_id=kendaraan.merk_id where jenis_kendaraan_id=1");
 								while($dt = pg_fetch_array($sql)){
-								echo "<option value=\"$dt[merk_id]\">Bengkel $dt[merk_jenis]</option>";}
+								echo "<option value=\"$dt[merk_id]\">$dt[nama_merk]</option>";}
 						?>
 					</select>
 				</div>

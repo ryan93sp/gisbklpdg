@@ -13,23 +13,23 @@
 		  <tr>
 			<th>No</th>
 			<th>Jenis Kendaraan</th>
-			<th>Jenis Bengkel</th>
+			<th>Merk</th>
 		  </tr>
 		</thead>
 		<tbody>
 		
 		<?php
-		$sql = pg_query("SELECT * FROM jenis_bengkel join merk on jenis_bengkel.merk_id=merk.merk_id join jenis_kendaraan on jenis_bengkel.kendaraan_id=jenis_kendaraan.kendaraan_id");
+		$sql = pg_query("SELECT * FROM kendaraan join merk on kendaraan.merk_id=merk.merk_id join jenis_kendaraan on kendaraan.jenis_kendaraan_id=jenis_kendaraan.jenis_kendaraan_id");
 		$no=1;
 		while($data =  pg_fetch_array($sql)){
-			$kendaraan = $data['kendaraan'];
-			$merk = $data['merk_jenis'];
+			$kendaraan = $data['nama_kendaraan'];
+			$merk = $data['nama_merk'];
 		?>	
 		
 		  <tr>
 			<td><?php echo "$no"; ?></td>
 			<td><?php echo "$kendaraan"; ?></td>
-			<td><?php echo "Bengkel $merk"; ?></td>
+			<td><?php echo "$merk"; ?></td>
 		  </tr>
 		<?php $no++; } ?>
 		</tbody>

@@ -7,7 +7,7 @@ function jenischange(){
 			var row = rows[i];
 			var id=row.id;
 			var merk=row.merk;
-			$('#selectmerk').append('<option value="'+id+'">Bengkel '+merk+'</option>');
+			$('#selectmerk').append('<option value="'+id+'">'+merk+'</option>');
 		}
 	}});
 }

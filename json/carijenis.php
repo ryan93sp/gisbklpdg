@@ -4,7 +4,7 @@ $ken=$_GET["ken"];
 $merk=$_GET["merk"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
-$querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid where kendaraan_id='$ken' and merk_id='$merk' and hari_id=$day";
+$querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid where jenis_kendaraan_id='$ken' and merk_id='$merk' and hari_id=$day";
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil)){
 	$gid=$row['gid'];

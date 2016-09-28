@@ -148,17 +148,17 @@
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
-                                        <center>Jenis Bengkel</center>
+                                        <center>Kendaraan</center>
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapse6" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<select required name="selectken" id="selectken" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="jenis()">
+									<select required name="selectken" id="selectken" style="margin-bottom:5px;" class="form-control" placeholder="" onchange="merk()">
 										<option selected disabled>--Pilih Jenis Kendaraan--</option>
 									</select>
 									<select required name="selectmerk" id="selectmerk" class="form-control" placeholder="">
-										<option selected disabled>--Pilih Bengkel--</option>
+										<option selected disabled>--Pilih Merk--</option>
 									</select>
 									<button type="submit" id="btnjns" class="btn btn-primary" onclick="btncarijns()"> Cari <i class="fa fa-search"></i></button>
                                 </div>

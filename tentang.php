@@ -73,7 +73,7 @@
 								<ul style="margin-left:20px;">
 									<li>Pengguna bisa menemukan bengkel berdasarkan nama</li>
 									<li>Pengguna bisa menemukan bengkel berdasarkan radius terdekat dari posisi</li>
-									<li>Pengguna bisa menemukan bengkel berdasarkan jenis bengkel</li>
+									<li>Pengguna bisa menemukan bengkel berdasarkan kendaraan</li>
 									<li>Pengguna bisa menemukan bengkel berdasarkan layanan</li>
 									<li>Pengguna bisa menemukan bengkel berdasarkan Kecamatan</li>
 									<li>Pengguna bisa menemukan bengkel berdasarkan jadwal operasional</li>

@@ -2,7 +2,7 @@
 <div class="col-xs-12">
 	<div class="box">
 		<div class="box-body">
-				<h4 style="text-transform:capitalize;">Jenis Bengkel</h4>
+				<h4 style="text-transform:capitalize;">Kendaraan</h4>
 				<?php if (!isset($_GET['id'])){ ?>
 				<form role="form" action="act/jenisins.php" method="post">
 					<a class="btn btn-success btn-sm" onclick="add()"><i class="fa fa-plus"></i></a>
@@ -16,7 +16,7 @@
 								<?php
 									$sql = pg_query("select * from jenis_kendaraan");
 									while($dtk = pg_fetch_array($sql)){
-										echo "<option value=\"$dtk[kendaraan_id]\">$dtk[kendaraan]</option>";
+										echo "<option value=\"$dtk[jenis_kendaraan_id]\">$dtk[nama_kendaraan]</option>";
 									}
 								?>
 							</select>
@@ -26,7 +26,7 @@
 					<?php
 						$sql = pg_query("select * from merk");
 						while($dtm = pg_fetch_array($sql)){
-							echo "<option value=\"$dtm[merk_jenis]\">";
+							echo "<option value=\"$dtm[nama_merk]\">";
 						}
 					?>
 					</datalist>
