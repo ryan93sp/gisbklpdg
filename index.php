@@ -260,9 +260,6 @@
 							<div id="isi" style="clear:both;"></div>
 						</div>
 						<div id="det-r" style="display:none;">
-							
-							<!--pindah beko kesini-->
-							<!--<div id="back-a"></div>-->
 							<div id="addreview" style="clear:both;">
 								<input type="text" name="gidr" id="gidr" value="" hidden="">
 								<div id="star-container">Rating : 
@@ -280,6 +277,7 @@
 							<div id="your-r"></div>
 							<div id="isi-r"></div>
 						</div>
+						<div id="detrute" style="display:none;"><div style='clear:both;' id='detailrute'></div></div>
                     </div>
                 </div>
                 <!--end Items List-->

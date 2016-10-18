@@ -104,7 +104,7 @@ function initialize(){
           }
         });
     }
-	//zoom peta sesuai digitasi
+	//menampilkan digitasi bengkel
 	bengkel_reg = new google.maps.Data();
 	bengkel_reg.loadGeoJson('act/bengkel_region.php?gid='+gid.value);
 	bengkel_reg.setMap(map);
@@ -112,6 +112,7 @@ function initialize(){
 		fillColor: 'red',
 		strokeColor: 'red'
 	});
+	//zoom peta sesuai digitasi
 	var bounds = new google.maps.LatLngBounds();
 	bengkel_reg.addListener('addfeature', function(e) {
 		processPoints(e.feature.getGeometry(), bounds.extend, bounds);

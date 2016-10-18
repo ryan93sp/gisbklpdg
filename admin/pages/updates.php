@@ -1,6 +1,6 @@
 <?php
 $gid=$_GET['gid'];
-$sql = pg_query("SELECT * FROM bengkel_region where gid=$gid");
+$sql = pg_query("SELECT nama_bengkel,ST_AsText(geom) as geom FROM bengkel_region where gid=$gid");
 $data =  pg_fetch_array($sql);
 ?>
 <div class="row">
@@ -18,7 +18,7 @@ $data =  pg_fetch_array($sql);
 					<input type="text" class="hidden" id="gid" name="gid" value="<?php echo $gid ?>" hidden>
 					<div class="form-group" style="clear:both">
 						<label for="geom">Koordinat</label>
-						<textarea rows="6" class="form-control" id="geom" name="geom" readonly required></textarea>
+						<textarea rows="6" class="form-control" id="geom" name="geom" readonly required><?php echo $data['geom'] ?></textarea>
 					</div>
 					<a href="?page=detail&gid=<?php echo $gid ?>" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i> Kembali</a>
 					<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i> Simpan</button>

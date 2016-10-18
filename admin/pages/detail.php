@@ -57,8 +57,8 @@ while($row = pg_fetch_array($hasil)){
 						<tr><td><b>Telepon</b></td><td>:</td><td><?php echo $telpon ?></td></tr>
 						<tr><td><b>Kendaraan</b></td> <td> :</td><td><?php echo $kendaraan ?></td></tr>
 						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $merk ?></td></tr>
-						<tr><td><span id="cljad" onclick='expandJad()' style="cursor:pointer;"><b>Jadwal Operasional <i class="fa fa-chevron-down"></i></b></span>&nbsp;</td><td></td><td>
-							<span id="jadwal1"><?php echo '<b>'.$hari.'</b> '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>)</span></span>
+						<tr onclick='togglejad()' style="cursor:pointer;"><td><b>Jadwal Operasional</b>&nbsp;</td><td>:</td><td>
+							<span id="jadwal1"><?php echo '<b>'.$hari.'</b> '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>) </span><i class="fa fa-chevron-down"></i></span>
 							<span id="jadwal2" style="display:none;"><?php
 								$q="select * from jam_kerja join hari on hari.hari_id=jam_kerja.hari_id where gid=$gid order by hari.hari_id";
 								$res=pg_query($q);
@@ -114,14 +114,13 @@ while($row = pg_fetch_array($hasil)){
 	</div>
 </div>
 <script>
-	function expandJad(){
-		$('#jadwal1').css('display','none');
-		$("#jadwal2").fadeIn();
-		$("#cljad").attr("onclick","collapseJad()");
-    }
-	function collapseJad(){
-		$("#jadwal2").css('display','none');
-		$("#jadwal1").fadeIn();
-		$("#cljad").attr("onclick","expandJad()");
+	function togglejad(){
+		if($('#jadwal2').css('display') == 'none'){
+			$('#jadwal1').css('display','none');
+			$("#jadwal2").fadeIn();
+		}else{
+			$("#jadwal2").css('display','none');
+			$("#jadwal1").fadeIn();
+		}
 	}
 </script>
