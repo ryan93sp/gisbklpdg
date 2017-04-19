@@ -19,7 +19,7 @@
 		<tbody>
 		
 		<?php
-		$sql = pg_query("SELECT * FROM kendaraan join merk on kendaraan.merk_id=merk.merk_id join jenis_kendaraan on kendaraan.jenis_kendaraan_id=jenis_kendaraan.jenis_kendaraan_id");
+		$sql = pg_query("SELECT * FROM kendaraan join merk on kendaraan.merk_id=merk.merk_id join jenis_kendaraan on kendaraan.jenis_kendaraan_id=jenis_kendaraan.jenis_kendaraan_id order by kendaraan.jenis_kendaraan_id, kendaraan.merk_id");
 		$no=1;
 		while($data =  pg_fetch_array($sql)){
 			$kendaraan = $data['nama_kendaraan'];

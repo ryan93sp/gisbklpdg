@@ -9,7 +9,7 @@ if(isset($_SESSION['admin'])){
 <html>
   <head>
     <meta charset="UTF-8">
-	<link rel="icon" type="image/png" href="../img/icon.png">
+	<link rel="icon" type="image/png" href="../image/icon.png">
     <title>GIS Bengkel Kota Padang | Log in</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

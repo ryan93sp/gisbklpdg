@@ -8,7 +8,6 @@ var image='image/geomarker.png';
 var server='json/';
 var iconBase='image/legenda/';
 var fotolokasi='image/foto/';
-var markerClusterer = null;
 var centerposisi=null;
 //meload peta dan digitasi
 function initialize(){
@@ -103,11 +102,6 @@ function initialize(){
 			legend.appendChild(div);
 		}
 	map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
-	
-	//double click map untuk menentukan posisi
-	map.addListener('dblclick', function(event) {
-		addMarker(event.latLng);
-	});
 }
 //menampilkan posisi saat ini
 function geolocation(){
@@ -132,33 +126,33 @@ function geolocation(){
 		usegeolocation=true;
     });
 }
-//lokasi manual pada map
+//menambah marker lokasi baru pada map
 function manuallocation(){
 	hapusRadius();
 	alert('Klik Peta');
 	map.addListener('click', function(event) {
 		addMarker(event.latLng);
-	});
-}
-function addMarker(location){
-	hapusposisi();
-	marker = new google.maps.Marker({
-		icon: image,
-		position : location,
-		map: map,
-		animation: google.maps.Animation.DROP,
 		});
-	pos = {
-		lat: location.lat(), lng: location.lng()
 	}
-	centerposisi = new google.maps.LatLng(pos.lat, pos.lng);
-	markerposisi.push(marker);
-	infowindow = new google.maps.InfoWindow();
-	infowindow.setContent('Posisi Sekarang');
-	infowindow.open(map, marker);
-	usegeolocation=true;
-	google.maps.event.clearListeners(map, 'click');
-}
+	function addMarker(location){
+		hapusposisi();
+		marker = new google.maps.Marker({
+			icon: image,
+			position : location,
+			map: map,
+			animation: google.maps.Animation.DROP,
+			});
+		pos = {
+			lat: location.lat(), lng: location.lng()
+		}
+		centerposisi = new google.maps.LatLng(pos.lat, pos.lng);
+		markerposisi.push(marker);
+		infowindow = new google.maps.InfoWindow();
+		infowindow.setContent('Posisi Sekarang');
+		infowindow.open(map, marker);
+		usegeolocation=true;
+		google.maps.event.clearListeners(map, 'click');
+	}
 //membersihkan pointer posisi
 function hapusposisi(){
 	for (var i = 0; i < markerposisi.length; i++){
@@ -236,8 +230,7 @@ function btnradius(){
 			strokeOpacity: 0.2,
 			strokeWeight: 1,
 			fillColor: "blue",
-			fillOpacity: 0.1,
-			clickable:false
+			fillOpacity: 0.1
 			});
 		circles.push(circle);
 		$.ajax({ url: server+'cariradius.php?lat='+pos.lat+'&lng='+pos.lng+'&rad='+radm, data: "", dataType: 'json', success: function(rows){
@@ -358,19 +351,15 @@ function loaddata(rows){
 			}
 			latitude=row.latitude,
 			longitude=row.longitude;
-			
 			centerbaru=new google.maps.LatLng(latitude, longitude);
 			marker=new google.maps.Marker
 			({
 				position: centerbaru,
-				map: map,
-				animation: google.maps.Animation.DROP
+				map: map
 			});
 			markerhasil.push(marker);
 			map.setZoom(14);
 			map.setCenter(centerbaru);
-			
-			
 			var now = new Date(),
 			strnow = Date.parse(now),
 			tgl = now.getDate(),
@@ -389,19 +378,18 @@ function loaddata(rows){
 				var stat = 'Tutup';
 				var warna = 'Red';
 			}
-			createInfoWindow(marker, gid, nama, alamat, telpon, warna, stat);
+			createInfoWindow(centerbaru, gid, nama, alamat, telpon, warna, stat);
 			$('#list-a').append("<div class='list-det' id="+gid+" onclick='showdetail(this.id);'><a href='#'><div class='nama'>"+nama+"</div><div style='text-transform:capitalize;'>"+alamat+"</div><div>"+telpon+"</div><p style='color:"+warna+";'>"+b+" - "+t+" ("+stat+")</p></a></div>");
 		}
-		markerClusterer = new MarkerClusterer(map, markerhasil, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-	}
-}
-function clearClusters(){
-	if (markerClusterer){
-		markerClusterer.clearMarkers();
 	}
 }
 //menampilkan info window hasil pada peta
-function createInfoWindow(marker, gid, nama, alamat, telpon, warna, stat){
+function createInfoWindow(centerbaru, gid, nama, alamat, telpon, warna, stat){
+	var marker = new google.maps.Marker({
+		position: centerbaru,
+		map: map
+	});
+	markerhasil.push(marker);
 	infowindow = new google.maps.InfoWindow();
 	var isiinfowindow="<div class='nama'>"+nama+"</div><br> Alamat: "+alamat+"<br> Telepon: "+telpon+"<br> Status: "+stat+"<br><button class='btn btn-default btn-xs' style='width:100px' onclick='showdetail("+gid+");'>Detail</button>";
 	google.maps.event.addListener(marker, 'click', function(){
@@ -716,7 +704,6 @@ function btnaddreview(){
 	}
 }
 function refresh(){
-	clearClusters();
 	hapusRadius();
 	hapusmarker();
 	hapusrute();

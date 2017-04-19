@@ -18,7 +18,7 @@ $data =  pg_fetch_array($sql);
 					<input type="text" class="hidden" id="gid" name="gid" value="<?php echo $gid ?>" hidden>
 					<div class="form-group" style="clear:both">
 						<label for="geom">Koordinat</label>
-						<textarea rows="6" class="form-control" id="geom" name="geom" readonly required><?php echo $data['geom'] ?></textarea>
+						<textarea rows="6" class="form-control" id="geom" name="geom" required><?php echo $data['geom'] ?></textarea>
 					</div>
 					<a href="?page=detail&gid=<?php echo $gid ?>" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i> Kembali</a>
 					<button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-floppy-o"></i> Simpan</button>
@@ -37,7 +37,7 @@ $data =  pg_fetch_array($sql);
 			<div id="map-canvas">
 				<div id="map"></div>
 				<div id="floating-panel">
-					<button class="btn btn-default my-btn" id="delete-button" title="Remove shape"><i class="fa fa-trash"></i></button>
+					<!--<button class="btn btn-default my-btn" id="delete-button" title="Remove shape"><i class="fa fa-trash"></i></button>-->
 					<input id="latlng" type="text" value="" placeholder="latitude, longitude">
 					<button class="btn btn-default my-btn" id="btnlatlng" type="button" title="Geocode"><i class="fa fa-search"></i></button>
 				</div>

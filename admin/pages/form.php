@@ -15,7 +15,7 @@
 				<input type="text" class="form-control hidden" id="gid" name="gid" value="<?php echo $idmax;?>">
 				<div class="form-group">
 					<label for="geom"><span style="color:red">*</span> Koordinat</label>
-					<textarea class="form-control" id="geom" name="geom" readonly required></textarea>
+					<textarea class="form-control" id="geom" name="geom" required></textarea>
 				</div>
 				<div class="form-group">
 					<label for="nama"><span style="color:red">*</span> Nama Bengkel</label>
@@ -66,7 +66,7 @@
 			<div id="map-canvas">
 				<div id="map"></div>
 				<div id="floating-panel">
-					<button class="btn btn-default my-btn" id="delete-button" type="button" title="Remove shape"><i class="fa fa-trash"></i></button>
+					<!--<button class="btn btn-default my-btn" id="delete-button" type="button" title="Remove shape"><i class="fa fa-trash"></i></button>-->
 					<input id="latlng" type="text" value="" placeholder="latitude, longitude">
 					<button class="btn btn-default my-btn" id="btnlatlng" type="button" title="Geocode"><i class="fa fa-search"></i></button>
 				</div>

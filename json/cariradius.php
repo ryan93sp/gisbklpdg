@@ -6,7 +6,7 @@ $rad=$_GET["rad"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
 $querysearch="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,st_x(st_centroid(geom)) as lng,st_y(st_centroid(geom)) as lat 
-	FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid where st_distance_sphere(ST_GeomFromText('POINT(".$lng." ".$lat.")',-1), bengkel_region.geom) <= ".$rad." and hari_id=$day";
+	FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid where st_distance_sphere(ST_GeomFromText('POINT(".$lng." ".$lat.")'), bengkel_region.geom) <= ".$rad." and hari_id=$day";
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil))	{
 		$gid=$row['gid'];

@@ -52,11 +52,17 @@
     font-size: 16px;
     text-transform: uppercase;
 }
+.star-container{
+	cursor: pointer;
+}
 .star2, .star{
 	color: #ccc;
-	cursor: pointer;
 	transition: all 0.2s linear;
 }
+/* .star2:hover, .star:hover:before, .star:hover~.star:before{
+	color: gold;
+	transition: all 0.2s linear;
+} */
 .star-checked{
 	color: gold;
 }

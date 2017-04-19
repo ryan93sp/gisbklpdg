@@ -34,6 +34,11 @@ function deleteSelectedShape() {
 	});
   }
 }
+function clearLastShape() {
+	if (selectedShape) {
+		selectedShape.setMap(null);
+	}
+}
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
 	for (var i = 0; i < markers.length; i++) {
@@ -67,9 +72,9 @@ function initialize(){
 		center: new google.maps.LatLng(-0.931177, 100.396027),
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.SATELLITE,
-		disableDefaultUI: true,
-		zoomControl: true,
-		mapTypeControl: true
+		disableDefaultUI: false
+		//zoomControl: true,
+		//mapTypeControl: true
 	});	
 	//mencari lokasi dengan latlng
 	var geocoder = new google.maps.Geocoder;
@@ -151,10 +156,11 @@ function initialize(){
 			});
 			str_input = str_input+''+coor[0]+')))';
 			$("#geom").val(str_input);
+			clearLastShape();
 			drawingManager.setDrawingMode(null);
-			drawingManager.setOptions({
+			/* drawingManager.setOptions({
 				drawingControl: false
-			});
+			}); */
 			// Add an event listener that selects the newly-drawn shape when the user mouses down on it.
 			var newShape = event.overlay;
 			newShape.type = event.type;
@@ -177,8 +183,8 @@ function initialize(){
 		google.maps.event.addListener(newShape.getPath(), 'insert_at', getCoordinate);
 		google.maps.event.addListener(newShape.getPath(), 'remove_at', getCoordinate);
 	});
-	google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
-	google.maps.event.addListener(map, 'click', clearSelection);
+	//google.maps.event.addListener(drawingManager, 'drawingmode_changed', clearSelection);
+	//google.maps.event.addListener(map, 'click', clearSelection);
 	google.maps.event.addDomListener(document.getElementById('delete-button'), 'click', deleteSelectedShape);
 }
 google.maps.event.addDomListener(window, 'load', initialize);

@@ -26,28 +26,7 @@
     <!-- Inner Wrapper -->
     <div id="inner-wrapper">
         <!-- Navigation-->
-        <div class="header" style="position:fixed;top:0px;">
-            <div class="wrapper">
-                <div class="brand">
-                    <a href="./"><img src="image/logo.png" alt="logo"></a>
-                </div>
-                <nav class="navigation-items">
-                    <div class="wrapper">
-                        <!--<ul class="main-navigation navigation-top-header"></ul>
-                        <ul class="user-area">
-                            <li><a href="#"><b>Galeri</b></a></li>
-                        </ul>-->
-                        <div class="toggle-navigation">
-                            <div class="icon">
-                                <div class="line"></div>
-                                <div class="line"></div>
-                                <div class="line"></div>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <?php include('header.php'); ?>
         <!-- end Navigation-->
         <!-- Page Canvas-->
 		<div id="page-canvas" style="margin-top:69px;">
@@ -57,6 +36,7 @@
 				<div class="main-navigation navigation-off-canvas">
 					<ul>
 						<li><a href="./">Home</a></li>
+						<li><a href="#" class="active">Galeri</a></li>
 						<li><a href="tentang.php">Tentang</a></li>
 					</ul>
 				</div>

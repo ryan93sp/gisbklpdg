@@ -7,7 +7,7 @@
 
 	<link rel="icon" type="image/png" href="image/icon.png">
     <link rel="stylesheet" href="lib/font/css/font-awesome.css" type="text/css">
-	<link rel="stylesheet" href="lib/css/css.css" type="text/css">
+    <link rel="stylesheet" href="lib/css/css.css" type="text/css">
 	<link rel="stylesheet" href="lib/css/glyphicons.css" type="text/css">
 	<link rel="stylesheet" href="lib/css/bootstrap-datetimepicker.min.css" type="text/css" media="screen">
     <link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css">
@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="lib/css/style.css" type="text/css">
 	<link rel="stylesheet" href="lib/mystyle.css" type="text/css">
 	<script type="text/javascript" src="lib/js/jquery.min.js"></script>
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=id&key=AIzaSyDM2fDXHmGzCDmDBk3bdPIEjs6zwnI1kGQ"></script>
 	
     <title>Sistem Informasi Geografis Bengkel Kota Padang</title>
@@ -30,10 +29,31 @@
     <!-- Inner Wrapper -->
     <div id="inner-wrapper">
         <!-- Navigation-->
-		<?php include('header.php'); ?>
+        <div class="header">
+            <div class="wrapper">
+                <div class="brand">
+                    <a href="./"><img src="image/logo.png" alt="logo"></a>
+                </div>
+                <nav class="navigation-items">
+                    <div class="wrapper">
+                        <!--<ul class="main-navigation navigation-top-header"></ul>
+                        <ul class="user-area">
+                            <li><a href="#"><b>Galeri</b></a></li>
+                        </ul>-->
+                        <div class="toggle-navigation">
+                            <div class="icon">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
         <!-- end Navigation-->
         <!-- Page Canvas-->
-		<div id="page-canvas" style="margin-top:69px;">
+		<div id="page-canvas">
 			<!-- Modal -->
 			<div id='myModal' class='modal fade' role='dialog'>
 			  <div class="modal-dialog">
@@ -52,7 +72,6 @@
                 <header style="line-height: 70px;">Menu</header>
 				<div class="main-navigation navigation-off-canvas">
 					<ul>
-						<li><a href="#" class="active">Home</a></li>
 						<li><a href="galeri.php">Galeri</a></li>
 						<li><a href="tentang.php">Tentang</a></li>
 					</ul>
@@ -214,14 +233,13 @@
                             </div>
                             <div id="collapse8" class="panel-collapse collapse">
                                 <div class="panel-body">
-									Rating : 
-									<span class="star-container">
+									<div id="star-container">Rating : 
 										<i class="fa fa-star star" id="star-1"></i>
 										<i class="fa fa-star star" id="star-2"></i>
 										<i class="fa fa-star star" id="star-3"></i>
 										<i class="fa fa-star star" id="star-4"></i>
 										<i class="fa fa-star star" id="star-5"></i>
-									</span>
+									</div>
 									<input type="text" class="form-control hidden" name="ratecari" id="ratecari" value="">
 									<button type="submit" id="btnop" class="btn btn-primary" onclick="btncarirate()"> Cari <i class="fa fa-search"></i></button>
                                 </div>
@@ -232,7 +250,7 @@
 				<div class="items-list" style="width:25%;" id="hasil">
                     <div class="inner" id="innerbtn">
                         <header id="header">
-                            <h3>Informasi</h3>
+                            <h3>Hasil Pencarian</h3>
                         </header>
 						<div id="list-a" style="display:block;"></div>
 						<div id="det-a" style="display:none;">
@@ -242,14 +260,13 @@
 						<div id="det-r" style="display:none;">
 							<div id="addreview" style="clear:both;">
 								<input type="text" name="gidr" id="gidr" value="" hidden="">
-								Rating : 
-								<span class="star-container">
+								<div id="star-container">Rating : 
 									<i class="fa fa-star star2" id="star2-1"></i>
 									<i class="fa fa-star star2" id="star2-2"></i>
 									<i class="fa fa-star star2" id="star2-3"></i>
 									<i class="fa fa-star star2" id="star2-4"></i>
 									<i class="fa fa-star star2" id="star2-5"></i>
-								</span>
+								</div>
 								<input type="text" name="rateid" id="rateid" value="" hidden="">
 								<div>Nama Pengguna : <input class="form-control" type="text" name="user" id="user" value=""></div>
 								<div>Komentar : <textarea class="form-control" name="komentar" id="komentar"></textarea></div>
@@ -274,15 +291,15 @@
 <!-- end Outer Wrapper-->
 
 
-<script src="lib/js/before.js"></script>
-<script src="lib/js/jquery-custom.js"></script>
-<script src="lib/js/bootstrap.js"></script>
-<script src="lib/js/smoothscroll.js"></script>
-<script src="lib/js/bootstrap-select.js"></script>
-<script src="lib/js/bootstrap-slider.js"></script>
-<script src="lib/myjs.js"></script>
-<script src="lib/map.js"></script>
-<script src="lib/js/bootstrap-datetimepicker.min.js"></script> 
+<script type="text/javascript" src="lib/js/before.js"></script>
+<script type="text/javascript" src="lib/js/jquery-custom.js"></script>
+<script type="text/javascript" src="lib/js/bootstrap.js"></script>
+<script type="text/javascript" src="lib/js/smoothscroll.js"></script>
+<script type="text/javascript" src="lib/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="lib/js/bootstrap-slider.js"></script>
+<script type="text/javascript" src="lib/myjs.js"></script>
+<script type="text/javascript" src="lib/map.js"></script>
+<script type="text/javascript" src="lib/js/bootstrap-datetimepicker.min.js"></script> 
 
 <script type="text/javascript">
 $('#inputradius').slider({
