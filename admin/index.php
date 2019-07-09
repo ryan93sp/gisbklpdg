@@ -46,7 +46,8 @@ include("inc/connect.php");?>
         <!-- Main content -->
         <section class="content">  
 		  <?php
-			$p=$_GET['page'];
+			
+			$p = isset($_GET['page']) ? $_GET['page'] : '';
 			$page="pages/".$p.".php";
 			if(file_exists($page)){
 				include($page);

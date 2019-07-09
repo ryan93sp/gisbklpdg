@@ -3,7 +3,7 @@ require 'inc/connect.php';
 $gid=$_GET["gid"];
 date_default_timezone_set('Asia/Jakarta');
 $day=date("w");
-$query="SELECT bengkel_region.gid,nama_bengkel,alamat,telpon,jam_buka,jam_tutup,hari,foto,nama_kendaraan,nama_merk,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join merk on merk.merk_id=bengkel_region.merk_id join jenis_kendaraan on jenis_kendaraan.jenis_kendaraan_id=bengkel_region.jenis_kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day";
+$query="SELECT bengkel_region.gid,nama_bengkel,deskripsi,alamat,telpon,jam_buka,jam_tutup,hari,foto,nama_kendaraan,nama_merk,ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat FROM bengkel_region join jam_kerja on jam_kerja.gid=bengkel_region.gid join merk on merk.merk_id=bengkel_region.merk_id join jenis_kendaraan on jenis_kendaraan.jenis_kendaraan_id=bengkel_region.jenis_kendaraan_id join hari on  hari.hari_id=jam_kerja.hari_id where bengkel_region.gid=$gid and jam_kerja.hari_id=$day";
 $hasil=pg_query($query);
 while($row = pg_fetch_array($hasil)){
 	$gid=$row['gid'];
@@ -57,9 +57,9 @@ while($row = pg_fetch_array($hasil)){
 						<tr><td><b>Telepon</b></td><td>:</td><td><?php echo $telpon ?></td></tr>
 						<tr><td><b>Kendaraan</b></td> <td> :</td><td><?php echo $kendaraan ?></td></tr>
 						<tr><td><b>Jenis Bengkel<b> </td><td>: </td><td>Bengkel <?php echo $merk ?></td></tr>
-						<tr onclick='togglejad()' style="cursor:pointer;"><td><b>Jadwal Operasional</b>&nbsp;</td><td>:</td><td>
-							<span id="jadwal1"><?php echo '<b>'.$hari.'</b> '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>) </span><i class="fa fa-chevron-down"></i></span>
-							<span id="jadwal2" style="display:none;"><?php
+						<tr style="cursor:pointer;"><td><b>Jadwal Operasional</b>&nbsp;</td><td>:</td><td>
+							<span id="jadwal1" onclick='togglejad()'><?php echo '<b>'.$hari.'</b> '.$b.' - '.$t.' ' ?><span style='color:<?php echo $warna ?>;'>(<?php echo $stat ?>) </span><i class="fa fa-chevron-down"></i></span>
+							<span id="jadwal2" onclick='togglejad()' style="display:none;"><?php
 								$q="select * from jam_kerja join hari on hari.hari_id=jam_kerja.hari_id where gid=$gid order by hari.hari_id";
 								$res=pg_query($q);
 								echo '<ul style="padding-left:20px;">';

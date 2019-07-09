@@ -27,7 +27,7 @@
 				</div>
 				<div class="form-group">
 					<label for="telepon">Telepon</label>
-					<input type="text" class="form-control" name="telepon" value="<?php echo $data['telpon'] ?>">
+					<input type="text" class="form-control" name="telepon">
 				</div>
 				<div class="form-group">
 					<label for="selectken">Jenis Kendaraan</label>

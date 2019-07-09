@@ -234,7 +234,7 @@
                         <header id="header">
                             <h3>Informasi</h3>
                         </header>
-						<div id="list-a" style="display:block;"></div>
+						<div id="list-a" style="display:block;">Tidak ada informasi</div>
 						<div id="det-a" style="display:none;">
 							<div id="foto" style="clear:both;"></div>
 							<div id="isi" style="clear:both;"></div>

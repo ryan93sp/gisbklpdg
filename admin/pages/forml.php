@@ -7,7 +7,11 @@
 <div class="col-xs-12">
 	<div class="box">
 		<div class="box-body">
-		<h4 style="text-transform:capitalize;">Layanan Bengkel <?php echo $data1['nama_bengkel'] ?></h4>
+		<?php
+			$sql1 = pg_query("select * from bengkel_region where gid=$gid");
+			$data1 = pg_fetch_assoc($sql1);
+		?>
+		<h4 style="text-transform:capitalize;font-weight:bold;">Layanan Bengkel <?php echo $data1['nama_bengkel'] ?></h4>
 			<div id="forml">
 				<input type="text" class="form-control hidden" id="gidl" name="gid" value="<?php echo $gid ?>">
 					<div class="form-group">

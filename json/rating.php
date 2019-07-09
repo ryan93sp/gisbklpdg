@@ -6,7 +6,6 @@ $querysearch = "SELECT count(*) as review, AVG(rating) AS rating FROM rating_ben
 			   
 $hasil=pg_query($querysearch);
 while($row = pg_fetch_array($hasil)){
-	$gid=$row['gid'];
 	$rating=$row['rating'];
 	$review=$row['review'];
 	$dataarray[]=array('rating'=>$rating,'review'=>$review);
